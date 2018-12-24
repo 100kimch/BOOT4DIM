@@ -84,7 +84,8 @@ module.exports = function (ctx) {
         'QCollapsible',
         'QPageSticky',
         'QModal',
-        'QModalLayout'
+        'QModalLayout',
+        'QChatMessage'
       ],
       directives: ['Ripple', 'CloseOverlay'],
       // Quasar plugins

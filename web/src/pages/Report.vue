@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
-    <h1 class="custom-title q-display-1">지원하기</h1>
-    <q-stepper v-if="enableApply" ref="stepper" vertical>
+    <h1 class="custom-title q-display-1">오류 신고하기</h1>
+    <q-stepper ref="stepper" vertical>
       <q-step title="환영합니다">
         <h2 class="q-title">부트사차원 신입부원 모집기간입니다!</h2>
         <h3 class="q-body-1">열정적이고 성실한 부트사차원 예비부원들의 많은 지원 바라고 있어요!</h3>
@@ -21,7 +21,7 @@
           <q-input v-model="formValue.name" float-label="이름" autofocus />
           <q-input v-model="formValue.schoolNumber" type="number" float-label="학번" />
           <q-input v-model="formValue.major" float-label="학과" />
-          <q-datetime type="date"  default-value="1995-01-01" v-model="formValue.birthdate" float-label="생년월일" />
+          <q-datetime type="date" default-value="1995-01-01" v-model="formValue.birthdate" float-label="생년월일" />
           <q-input type="tel" v-model="formValue.phone" float-label="전화번호" />
           <q-input v-model="formValue.address" float-label="거주지" />
         </q-field>
@@ -36,12 +36,6 @@
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
-    </q-stepper>
-    <q-stepper v-if="!enableApply" class="custom-box">
-      <h1 class="q-display-1">
-        <span>가입 신청기간이 </span>
-        <span>아닙니다.</span>
-      </h1>
     </q-stepper>
   </q-page>
 </template>
@@ -99,22 +93,5 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.q-stepper {
-  background: white;
-}
-// .q-alert {
-//   p:first-child {
-//     margin-bottom: 0.25em;
-//   }
-//   p:last-child {
-//     margin: 0;
-//   }
-// }
-.q-field {
-  margin: 2em 0;
-}
-.q-btn + .q-btn {
-  margin-left: 1em;
-}
+<style>
 </style>

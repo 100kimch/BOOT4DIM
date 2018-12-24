@@ -2,6 +2,10 @@ import Project from 'layouts/Project.vue'
 import Projects from 'pages/Projects.vue'
 import Plans from 'pages/Plans.vue'
 import Apply from 'pages/Apply.vue'
+import Board from 'pages/Board.vue'
+import Notice from 'pages/Notice.vue'
+import Profile from 'pages/Profile.vue'
+import Report from 'pages/Report.vue'
 
 const routes = [
   {
@@ -41,6 +45,22 @@ const routes = [
       {
         path: 'apply',
         component: Apply
+      },
+      {
+        path: 'board',
+        component: Board
+      },
+      {
+        path: 'notice',
+        component: Notice
+      },
+      {
+        path: 'profile',
+        component: Profile
+      },
+      {
+        path: 'report',
+        component: Report
       }
     ]
   }

@@ -25,44 +25,29 @@
       <!-- QScrollArea is optional -->
       <q-scroll-area class="fit q-pa-sm">
         <!-- Content here -->
-        <q-list no-border inset-delimiter>
-          <q-item @click.native="openURL('https://cafe.naver.com/boot4dim')">
+        <q-list no-border link inset-delimiter>
+          <q-item @click.native="goto('/profile')">
             <q-item-side>
               <q-item-tile avatar>
                 <img :src="loginInfo.avatar" alt="Profile Image">
               </q-item-tile>
             </q-item-side>
             <q-item-main :label="loginInfo.label" :sublabel="loginInfo.email" />
+            <q-item-side style="min-width: auto" icon="settings"></q-item-side>
           </q-item>
         </q-list>
-        <q-list no-border inset-delimiter>
+        <q-list no-border link inset-delimiter>
           <q-list-header>메뉴</q-list-header>
-          <q-item @click.native="openURL('https://cafe.naver.com/boot4dim')">
-            <q-item-side icon="school" />
-            <q-item-main label="네이버 카페" sublabel="https://cafe.naver.com/boot4dim" />
+          <q-item class="menu" :key="index" v-for="(menu, index) in menus" @click.native="goto(menu.url)">
+            <q-item-side :icon="menu.icon" />
+            <q-item-main :label="menu.title" />
           </q-item>
         </q-list>
         <q-list no-border link inset-delimiter>
           <q-list-header>관련 링크</q-list-header>
-          <q-item @click.native="openURL('http://quasar-framework.org')">
-            <q-item-side icon="chat" />
-            <q-item-main label="Docs" sublabel="quasar-framework.org" />
-          </q-item>
-          <q-item @click.native="openURL('https://github.com/quasarframework/')">
-            <q-item-side icon="code" />
-            <q-item-main label="GitHub" sublabel="github.com/quasarframework" />
-          </q-item>
-          <q-item @click.native="openURL('https://cafe.naver.com/boot4dim')">
-            <q-item-side icon="school" />
-            <q-item-main label="네이버 카페" sublabel="https://cafe.naver.com/boot4dim" />
-          </q-item>
-          <q-item @click.native="openURL('http://forum.quasar-framework.org')">
-            <q-item-side icon="record_voice_over" />
-            <q-item-main label="Forum" sublabel="forum.quasar-framework.org" />
-          </q-item>
-          <q-item @click.native="openURL('https://twitter.com/quasarframework')">
-            <q-item-side icon="rss feed" />
-            <q-item-main label="Twitter" sublabel="@quasarframework" />
+          <q-item :key="index" v-for="(link, index) in links" @click.native="openURL(link.url)">
+            <q-item-side :icon="link.icon" />
+            <q-item-main :label="link.title" :sublabel="link.url" />
           </q-item>
         </q-list>
       </q-scroll-area>
@@ -92,12 +77,69 @@ export default {
   data () {
     return {
       rightDrawer: false,
-      appName: window.appName
+      appName: window.appName,
+      menus: [
+        {
+          'icon': 'map',
+          'title': '소개',
+          'url': '/'
+        },
+        {
+          'icon': 'next_week',
+          'title': '프로젝트',
+          'url': '/projects'
+        },
+        {
+          'icon': 'date_range',
+          'title': '연간계획',
+          'url': '/plans'
+        },
+        {
+          'icon': 'assignment',
+          'title': '신입지원',
+          'url': '/apply'
+        },
+        {
+          'icon': 'flag',
+          'title': '공지사항',
+          'url': '/notice'
+        },
+        {
+          'icon': 'chat',
+          'title': '자유게시판',
+          'url': '/board'
+        },
+        {
+          'icon': 'bug_report',
+          'title': '오류신고',
+          'url': '/report'
+        }
+      ],
+      links: [
+        {
+          'icon': 'record_voice_over',
+          'title': '네이버 카페',
+          'url': 'https://cafe.naver.com/boot4dim'
+        },
+        {
+          'icon': 'school',
+          'title': '건국대학교',
+          'url': 'https://konkuk.ac.kr'
+        },
+        {
+          'icon': 'code',
+          'title': '웹사이트 GitHub',
+          'url': 'https://github.com/100kimch/BOOT4DIM'
+        }
+      ]
     }
   },
   methods: {
     openURL: function (url) {
       window.location.href = url
+    },
+    goto: function (url) {
+      this.$router.push(url)
     }
   }
 }
@@ -118,6 +160,10 @@ export default {
     height: calc(100% + 1em);
     width: auto;
   }
+}
+
+.menu {
+  cursor: pointer;
 }
 
 .q-layout-footer {

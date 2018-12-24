@@ -46,7 +46,22 @@
               <q-btn flat round icon="arrow_back" @click="pictureDetail.visible=false" />
               <q-toolbar-title>사진</q-toolbar-title>
             </q-toolbar>
-            <img :src="pictureDetail.src" />
+            <q-list padding>
+              <img :src="pictureDetail.src" />
+              <q-list-header>{{ pictureDetail.title }}</q-list-header>
+              <q-item :key="index" v-for="(comment, index) in pictureDetail.comments">
+                <q-item-side>
+                  <q-item-tile avatar>
+                    <img :src="comment.writer.avatar" alt="Profile Image">
+                  </q-item-tile>
+                </q-item-side>
+                <q-item-main>
+                  <q-item-tile label>{{ comment.body }}</q-item-tile>
+                  <q-item-tile v-if="comment.writer.label" sublabel>{{ comment.writer.label }}</q-item-tile>
+                </q-item-main>
+                <q-item-side right>{{ $timeSince(comment.date) }}</q-item-side>
+              </q-item>
+            </q-list>
           </q-modal-layout>
         </q-modal>
       </q-list>
@@ -85,8 +100,27 @@
             </q-item>
           </q-list>
         </q-collapsible>
-        <q-collapsible icon="comment" label="프로젝트 후기" opened>
-
+        <q-collapsible icon="comment" label="프로젝트 후기">
+          <q-chat-message name="김지형" :avatar="comment.avatar" :text="comment.text" :key="index" v-for="(comment, index) in comments" />
+        </q-collapsible>
+        <q-collapsible icon="attach_money" label="지원 현황">
+          <q-list>
+            <q-item :key="index" v-for="(support, index) in supports">
+              <q-item-main>
+                <q-item-tile label>{{ support.label }}</q-item-tile>
+                <q-item-tile sublabel>{{ support.sublabel }}</q-item-tile>
+              </q-item-main>
+              <q-item-side right>{{ support.status }}</q-item-side>
+            </q-item>
+            <q-item @click.native="addTeammate()">
+              <q-item-side>
+                <q-item-tile icon="money" avatar> </q-item-tile>
+              </q-item-side>
+              <q-item-main>
+                <q-item-tile label>추가지원 요청</q-item-tile>
+              </q-item-main>
+            </q-item>
+          </q-list>
         </q-collapsible>
       </q-list>
     </q-card>
@@ -94,7 +128,7 @@
       <q-tabs v-model="selectedTab" inverted>
         <q-tab name="tabNewData" icon="event_note" label="글쓰기" slot="title" />
         <q-tab name="tabTeamNote" icon="person_pin" label="개인 노트" slot="title" />
-        <q-tab name="tabGithub" icon="public" label="깃허브 연결" slot="title" />
+        <q-tab name="tabGithub" icon="code" label="깃허브 연결" slot="title" />
 
         <q-tab-pane name="tabNewData">
           <q-input v-model="newData.title" type="text" float-label="제목" />
@@ -105,7 +139,7 @@
           </div>
         </q-tab-pane>
         <q-tab-pane name="tabTeamNote">
-          <q-item :key="index" v-for="(teamNote, index) in teamNotes">
+          <q-item @click.native="openTeamNoteDetail(teamNote)" :key="index" v-for="(teamNote, index) in teamNotes">
             <q-item-side>
               <q-item-tile icon="note"></q-item-tile>
             </q-item-side>
@@ -115,12 +149,21 @@
             </q-item-main>
             <q-item-side right>{{ $timeSince(teamNote.date) }}</q-item-side>
           </q-item>
-          <q-item>
+          <q-item @click.native="openTeamNoteDetail()">
             <q-item-side>
               <q-item-tile icon="note_add"></q-item-tile>
             </q-item-side>
             <q-item-main>기록 추가하기</q-item-main>
           </q-item>
+          <q-modal v-model="teamNoteDetail.visible">
+            <q-modal-layout header-style="min-height: 2em">
+              <q-toolbar slot="header">
+                <q-btn flat round icon="arrow_back" @click="teamNoteDetail.visible=false" />
+                <q-toolbar-title>개인 노트</q-toolbar-title>
+              </q-toolbar>
+              <img :src="teamNoteDetail.src" />
+            </q-modal-layout>
+          </q-modal>
         </q-tab-pane>
         <q-tab-pane name="tabGithub" class="darken">
           <h3 class="q-title">깃허브와 연동하세요!</h3>
@@ -224,7 +267,19 @@ export default {
       pictureDetail: {
         visible: false,
         src: '',
-        title: ''
+        title: '',
+        comments: [
+          {
+            date: this.$timeSince(new Date()),
+            body: '아주 멋져요!',
+            writer: {
+              label: '김지형',
+              avatar: 'assets/profile_kjh.png',
+              email: '100kimch@naver.com',
+              position: '매니저'
+            }
+          }
+        ]
       },
       contributors: [
         {
@@ -232,6 +287,25 @@ export default {
           avatar: 'assets/profile_kjh.png',
           email: '100kimch@naver.com',
           position: '매니저'
+        }
+      ],
+      comments: [
+        {
+          avatar: 'assets/profile_kjh.png',
+          text: ['프로젝트 후기입니다.보람찼네요.'],
+          date: new Date('2018-11-26')
+        }
+      ],
+      supports: [
+        {
+          label: '20인 다과제공',
+          sublabel: '20인 이상 프로젝트시 제공되는 다과입니다.',
+          status: '지급완료'
+        },
+        {
+          label: '부품',
+          sublabel: '프로젝트시 필요한 부품을 제공했습니다',
+          status: '지급완료'
         }
       ],
       newData: {
@@ -245,6 +319,9 @@ export default {
           body: '안녕하세요.'
         }
       ],
+      teamNoteDetail: {
+        visible: false
+      },
       github: {
       },
       contents: [
@@ -267,6 +344,16 @@ export default {
         visible: true,
         src: picture.src,
         title: picture.title
+      }
+    },
+    openTeamNoteDetail: function (note) {
+      this.teamNoteDetail = {
+        visible: true
+      }
+      if (note) {
+
+      } else {
+
       }
     },
     resetNewData: function () {

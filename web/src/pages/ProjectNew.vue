@@ -165,6 +165,9 @@
             <q-radio v-model="formValue.request.needCookie" :val="false" class="col" label="필요없어요!" />
           </div>
         </q-field>
+        <q-field label="추가적으로 필요한 도움 있으면 적어주세요">
+          <q-input v-model="formValue.request.extra" placeholder="추가 요청사항을 적어주세요." />
+        </q-field>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
           <q-btn color="secondary" @click="sendFormValue()" label="프로젝트 생성" />
@@ -226,7 +229,8 @@ export default {
           needBudget: null,
           budget: null,
           needCookie: null,
-          cookie: null
+          cookie: null,
+          extra: null
         }
       },
       listOptions: {
