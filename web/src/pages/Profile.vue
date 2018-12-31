@@ -3,9 +3,9 @@
     <q-card>
       <div class="bg"></div>
       <div class="profile">
-        <img slot="left" :src="loginInfo.avatar" class="profile-image" />
+        <img slot="left" :src="$loginInfo.avatar" class="profile-image" />
         <div class="profile-info row">
-          <span class="name q-display-1"> {{ loginInfo.label }} </span>
+          <span class="name q-display-1"> {{ $loginInfo.label }} </span>
           <span class="sublabel col q-body-2"> kimjihyeong100 </span>
         </div>
         <div class="profile-description q-body-1">부트사차원 31기 정회원</div>
@@ -26,7 +26,7 @@
             <div>기본 정보입니다.</div>
           </q-collapsible>
         </q-list>
-        <div class="option-box">
+        <div class="custom-option-box">
           <q-btn color="primary">수정하기</q-btn>
           <q-btn color="primary">탈퇴신청</q-btn>
         </div>
@@ -38,11 +38,6 @@
 <script>
 export default {
   // name: 'PageName',
-  data () {
-    return {
-      loginInfo: window.loginInfo
-    }
-  }
 }
 </script>
 
@@ -97,7 +92,7 @@ export default {
     }
   }
   .q-card-main {
-    .option-box {
+    .custom-option-box {
       text-align: right;
       margin-top: 0.5rem;
     }

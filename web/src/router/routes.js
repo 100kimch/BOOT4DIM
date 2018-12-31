@@ -1,15 +1,19 @@
 import Project from 'layouts/Project.vue'
+
 import Projects from 'pages/Projects.vue'
 import Plans from 'pages/Plans.vue'
-import Apply from 'pages/Apply.vue'
 import Board from 'pages/Board.vue'
 import Notice from 'pages/Notice.vue'
 import Profile from 'pages/Profile.vue'
 import Report from 'pages/Report.vue'
 
+import Dashboard from 'pages/admin/Dashboard.vue'
+import Members from 'pages/admin/Members.vue'
+import Files from 'pages/admin/Files.vue'
+
 const routes = [
   {
-    path: '/',
+    path: '',
     component: () => import('layouts/Intro.vue'),
     children: [
       {
@@ -44,7 +48,11 @@ const routes = [
       },
       {
         path: 'apply',
-        component: Apply
+        component: () => import('pages/Apply.vue')
+      },
+      {
+        path: 'register',
+        component: () => import('pages/Register.vue')
       },
       {
         path: 'board',
@@ -61,6 +69,28 @@ const routes = [
       {
         path: 'report',
         component: Report
+      },
+      {
+        path: 'admin',
+        component: () => import('layouts/Admin.vue'),
+        children: [
+          {
+            path: '',
+            component: Dashboard
+          },
+          {
+            path: 'members',
+            component: Members
+          },
+          {
+            path: 'projects',
+            component: () => import('pages/admin/Projects.vue')
+          },
+          {
+            path: 'files',
+            component: Files
+          }
+        ]
       }
     ]
   }

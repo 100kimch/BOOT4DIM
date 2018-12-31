@@ -3,14 +3,21 @@
     <div class="custom-box">
       <h1 class="custom-title q-display-1">
         <b>연간 계획</b> 및 진행 현황</h1>
-      <q-card>
+      <q-card v-if="!editable">
         <q-timeline responsive color="secondary">
           <q-timeline-entry :key="index" v-for="(data, index) in planData" :heading="data.heading" :title="data.title" :subtitle="data.subtitle">
             <p>{{ data.body }}</p>
           </q-timeline-entry>
         </q-timeline>
-        <div class="option-box">
-          <q-btn color="primary">수정하기</q-btn>
+        <div class="custom-option-box">
+          <q-btn color="primary" @click="editable = true">수정하기</q-btn>
+        </div>
+      </q-card>
+      <q-card v-if="editable">
+        <q-input type="textarea" v-model="strPlanData" />
+        <div class="custom-option-box">
+          <q-btn color="primary" @click="resetData()">취소</q-btn>
+          <q-btn color="secondary" @click="editData()">등록</q-btn>
         </div>
       </q-card>
     </div>
@@ -22,6 +29,8 @@ export default {
   // name: 'PageName',
   data () {
     return {
+      editable: false,
+      strPlanData: '',
       planData: [
         {
           heading: true,
@@ -75,6 +84,23 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    resetData: function () {
+      this.editable = false
+    },
+    editData: function () {
+      this.editable = false
+      this.planData = JSON.parse(this.strPlanData)
+      // http request
+    }
+  },
+  watch: {
+    'editable': function (val, oldVal) {
+      if (val === true && oldVal === false) {
+        this.strPlanData = JSON.stringify(this.planData, undefined, 4)
+      }
+    }
   }
 }
 </script>
@@ -93,8 +119,5 @@ export default {
 }
 p {
   word-break: break-all;
-}
-.option-box {
-  text-align: right;
 }
 </style>

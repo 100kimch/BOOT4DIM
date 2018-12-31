@@ -3,7 +3,7 @@
 module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
-    plugins: ['axios', 'customizedTime'],
+    plugins: ['axios', 'customizedTime', 'account'],
     css: ['app.styl'],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
@@ -46,6 +46,7 @@ module.exports = function (ctx) {
         'QToolbar',
         'QToolbarTitle',
         'QBtn',
+        'QBtnGroup',
         'QIcon',
         'QParallax',
         'QCard',
@@ -62,6 +63,7 @@ module.exports = function (ctx) {
         'QTimeline',
         'QTimelineEntry',
         'QJumbotron',
+        'QKnob',
         'QStepper',
         'QStep',
         'QStepperNavigation',
@@ -73,6 +75,7 @@ module.exports = function (ctx) {
         'QSelect',
         'QRadio',
         'QCheckbox',
+        'QToggle',
         'QDatetime',
         'QList',
         'QListHeader',
@@ -81,15 +84,27 @@ module.exports = function (ctx) {
         'QItemSeparator',
         'QItemSide',
         'QItemTile',
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd',
+        'QTableColumns',
         'QCollapsible',
         'QPageSticky',
         'QModal',
         'QModalLayout',
-        'QChatMessage'
+        'QChatMessage',
+        'QCarousel',
+        'QCarouselSlide',
+        'QCarouselControl',
+        'QSearch',
+        'QPopover',
+        'QInfiniteScroll',
+        'QSpinnerDots'
       ],
       directives: ['Ripple', 'CloseOverlay'],
       // Quasar plugins
-      plugins: ['Notify', 'ActionSheet']
+      plugins: ['Notify', 'Dialog', 'ActionSheet', 'AddressbarColor']
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
     },

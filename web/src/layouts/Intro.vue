@@ -9,10 +9,7 @@
         <q-btn flat round dense icon="menu" @click="rightDrawer = !rightDrawer" />
       </q-toolbar>
       <q-tabs>
-        <q-route-tab slot="title" icon="map" to="/" default replace label="소개" />
-        <q-route-tab slot="title" icon="next_week" to="/projects" replace label="프로젝트" />
-        <q-route-tab slot="title" icon="date_range" to="/plans" replace label="연간계획" />
-        <q-route-tab slot="title" icon="assignment" to="/apply" replace label="신입지원" />
+        <q-route-tab slot="title" :key="index" v-for="(tab, index) in selectedTab" :default="index==0" replace :label="tab.label" :icon="tab.icon" :to="tab.to" />
       </q-tabs>
     </q-layout-header>
 
@@ -24,16 +21,34 @@
     <q-layout-drawer side="right" v-model="rightDrawer" :overlay="true" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
       <!-- QScrollArea is optional -->
       <q-scroll-area class="fit q-pa-sm">
-        <!-- Content here -->
-        <q-list no-border link inset-delimiter>
-          <q-item @click.native="goto('/profile')">
+        <q-list v-if="userLevel" no-border link inset-delimiter>
+          <q-item class="q-py-none">
+            <q-item-main></q-item-main>
+            <q-item-side class="q-body-1" @click.native="logout()" right>로그아웃</q-item-side>
+          </q-item>
+          <q-item class="q-py-none" @click.native="goto('/profile')">
             <q-item-side>
               <q-item-tile avatar>
-                <img :src="loginInfo.avatar" alt="Profile Image">
+                <img :src="$loginInfo.avatar" alt="Profile Image">
               </q-item-tile>
             </q-item-side>
-            <q-item-main :label="loginInfo.label" :sublabel="loginInfo.email" />
+            <q-item-main :label="$loginInfo.label" :sublabel="$loginInfo.email" />
             <q-item-side style="min-width: auto" icon="settings"></q-item-side>
+          </q-item>
+        </q-list>
+        <q-list v-if="!userLevel" no-border link inset-delimiter>
+          <q-item @click.native="goto('/register')">
+            <q-item-side avatar>
+              <q-item-tile icon="person"></q-item-tile>
+            </q-item-side>
+            <q-item-main label="로그인해주세요." />
+          </q-item>
+        </q-list>
+        <q-list v-if="userLevel == 3" no-border link inset-delimiter>
+          <q-list-header>관리자 권한</q-list-header>
+          <q-item class="menu" @click.native="setAdminMode(!adminMode)">
+            <q-item-side icon="supervised_user_circle" />
+            <q-item-main :label="adminMenuName" />
           </q-item>
         </q-list>
         <q-list no-border link inset-delimiter>
@@ -65,19 +80,175 @@
 export default {
   // name: 'LayoutName',
   created () {
-    window.loginInfo =
-      {
-        label: '김지형',
-        avatar: 'assets/profile_kjh.png',
-        email: '100kimch@naver.com',
-        level: '관리자'
+    this.$accountBus.$on('loginInfo', (loginInfo) => {
+      this.setUserLevel(loginInfo.level)
+      this.setAdminMode(this.adminMode)
+    })
+    this.selectedTab = this.tabs[0]
+  },
+  methods: {
+    openURL: function (url) {
+      window.location.href = url
+    },
+    goto: function (url) {
+      this.$router.push(url)
+    },
+    setUserLevel: function (newLevel) {
+      console.log('new Level: ', newLevel)
+      switch (newLevel) {
+        case '관리자':
+          this.userLevel = 3
+          break
+        case '졸업자':
+          this.userLevel = 2
+          break
+        case '정회원':
+        case '준회원':
+          this.userLevel = 1
+          break
+        default:
+          this.userLevel = 0
       }
-    this.loginInfo = window.loginInfo
+      this.setSelectedTab(this.userLevel)
+    },
+    setAdminMode: function (newMode) {
+      if (this.userLevel !== 3) {
+        this.$q.notify({
+          message: '관리자가 아닙니다.',
+          color: 'error'
+        })
+        return
+      }
+      this.adminMode = newMode
+      if (newMode) {
+        this.adminMenuName = '정회원 모드로 전환하기'
+      } else {
+        this.adminMenuName = '관리자 모드로 전환하기'
+      }
+      this.setSelectedTab((newMode) ? 3 : 1)
+      this.rightDrawer = false
+    },
+    logout () {
+      this.$q.dialog({
+        title: '로그아웃',
+        message: '로그아웃 하시겠습니까?',
+        ok: true,
+        cancel: true
+      }).then(() => {
+        this.$q.dialog({
+          message: '성공적으로 로그아웃되었습니다.'
+        })
+      }).catch((err) => {
+        this.$q.dialog({
+          message: '로그아웃에 실패하였습니다:' + err
+        })
+      })
+    },
+    setSelectedTab: function (level) {
+      // for rerendering v-for, selectedTab should be set individually.
+      for (let i in this.selectedTab) {
+        this.$set(this.selectedTab, i, this.tabs[level][i])
+      }
+    }
   },
   data () {
     return {
       rightDrawer: false,
       appName: window.appName,
+      userLevel: 0,
+      adminMode: false,
+      adminMenuName: null,
+      selectedTab: [],
+      tabs: [
+        [
+          {
+            'icon': 'map',
+            'to': '/',
+            'label': '소개'
+          },
+          {
+            'icon': 'next_week',
+            'to': '/projects',
+            'label': '프로젝트'
+          },
+          {
+            'icon': 'date_range',
+            'to': '/plans',
+            'label': '연간계획'
+          },
+          {
+            'icon': 'assignment',
+            'to': '/apply',
+            'label': '신입지원'
+          }
+        ],
+        [
+          {
+            'icon': 'report',
+            'to': '/notice',
+            'label': '공지사항'
+          },
+          {
+            'icon': 'next_week',
+            'to': '/projects',
+            'label': '프로젝트'
+          },
+          {
+            'icon': 'date_range',
+            'to': '/plans',
+            'label': '연간계획'
+          },
+          {
+            'icon': 'toc',
+            'to': '/board',
+            'label': '자유게시판'
+          }
+        ],
+        [
+          {
+            'icon': 'report',
+            'to': '/notice',
+            'label': '공지사항'
+          },
+          {
+            'icon': 'next_week',
+            'to': '/projects',
+            'label': '프로젝트'
+          },
+          {
+            'icon': 'date_range',
+            'to': '/plans',
+            'label': '연간계획'
+          },
+          {
+            'icon': 'toc',
+            'to': '/board',
+            'label': '자유게시판'
+          }
+        ],
+        [
+          {
+            'icon': 'poll',
+            'to': '/admin',
+            'label': '대시보드'
+          },
+          {
+            'icon': 'people',
+            'to': '/admin/members',
+            'label': '부원관리'
+          },
+          {
+            'icon': 'next_week',
+            'to': '/admin/projects',
+            'label': '플젝관리'
+          },
+          {
+            'icon': 'attach_file',
+            'to': '/admin/files',
+            'label': '파일관리'
+          }
+        ]
+      ],
       menus: [
         {
           'icon': 'map',
@@ -98,6 +269,11 @@ export default {
           'icon': 'assignment',
           'title': '신입지원',
           'url': '/apply'
+        },
+        {
+          'icon': 'assignment',
+          'title': '기존회원등록',
+          'url': '/register'
         },
         {
           'icon': 'flag',
@@ -133,14 +309,6 @@ export default {
         }
       ]
     }
-  },
-  methods: {
-    openURL: function (url) {
-      window.location.href = url
-    },
-    goto: function (url) {
-      this.$router.push(url)
-    }
   }
 }
 </script>
@@ -149,6 +317,10 @@ export default {
 * {
   word-break: keep-all;
   word-wrap: break-word;
+}
+
+button + button {
+  margin-left: 0.5em;
 }
 
 .top-toolbar {
@@ -215,5 +387,9 @@ export default {
     list-style: disc;
     line-height: 200%;
   }
+}
+.custom-option-box {
+  text-align: right;
+  margin-top: 0.5em;
 }
 </style>

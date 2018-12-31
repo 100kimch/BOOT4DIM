@@ -29,7 +29,7 @@
         <div class="custom-album-box">
           <div>
             <q-card class="picture" inline :key="index" v-for="(picture, index) in project.pictures">
-              <a @click="openPictureDetail(picture)">
+              <a @click="openPictureDetail(picture, index)">
                 <q-card-media overlay-position="bottom">
                   <img :src="picture.src" />
                   <q-card-title v-if="picture.title" slot="overlay">
@@ -40,15 +40,21 @@
             </q-card>
           </div>
         </div>
-        <q-modal v-model="pictureDetail.visible">
+        <q-modal class="custom-picture-detail" v-model="pictureVisible">
           <q-modal-layout header-style="min-height: 2em">
             <q-toolbar slot="header">
-              <q-btn flat round icon="arrow_back" @click="pictureDetail.visible=false" />
+              <q-btn flat round icon="arrow_back" @click="pictureVisible=false" />
               <q-toolbar-title>사진</q-toolbar-title>
             </q-toolbar>
-            <q-list padding>
-              <img :src="pictureDetail.src" />
-              <q-list-header>{{ pictureDetail.title }}</q-list-header>
+            <q-carousel v-model="pictureSlide" color="white" arrows infinite>
+              <q-carousel-slide class="flex flex-center bg-black text-white" :key="`pic-${index}`" v-for="(picture, index) in project.pictures">
+                <img :src="picture.src" />
+              </q-carousel-slide>
+            </q-carousel>
+            <q-card class="text-black">
+              <h1 class="q-display-1">{{ pictureDetail.title }}</h1>
+              <h2 class="q-body-2 text-gray">{{ pictureDetail.date }}</h2>
+              <p class="q-body-1">{{ pictureDetail.body }}</p>
               <q-item :key="index" v-for="(comment, index) in pictureDetail.comments">
                 <q-item-side>
                   <q-item-tile avatar>
@@ -61,7 +67,7 @@
                 </q-item-main>
                 <q-item-side right>{{ $timeSince(comment.date) }}</q-item-side>
               </q-item>
-            </q-list>
+            </q-card>
           </q-modal-layout>
         </q-modal>
       </q-list>
@@ -78,7 +84,7 @@
         </q-collapsible>
         <q-collapsible icon="people" label="기여자" opened>
           <q-list highlight>
-            <q-item :key="index" v-for="(contributor, index) in contributors">
+            <q-item :key="index" v-for="(contributor, index) in project.contributors">
               <q-item-side>
                 <q-item-tile avatar>
                   <img :src="contributor.avatar" alt="Profile Image">
@@ -100,12 +106,12 @@
             </q-item>
           </q-list>
         </q-collapsible>
-        <q-collapsible icon="comment" label="프로젝트 후기">
-          <q-chat-message name="김지형" :avatar="comment.avatar" :text="comment.text" :key="index" v-for="(comment, index) in comments" />
+        <q-collapsible icon="forum" label="프로젝트 후기">
+          <q-chat-message name="김지형" :avatar="comment.avatar" bg-color="grey-3" :text="comment.body" :key="index" v-for="(comment, index) in project.comments" />
         </q-collapsible>
         <q-collapsible icon="attach_money" label="지원 현황">
           <q-list>
-            <q-item :key="index" v-for="(support, index) in supports">
+            <q-item :key="index" v-for="(support, index) in project.supports">
               <q-item-main>
                 <q-item-tile label>{{ support.label }}</q-item-tile>
                 <q-item-tile sublabel>{{ support.sublabel }}</q-item-tile>
@@ -124,6 +130,106 @@
         </q-collapsible>
       </q-list>
     </q-card>
+    <q-card v-if="isManager" color="teal">
+      <q-list>
+        <q-item class="row q-py-none">
+          <q-item-side class="col-5 q-pa-xs">
+            <img class="full-width" src="/assets/icon_project.jpg" />
+          </q-item-side>
+          <q-item-main class="col">
+            <h1 class="q-title">프로젝트 매니저님 안녕하세요!</h1>
+            <q-btn color="primary" class="full-width" label="프로젝트 관리하기" @click.native="projectSettingsVisible = true" />
+          </q-item-main>
+        </q-item>
+      </q-list>
+      <q-modal v-model="projectSettingsVisible">
+        <q-modal-layout header-style="min-height: 2em">
+          <q-toolbar slot="header">
+            <q-btn flat round icon="arrow_back" @click="projectSettingsVisible=false" />
+            <q-toolbar-title>프로젝트 관리</q-toolbar-title>
+          </q-toolbar>
+          <q-list link>
+            <q-list-header>진행현황</q-list-header>
+            <q-item>
+              <q-item-side icon="hourglass_empty" />
+              <q-item-main>
+                <q-select hide-underline class="q-ma-none full-width" v-model="project.status" :options="options.status" />
+              </q-item-main>
+            </q-item>
+            <q-item v-if="project.status > 2">
+              <q-item-main>
+                <q-item-tile label>프로젝트 후기 관리</q-item-tile>
+                <q-item-tile sublabel>프로젝트 후기를 작성합니다.</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item-separator />
+            <q-item>
+              <q-item-main>
+                <q-item-tile label>최근 활동 내역</q-item-tile>
+                <q-item-tile sublabel>최근 활동 내역을 관리합니다.</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item-separator />
+            <q-list-header>기본설정</q-list-header>
+            <q-item>
+              <q-item-main>
+                <q-item-tile label>개요</q-item-tile>
+                <q-item-tile sublabel>초기 설정을 통해 입력된 개요입니다.</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item>
+              <q-item-main>
+                <q-item-tile label>기여자(팀원)</q-item-tile>
+                <q-item-tile sublabel>프로젝트에 참여한 팀원 목록입니다.</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item>
+              <q-item-main>
+                <q-item-tile label>지원 현황</q-item-tile>
+                <q-item-tile sublabel>부트사차원으로부터 지원받은 현황입니다.</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item>
+              <q-item-main>
+                <q-item-tile label>지원 현황</q-item-tile>
+                <q-item-tile sublabel>본 프로젝트가 부트사차원으로부터 지원받은 현황입니다.</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item-separator />
+            <q-list-header>고급설정</q-list-header>
+            <q-item>
+              <q-item-main>
+                <q-item-tile label>깃허브 연동</q-item-tile>
+                <q-item-tile sublabel>깃허브 프로젝트와 연동합니다.</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item>
+              <q-item-main>
+                <q-item-tile label>앨범 관리</q-item-tile>
+                <q-item-tile sublabel>앨범을 관리합니다.</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item-separator />
+            <q-list-header>꾸미기</q-list-header>
+            <q-item link tag="label">
+              <q-item-main>
+                <q-item-tile label>고유색상 설정</q-item-tile>
+                <q-item-tile sublabel>본 프로젝트만의 고유한 색상 설정이 가능합니다.</q-item-tile>
+              </q-item-main>
+              <q-item-side right>
+                <q-toggle v-model="project.themeColor" />
+              </q-item-side>
+            </q-item>
+            <q-item link tag="label">
+              <q-item-main>
+                <q-item-tile label>배경 이미지</q-item-tile>
+                <q-item-tile sublabel>본 프로젝트를 상징하는 배경이미지를 넣어주세요.</q-item-tile>
+              </q-item-main>
+            </q-item>
+          </q-list>
+        </q-modal-layout>
+      </q-modal>
+    </q-card>
     <q-card>
       <q-tabs v-model="selectedTab" inverted>
         <q-tab name="tabNewData" icon="event_note" label="글쓰기" slot="title" />
@@ -134,12 +240,12 @@
           <q-input v-model="newData.title" type="text" float-label="제목" />
           <q-input v-model="newData.body" type="textarea" float-label="내용" :max-height="7" rows="7" />
           <div class="custom-btn-box">
-            <q-btn color="primary" @click="resetNewData()" label="취소" />
-            <q-btn color="secondary" @click="saveNewData()" label="저장" />
+            <q-btn color="primary" @click="resetNewContent()" label="취소" />
+            <q-btn color="secondary" @click="saveNewContent()" label="저장" />
           </div>
         </q-tab-pane>
         <q-tab-pane name="tabTeamNote">
-          <q-item @click.native="openTeamNoteDetail(teamNote)" :key="index" v-for="(teamNote, index) in teamNotes">
+          <q-item link @click.native="openTeamNoteDetail(teamNote)" :key="index" v-for="(teamNote, index) in project.teamNotes">
             <q-item-side>
               <q-item-tile icon="note"></q-item-tile>
             </q-item-side>
@@ -149,7 +255,7 @@
             </q-item-main>
             <q-item-side right>{{ $timeSince(teamNote.date) }}</q-item-side>
           </q-item>
-          <q-item @click.native="openTeamNoteDetail()">
+          <q-item link @click.native="openTeamNoteDetail()">
             <q-item-side>
               <q-item-tile icon="note_add"></q-item-tile>
             </q-item-side>
@@ -161,21 +267,82 @@
                 <q-btn flat round icon="arrow_back" @click="teamNoteDetail.visible=false" />
                 <q-toolbar-title>개인 노트</q-toolbar-title>
               </q-toolbar>
-              <img :src="teamNoteDetail.src" />
+              <q-card>
+                <q-item link @click.native="openTeamNoteDetail(teamNote)" :key="index" v-for="(teamNote, index) in project.teamNotes">
+                  <q-item-side>
+                    <q-item-tile icon="note"></q-item-tile>
+                  </q-item-side>
+                  <q-item-main>
+                    <q-item-tile label>{{ teamNote.title }}</q-item-tile>
+                    <q-item-tile sublabel>{{ teamNote.body }}</q-item-tile>
+                  </q-item-main>
+                  <q-item-side right>{{ $timeSince(teamNote.date) }}</q-item-side>
+                </q-item>
+              </q-card>
             </q-modal-layout>
           </q-modal>
         </q-tab-pane>
         <q-tab-pane name="tabGithub" class="darken">
-          <h3 class="q-title">깃허브와 연동하세요!</h3>
+          <h3 class="q-title">준비중입니다.</h3>
         </q-tab-pane>
       </q-tabs>
     </q-card>
-    <q-card class="custom-content-card" :key="index" v-for="(content, index) in reversedContents">
-      <h3 class="q-title">{{ content.title }}</h3>
-      <h4 class="q-subtitle">{{ content.contributor.label }} | {{ $timeSince(content.date) }}</h4>
-      <hr class="q-hr q-my-lg">
-      <p class="q-body-1">{{ content.body }}</p>
-    </q-card>
+    <q-infinite-scroll :handler="loadContentsMore">
+      <q-card :class="{ 'custom-content-card': true, 'isModifying': content.isModifying }" :key="index" v-for="(content, index) in reversedContents" :color="content.isModifying ? 'dark' : ''">
+        <q-item class="q-pa-none">
+          <q-item-main>
+            <q-input class="q-title" type="textarea" v-model="content.title" hide-underline :readonly="!content.isModifying" />
+            <h4 class="q-subtitle">{{ content.numIssue + '번째 이슈' }} | {{ content.contributor.label }} | {{ $timeSince(content.date) }}</h4>
+          </q-item-main>
+          <q-item-side right>
+            <q-btn icon="more_vert" dense round flat>
+              <q-popover>
+                <q-list seperator link>
+                  <q-item v-close-overlay @click.native="onDeleteContent(content)">
+                    <q-item-side right icon="delete" />
+                    <q-item-main>삭제</q-item-main>
+                  </q-item>
+                  <q-item v-close-overlay @click.native="onModifyContent(content)">
+                    <q-item-side right icon="edit" />
+                    <q-item-main>수정</q-item-main>
+                  </q-item>
+                </q-list>
+              </q-popover>
+            </q-btn>
+          </q-item-side>
+        </q-item>
+
+        <hr class="custom-hr q-hr q-my-lg">
+        <q-input v-if="content.isModifying" class="custom-body q-body-1" type="textarea" v-model="content.body" hide-underline />
+        <div v-if="!content.isModifying" class="custom-body" v-html="marked(content.body, { sanitize: true })"></div>
+        <p class="q-body-1">좋아요 {{ content.numLikes }}개 | 댓글 {{ content.numComments }}개</p>
+
+        <hr class="custom-hr q-hr q-my-lg">
+        <q-btn v-if="content.isModifying" class="full-width" color='negative' label="수정 끝내기" @click="content.isModifying = false" />
+        <q-btn-group v-if="!content.isModifying" flat class="row full-width">
+          <q-btn class="col" flat dense :color="content.isLike ? 'secondary' : ''" @click.native="onClickLike(content)" label="좋아요" icon="thumb_up" />
+          <q-btn class="col" flat dense @click.native="onClickComment(content)" label="댓글" icon="comment" />
+          <q-btn class="col" flat dense @click.native="onClickShare(content)" label="공유" icon="share" />
+        </q-btn-group>
+        <hr v-if="content.showComments && !content.isModifying" class="custom-hr q-hr q-my-lg">
+        <q-list v-if="content.showComments && !content.isModifying" class="custom-comment">
+          <q-btn flat icon="more_horiz" color="grey-8" class="q-pa-none full-width" @click="loadCommentsMore(content)">더보기</q-btn>
+          <div :key="n" v-for="(comment, n) in content.comments">
+            <q-chat-message v-if="comment.writer.email !== $loginInfo['email']" :name="comment.writer.label" :avatar="comment.writer.avatar" :text="comment.body" bg-color="grey-4" :stamp="'&nbsp;&nbsp;' + $timeSince(comment.date)" />
+            <q-chat-message v-if="comment.writer.email === $loginInfo['email']" name="나" :text="comment.body" bg-color="teal-2" :stamp="'&nbsp;&nbsp;' + $timeSince(comment.date)" sent />
+          </div>
+          <q-item class="q-pa-none">
+            <q-item-main>
+              <q-input type="textarea" v-model="content.newCommentBody" :before="[{icon: 'sms'}]" placeholder="댓글을 입력하세요." @keyup.enter.exact="addComment(content)" @submit.prevent />
+            </q-item-main>
+            <q-item-side right>
+              <q-btn color="primary" label="등록" @click="addComment(content)" />
+            </q-item-side>
+          </q-item>
+        </q-list>
+      </q-card>
+      <q-spinner-dots class="q-mx-auto" slot="message" :size="40"></q-spinner-dots>
+    </q-infinite-scroll>
   </q-page>
 </template>
 
@@ -183,25 +350,279 @@
 export default {
   // name: 'PageName',
   created () {
-    this.loginInfo = window.loginInfo
+    this.marked = require('marked')
+  },
+  methods: {
+    openPictureDetail: function (picture, index) {
+      this.pictureVisible = true
+      this.pictureSlide = index
+    },
+    openTeamNoteDetail: function (note) {
+      this.teamNoteDetail = {
+        visible: true
+      }
+      if (note) {
+
+      } else {
+
+      }
+    },
+    resetNewContent: function () {
+      this.selectedTab = null
+      this.newData.title = null
+      this.newData.body = null
+    },
+    saveNewContent: function () {
+      this.project.contents.push({
+        title: this.newData.title || '무제',
+        date: new Date(),
+        numIssue: 0,
+        contributor: this.$loginInfo,
+        isModifying: false,
+        isLike: false,
+        themeColor: false,
+        headerImgSrc: '',
+        numLikes: 0,
+        numComments: 0,
+        showComments: false,
+        body: this.newData.body || '내용이 없습니다.',
+        newCommentBody: '',
+        comments: []
+      })
+      this.project.notifications.push({
+        label: this.$loginInfo.label + '님이 새 글을 작성하였습니다:',
+        sublabel: this.newData.title || '무제',
+        date: new Date(),
+        avatar: this.$loginInfo.avatar
+      })
+      this.resetNewContent()
+      console.log('httpRequest')
+    },
+    loadContentsMore: function (index, done) {
+      this.$q.notify({
+        title: '제목',
+        message: index + '번째 추가 로딩중입니다..',
+        color: 'positive'
+      })
+      setTimeout(() => {
+        // http request
+        // sample codes below:
+        let sample = Object.create(this.project.contents[0])
+        sample.date = new Date()
+        // console.log(sample, sample === this.project.contents[0])
+        this.project.contents.push(sample)
+        this.project.contents.push(sample)
+        done()
+      }, 5000)
+    },
+    onDeleteContent: function (content) {
+      this.$q.dialog({
+        title: '삭제 확인',
+        message: '삭제하시겠습니까?',
+        color: 'negative',
+        ok: true,
+        cancel: true,
+        preventClose: true
+      }).then(() => {
+        let index = this.project.contents.indexOf(content)
+        // console.log(this.project.contents)
+        this.project.contents.splice(index, 1)
+        // console.log(this.project.contents)
+      })
+    },
+    onModifyContent: function (content) {
+      // edit
+      content.isModifying = !content.isModifying
+      console.log(content)
+    },
+    onClickLike: function (content) {
+      // request Like
+      if (content.isLike) {
+        content.isLike = false
+        content.numLikes -= 1
+      } else {
+        content.isLike = true
+        content.numLikes += 1
+      }
+    },
+    onClickComment: function (content) {
+      if (content.showComments) {
+        content.showComments = false
+      } else {
+        content.showComments = true
+      }
+    },
+    onClickShare: function (content) {
+      this.$q.actionSheet({
+        title: '공유하기',
+        grid: true,
+        dismissLabel: '취소',
+        actions: [
+          {
+            label: '카카오톡',
+            avatar: '/assets/kakao_logo.png',
+            handler () {
+              console.log('share with Kakao...')
+            }
+          },
+          {
+            label: '페이스북',
+            avatar: '/assets/facebook_logo.png',
+            handler () {
+              console.log('share with Facebook...')
+            }
+          },
+          {
+            label: '구글',
+            avatar: '/assets/google_logo.png',
+            handler () {
+              console.log('share with Google...')
+            }
+          }
+        ]
+      }).catch(() => {
+        this.$q.notify({
+          color: 'negative',
+          message: '취소되었습니다.'
+        })
+      })
+    },
+    addComment: function (content) {
+      let body = content.newCommentBody.split('\n')
+      body.pop()
+      // console.log(body)
+      content.comments.push({
+        id: new Date(),
+        writer: this.$loginInfo,
+        body: body
+      })
+      content.newCommentBody = ''
+    },
+    loadCommentsMore: function (content) {
+    },
+    addTeammate: function () {
+      this.$q.actionSheet({
+        title: '팀원 추가하기',
+        dismissLabel: '나가기',
+        actions: [
+          {
+            label: 'KJH',
+            avatar: 'assets/profile_kjh.png',
+            email: 'kimjihyeong100@gmail.com'
+          },
+          {
+            label: 'KJH',
+            avatar: 'assets/profile_kjh.png',
+            email: 'kimjihyeong100@gmail.com'
+          },
+          {
+            label: 'KJH',
+            avatar: 'assets/profile_kjh.png',
+            email: 'kimjihyeong100@gmail.com'
+          },
+          {
+            label: 'KJH',
+            avatar: 'assets/profile_kjh.png',
+            email: 'kimjihyeong100@gmail.com'
+          },
+          {
+            label: 'KJH',
+            avatar: 'assets/profile_kjh.png',
+            email: 'kimjihyeong100@gmail.com'
+          },
+          {
+            label: 'KJH',
+            avatar: 'assets/profile_kjh.png',
+            email: 'kimjihyeong100@gmail.com'
+          },
+          {
+            label: 'KJH',
+            avatar: 'assets/profile_kjh.png',
+            email: 'kimjihyeong100@gmail.com'
+          }
+        ]
+      }).then(action => {
+        let hasContributor = this.project.contributors.some(contributor => contributor.email === action.email)
+        if (hasContributor) {
+          this.$q.notify({
+            color: 'negative',
+            message: `${action.label}님은 이미 추가되어 있습니다.`
+          })
+        } else {
+          action.position = '팀원'
+          this.project.contributors.push(action)
+          this.project.notifications.push({
+            label: this.$loginInfo.label + '님이 ' + action.label + '님을 팀원으로 추가하였습니다.',
+            date: new Date(),
+            avatar: this.$loginInfo.avatar
+          })
+          this.$q.notify({
+            color: 'positive',
+            message: `${action.label}님을 기여자로 추가하였습니다.`
+          })
+        }
+      }).catch(() => {
+        this.$q.notify({
+          color: 'negative',
+          message: '취소되었습니다.'
+        })
+      })
+    }
+  },
+  computed: {
+    startDate: function () {
+      return this.project.startDuration.slice(0, 10)
+    },
+    endDate: function () {
+      return this.project.endDuration.slice(0, 10)
+    },
+    reversedNotifications: function () {
+      return this.project.notifications.slice().reverse()
+    },
+    reversedContents: function () {
+      return this.project.contents.slice().reverse()
+    },
+    isManager: function () {
+      // ajax requests if login user is a project manager.
+      return true
+    }
+  },
+  watch: {
+    'pictureSlide': function (val, oldVal) {
+      this.pictureDetail = this.project.pictures[val]
+      this.pictureDetail.comments = [
+        {
+          date: this.$timeSince(new Date()),
+          body: '아주 멋져요!',
+          writer: {
+            label: '김지형',
+            avatar: 'assets/profile_kjh.png',
+            email: '100kimch@naver.com',
+            position: '매니저'
+          }
+        }
+      ]
+    }
   },
   data () {
     return {
       selectedTab: null,
-      notifications: [
-        {
-          label: '새 프로젝트를 생성하였습니다.',
-          date: new Date() - 7200000,
-          avatar: 'assets/boot_logo.png'
-        },
-        {
-          label: '운영진에게 프로젝트 진행 시 필요한 사항을 전달했습니다.',
-          date: new Date() - 360000,
-          avatar: 'assets/boot_logo.png'
-        }
-      ],
+      pictureSlide: null,
+      pictureVisible: false,
+      projectSettingsVisible: false,
+      pictureDetail: {},
+      newData: {
+        title: null,
+        body: null
+      },
+      teamNoteDetail: {
+        visible: false
+      },
+      github: {
+      },
       project: {
         name: 'Boot4Dust',
+        status: 1,
         description: '본 프로젝트는 건국대학교 전자전기공학과 학술동아리 BOOT4DIM에서 진행하는 2018 2학기 정기 프로젝트 중 하나로, 6번째 팀의 프로젝트입니다. 아두이노를 비롯한 라즈베리파이, 리눅스 등을 처음 다루기 위해 미세먼지 측정기 제작을 목표로 진행했습니다.',
         typeMultipleSelect: ['스터디', '작품제작', '세미나'],
         topicMultipleSelect: ['sw', 'hw'],
@@ -248,216 +669,144 @@ export default {
         pictures: [
           {
             src: 'assets/boot4dust_sample1.jpeg',
-            title: '부스 사진'
+            title: '부스 사진',
+            date: new Date('2018-11-05').toLocaleTimeString(),
+            body: 'Boot4Dust 프로젝트 사진입니다 :)'
           },
           {
             src: 'assets/boot4dust_sample2.jpeg',
-            title: '제품 외형'
+            title: '제품 외형',
+            date: new Date('2018-11-05').toLocaleTimeString(),
+            body: 'Boot4Dust 프로젝트 사진입니다 :)'
           },
           {
             src: 'assets/boot4dust_sample3.jpeg',
-            title: '회로 제작기'
+            title: '회로 제작기',
+            date: new Date('2018-11-05').toLocaleTimeString(),
+            body: 'Boot4Dust 프로젝트 사진입니다 :)'
           },
           {
             src: 'assets/boot4dust_sample4.jpeg',
-            title: '미세먼지 센서'
+            title: '미세먼지 센서',
+            date: new Date('2018-11-05').toLocaleTimeString(),
+            body: 'Boot4Dust 프로젝트 사진입니다 :)'
           }
-        ]
-      },
-      pictureDetail: {
-        visible: false,
-        src: '',
-        title: '',
-        comments: [
+        ],
+        notifications: [
           {
-            date: this.$timeSince(new Date()),
-            body: '아주 멋져요!',
-            writer: {
-              label: '김지형',
-              avatar: 'assets/profile_kjh.png',
-              email: '100kimch@naver.com',
-              position: '매니저'
-            }
+            label: '새 프로젝트를 생성하였습니다.',
+            date: new Date() - 7200000,
+            avatar: 'assets/boot_logo.png'
+          },
+          {
+            label: '운영진에게 프로젝트 진행 시 필요한 사항을 전달했습니다.',
+            date: new Date() - 360000,
+            avatar: 'assets/boot_logo.png'
           }
-        ]
-      },
-      contributors: [
-        {
-          label: '김지형',
-          avatar: 'assets/profile_kjh.png',
-          email: '100kimch@naver.com',
-          position: '매니저'
-        }
-      ],
-      comments: [
-        {
-          avatar: 'assets/profile_kjh.png',
-          text: ['프로젝트 후기입니다.보람찼네요.'],
-          date: new Date('2018-11-26')
-        }
-      ],
-      supports: [
-        {
-          label: '20인 다과제공',
-          sublabel: '20인 이상 프로젝트시 제공되는 다과입니다.',
-          status: '지급완료'
-        },
-        {
-          label: '부품',
-          sublabel: '프로젝트시 필요한 부품을 제공했습니다',
-          status: '지급완료'
-        }
-      ],
-      newData: {
-        title: null,
-        body: null
-      },
-      teamNotes: [
-        {
-          title: '개인 노트작성하기',
-          date: new Date('2018-11-01'),
-          body: '안녕하세요.'
-        }
-      ],
-      teamNoteDetail: {
-        visible: false
-      },
-      github: {
-      },
-      contents: [
-        {
-          title: '새로운 프로젝트가 시작되었습니다!',
-          date: new Date('2018-09-03'),
-          contributor: {
+        ],
+        contributors: [
+          {
             label: '김지형',
             avatar: 'assets/profile_kjh.png',
-            email: '100kimch@naver.com'
-          },
-          body: 'hello'
-        }
-      ]
-    }
-  },
-  methods: {
-    openPictureDetail: function (picture) {
-      this.pictureDetail = {
-        visible: true,
-        src: picture.src,
-        title: picture.title
-      }
-    },
-    openTeamNoteDetail: function (note) {
-      this.teamNoteDetail = {
-        visible: true
-      }
-      if (note) {
-
-      } else {
-
-      }
-    },
-    resetNewData: function () {
-      this.selectedTab = null
-      this.newData.title = null
-      this.newData.body = null
-    },
-    saveNewData: function () {
-      this.contents.push({
-        title: this.newData.title || '무제',
-        date: new Date(),
-        contributor: this.loginInfo,
-        body: this.newData.body || '내용이 없습니다.'
-      })
-      this.notifications.push({
-        label: this.loginInfo.label + '님이 새 글을 작성하였습니다:',
-        sublabel: this.newData.title || '무제',
-        date: new Date(),
-        avatar: this.loginInfo.avatar
-      })
-      this.resetNewData()
-      console.log('httpRequest')
-    },
-    addTeammate: function () {
-      this.$q.actionSheet({
-        title: '팀원 추가하기',
-        dismissLabel: '나가기',
-        actions: [
+            email: '100kimch@naver.com',
+            position: '매니저'
+          }
+        ],
+        comments: [
           {
-            label: 'KJH',
             avatar: 'assets/profile_kjh.png',
-            email: 'kimjihyeong100@gmail.com'
+            body: ['프로젝트 후기입니다.보람찼네요.'],
+            date: new Date('2018-11-26')
+          }
+        ],
+        supports: [
+          {
+            label: '20인 다과제공',
+            sublabel: '20인 이상 프로젝트시 제공되는 다과입니다.',
+            status: '지급완료'
           },
           {
-            label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
-            email: 'kimjihyeong100@gmail.com'
-          },
+            label: '부품',
+            sublabel: '프로젝트시 필요한 부품을 제공했습니다',
+            status: '지급완료'
+          }
+        ],
+        teamNotes: [
           {
-            label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
-            email: 'kimjihyeong100@gmail.com'
-          },
+            title: '개인 노트작성하기',
+            date: new Date('2018-11-01'),
+            body: '안녕하세요.'
+          }
+        ],
+        contents: [
           {
-            label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
-            email: 'kimjihyeong100@gmail.com'
-          },
-          {
-            label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
-            email: 'kimjihyeong100@gmail.com'
-          },
-          {
-            label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
-            email: 'kimjihyeong100@gmail.com'
-          },
-          {
-            label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
-            email: 'kimjihyeong100@gmail.com'
+            title: '새로운 프로젝트가 시작되었습니다!',
+            date: new Date('2018-09-03'),
+            numIssue: 0,
+            contributor: {
+              label: '김지형',
+              avatar: 'assets/profile_kjh.png',
+              email: '100kimch@naver.com'
+            },
+            isModifying: false,
+            isLike: false,
+            themeColor: false,
+            headerImgSrc: '',
+            numLikes: 3,
+            numComments: 10,
+            showComments: false,
+            body: 'hello',
+            newCommentBody: '',
+            comments: [
+              {
+                date: new Date('2018-11-09'),
+                writer: {
+                  label: '김기리',
+                  avatar: 'assets/profile_kjh.png',
+                  email: 'oioi@naver.com'
+                },
+                body: ['안녕하세요']
+              },
+              {
+                date: new Date('2018-11-09'),
+                writer: {
+                  label: '김지형',
+                  avatar: 'assets/profile_kjh.png',
+                  email: '100kimch@naver.com'
+                },
+                body: ['안녕하세요']
+              },
+              {
+                date: new Date('2018-11-09'),
+                writer: {
+                  label: '이한울',
+                  avatar: 'assets/profile_kjh.png',
+                  email: 'kim@naver.com'
+                },
+                body: ['안녕하세요']
+              },
+              {
+                date: new Date('2018-11-10'),
+                writer: {
+                  label: '김지형',
+                  avatar: 'assets/profile_kjh.png',
+                  email: '100kimch@naver.com'
+                },
+                body: ['댓글 시험중입니다.']
+              }
+            ]
           }
         ]
-      }).then(action => {
-        let hasContributor = this.contributors.some(contributor => contributor.email === action.email)
-        if (hasContributor) {
-          this.$q.notify({
-            color: 'negative',
-            message: `${action.label}님은 이미 추가되어 있습니다.`
-          })
-        } else {
-          action.position = '팀원'
-          this.contributors.push(action)
-          this.notifications.push({
-            label: this.loginInfo.label + '님이 ' + action.label + '님을 팀원으로 추가하였습니다.',
-            date: new Date(),
-            avatar: this.loginInfo.avatar
-          })
-          this.$q.notify({
-            color: 'positive',
-            message: `${action.label}님을 기여자로 추가하였습니다.`
-          })
-        }
-      }).catch(() => {
-        this.$q.notify({
-          color: 'negative',
-          message: '취소되었습니다.'
-        })
-      })
-    }
-  },
-  computed: {
-    startDate: function () {
-      return this.project.startDuration.slice(0, 10)
-    },
-    endDate: function () {
-      return this.project.endDuration.slice(0, 10)
-    },
-    reversedContents: function () {
-      return this.contents.slice().reverse()
-    },
-    reversedNotifications: function () {
-      return this.notifications.slice().reverse()
+      },
+      options: {
+        status: [
+          { label: '준비중', value: 0 },
+          { label: '진행중', value: 1 },
+          { label: '중지', value: 2 },
+          { label: '실패', value: 3 },
+          { label: '완료', value: 4 }
+        ]
+      }
     }
   }
 }
@@ -514,6 +863,22 @@ export default {
     }
   }
 }
+.custom-picture-detail {
+  .q-carousel-slide {
+    padding: 0;
+  }
+  .q-carousel-control {
+    .q-btn {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+  .q-card {
+    padding: 0.5em;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
 .q-tab-pane {
   // padding: 0em 1em 1em 1em;
   .custom-btn-box {
@@ -529,17 +894,56 @@ export default {
   }
 }
 .custom-content-card {
+  &.isModifying {
+    .q-input-target {
+      color: white !important;
+    }
+    .q-subtitle,
+    p {
+      color: #aaa;
+    }
+  }
   padding: 1em;
-  h3 {
-    line-height: 170%;
+  .q-title {
+    line-height: 120%;
     padding: 0;
     margin: 0;
+    margin-bottom: 0.5em;
   }
   h4 {
     line-height: 100%;
     font-size: 0.8em;
     color: #666;
     margin: 0;
+  }
+  .custom-body {
+    min-height: 7em;
+    margin-bottom: 0.5rem;
+  }
+  .custom-hr {
+    margin: 0.5rem 0;
+  }
+}
+.custom-comment {
+  img {
+    width: 2.3rem;
+    height: 2.3rem;
+  }
+  .q-message-name {
+    font-size: 0.8rem;
+  }
+  .q-message-text {
+    min-height: 1rem;
+    padding: 0.5rem;
+  }
+  .q-message-text-content {
+    div {
+      display: inline-block !important;
+    }
+  }
+  i {
+    width: 2.3rem;
+    margin-right: 0.5rem;
   }
 }
 </style>
