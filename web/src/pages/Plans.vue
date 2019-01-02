@@ -117,7 +117,8 @@ export default {
     background: white;
   }
 }
-p {
-  word-break: break-all;
+.custom-box p {
+  text-align: left !important;
+  word-break: keep-all;
 }
 </style>

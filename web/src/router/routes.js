@@ -6,6 +6,7 @@ import Board from 'pages/Board.vue'
 import Notice from 'pages/Notice.vue'
 import Profile from 'pages/Profile.vue'
 import Report from 'pages/Report.vue'
+import Login from 'pages/Login.vue'
 
 import Dashboard from 'pages/admin/Dashboard.vue'
 import Members from 'pages/admin/Members.vue'
@@ -53,6 +54,10 @@ const routes = [
       {
         path: 'register',
         component: () => import('pages/Register.vue')
+      },
+      {
+        path: 'login',
+        component: Login
       },
       {
         path: 'board',

@@ -51,7 +51,7 @@
 
 <script>
 export default {
-  name: 'Intro',
+  name: 'page-intro',
   mounted () {
     if (this.$q.platform.is.mobile) {
       this.height = 500

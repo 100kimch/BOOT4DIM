@@ -37,7 +37,7 @@
           </q-item>
         </q-list>
         <q-list v-if="!userLevel" no-border link inset-delimiter>
-          <q-item @click.native="goto('/register')">
+          <q-item @click.native="goto('/login')">
             <q-item-side avatar>
               <q-item-tile icon="person"></q-item-tile>
             </q-item-side>
@@ -78,13 +78,16 @@
 
 <script>
 export default {
-  // name: 'LayoutName',
+  name: 'layout-intro',
   created () {
     this.$accountBus.$on('loginInfo', (loginInfo) => {
-      this.setUserLevel(loginInfo.level)
-      this.setAdminMode(this.adminMode)
+      if (loginInfo) {
+        this.setUserLevel(loginInfo.level)
+        this.setAdminMode(this.adminMode)
+      }
     })
     this.selectedTab = this.tabs[0]
+    this.$login({})
   },
   methods: {
     openURL: function (url) {
@@ -115,14 +118,16 @@ export default {
       if (this.userLevel !== 3) {
         this.$q.notify({
           message: '관리자가 아닙니다.',
-          color: 'error'
+          color: 'negative'
         })
         return
       }
       this.adminMode = newMode
       if (newMode) {
+        this.$router.push('/admin')
         this.adminMenuName = '정회원 모드로 전환하기'
       } else {
+        // this.$router.push('/notice')
         this.adminMenuName = '관리자 모드로 전환하기'
       }
       this.setSelectedTab((newMode) ? 3 : 1)
@@ -135,13 +140,22 @@ export default {
         ok: true,
         cancel: true
       }).then(() => {
-        this.$q.dialog({
-          message: '성공적으로 로그아웃되었습니다.'
+        this.$q.loading.show()
+        this.$logout().then((res) => {
+          this.$q.notify({
+            color: 'info',
+            message: res.message
+          })
+          this.$q.loading.hide()
+        }).catch((err) => {
+          this.$q.dialog({
+            message: '로그아웃에 실패하였습니다:' + err
+          })
+          this.$q.loading.hide()
         })
-      }).catch((err) => {
-        this.$q.dialog({
-          message: '로그아웃에 실패하였습니다:' + err
-        })
+      }).catch(() => {
+        this.$q.loading.hide()
+        // when canceled.
       })
     },
     setSelectedTab: function (level) {

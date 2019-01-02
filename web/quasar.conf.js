@@ -104,7 +104,13 @@ module.exports = function (ctx) {
       ],
       directives: ['Ripple', 'CloseOverlay'],
       // Quasar plugins
-      plugins: ['Notify', 'Dialog', 'ActionSheet', 'AddressbarColor']
+      plugins: [
+        'Notify',
+        'Loading',
+        'Dialog',
+        'ActionSheet',
+        'AddressbarColor'
+      ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
     },

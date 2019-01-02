@@ -404,16 +404,16 @@ export default {
         message: index + '번째 추가 로딩중입니다..',
         color: 'positive'
       })
-      setTimeout(() => {
-        // http request
-        // sample codes below:
-        let sample = Object.create(this.project.contents[0])
-        sample.date = new Date()
-        // console.log(sample, sample === this.project.contents[0])
-        this.project.contents.push(sample)
-        this.project.contents.push(sample)
-        done()
-      }, 5000)
+      // setTimeout(() => {
+      //   // http request
+      //   // sample codes below:
+      //   let sample = Object.create(this.project.contents[0])
+      //   sample.date = new Date()
+      //   // console.log(sample, sample === this.project.contents[0])
+      //   this.project.contents.push(sample)
+      //   this.project.contents.push(sample)
+      //   done()
+      // }, 10000)
     },
     onDeleteContent: function (content) {
       this.$q.dialog({
@@ -945,5 +945,9 @@ export default {
     width: 2.3rem;
     margin-right: 0.5rem;
   }
+}
+.q-spinner {
+  width: 4rem;
+  margin: 0.5rem calc(50% - 2rem);
 }
 </style>
