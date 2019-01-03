@@ -16,7 +16,7 @@ export default ({ Vue }) => {
       setTimeout(() => {
         accountBus.$emit('loginInfo', {
           label: '김지형',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: '100kimch@naver.com',
           level: '관리자',
           userLevel: 0,
@@ -24,7 +24,7 @@ export default ({ Vue }) => {
         })
         Vue.prototype.$loginInfo = {
           label: '김지형',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: '100kimch@naver.com',
           level: '관리자',
           userLevel: 0,

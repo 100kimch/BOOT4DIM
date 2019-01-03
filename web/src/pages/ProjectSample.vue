@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <c-navigation />
-    <q-jumbotron dark img-src="assets/boot_project_boot4dust.jpg">
+    <q-jumbotron dark img-src="statics/boot_project_boot4dust.jpg">
       <h2 class="q-body-2">프로젝트</h2>
       <h1 class="q-display-2">{{ project.name }}</h1>
       <hr class="q-hr q-my-lg">
@@ -135,7 +135,7 @@
       <q-list>
         <q-item class="row q-py-none">
           <q-item-side class="col-5 q-pa-xs">
-            <img class="full-width" src="/assets/icon_project.jpg" />
+            <img class="full-width" src="/statics/icon_project.jpg" />
           </q-item-side>
           <q-item-main class="col">
             <h1 class="q-title">프로젝트 매니저님 안녕하세요!</h1>
@@ -462,21 +462,21 @@ export default {
         actions: [
           {
             label: '카카오톡',
-            avatar: '/assets/kakao_logo.png',
+            avatar: '/statics/kakao_logo.png',
             handler () {
               console.log('share with Kakao...')
             }
           },
           {
             label: '페이스북',
-            avatar: '/assets/facebook_logo.png',
+            avatar: '/statics/facebook_logo.png',
             handler () {
               console.log('share with Facebook...')
             }
           },
           {
             label: '구글',
-            avatar: '/assets/google_logo.png',
+            avatar: '/statics/google_logo.png',
             handler () {
               console.log('share with Google...')
             }
@@ -509,37 +509,37 @@ export default {
         actions: [
           {
             label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: 'kimjihyeong100@gmail.com'
           },
           {
             label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: 'kimjihyeong100@gmail.com'
           },
           {
             label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: 'kimjihyeong100@gmail.com'
           },
           {
             label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: 'kimjihyeong100@gmail.com'
           },
           {
             label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: 'kimjihyeong100@gmail.com'
           },
           {
             label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: 'kimjihyeong100@gmail.com'
           },
           {
             label: 'KJH',
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: 'kimjihyeong100@gmail.com'
           }
         ]
@@ -598,7 +598,7 @@ export default {
           body: '아주 멋져요!',
           writer: {
             label: '김지형',
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: '100kimch@naver.com',
             position: '매니저'
           }
@@ -624,7 +624,7 @@ export default {
       },
       project: {
         comments: [{
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           body: ['프로젝트 후기입니다.보람찼네요.'],
           date: new Date('2018-11-26')
         }],
@@ -634,7 +634,7 @@ export default {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
             writer: {
-              avatar: 'assets/profile_kjh.png',
+              avatar: 'statics/profile_kjh.png',
               email: 'oioi@naver.com',
               label: '김기리'
             }
@@ -642,7 +642,7 @@ export default {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
             writer: {
-              avatar: 'assets/profile_kjh.png',
+              avatar: 'statics/profile_kjh.png',
               email: '100kimch@naver.com',
               label: '김지형'
             }
@@ -650,7 +650,7 @@ export default {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
             writer: {
-              avatar: 'assets/profile_kjh.png',
+              avatar: 'statics/profile_kjh.png',
               email: 'kim@naver.com',
               label: '이한울'
             }
@@ -658,13 +658,13 @@ export default {
             body: ['댓글 시험중입니다.'],
             date: new Date('2018-11-10'),
             writer: {
-              avatar: 'assets/profile_kjh.png',
+              avatar: 'statics/profile_kjh.png',
               email: '100kimch@naver.com',
               label: '김지형'
             }
           }],
           contributor: {
-            avatar: 'assets/profile_kjh.png',
+            avatar: 'statics/profile_kjh.png',
             email: '100kimch@naver.com',
             label: '김지형'
           },
@@ -688,7 +688,7 @@ export default {
           topicSelect: 'hwcontest'
         },
         contributors: [{
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: '100kimch@naver.com',
           label: '김지형',
           position: '매니저'
@@ -704,11 +704,11 @@ export default {
         meeting: null,
         name: 'Boot4Dust',
         notifications: [{
-          avatar: 'assets/boot_logo.png',
+          avatar: 'statics/boot_logo.png',
           date: new Date() - 7200000,
           label: '새 프로젝트를 생성하였습니다.'
         }, {
-          avatar: 'assets/boot_logo.png',
+          avatar: 'statics/boot_logo.png',
           date: new Date() - 360000,
           label: '운영진에게 프로젝트 진행 시 필요한 사항을 전달했습니다.'
         }],
@@ -716,22 +716,22 @@ export default {
         pictures: [{
           body: 'Boot4Dust 프로젝트 사진입니다 :)',
           date: new Date('2018-11-05').toLocaleTimeString(),
-          src: 'assets/boot4dust_sample1.jpeg',
+          src: 'statics/boot4dust_sample1.jpeg',
           title: '부스 사진'
         }, {
           body: 'Boot4Dust 프로젝트 사진입니다 :)',
           date: new Date('2018-11-05').toLocaleTimeString(),
-          src: 'assets/boot4dust_sample2.jpeg',
+          src: 'statics/boot4dust_sample2.jpeg',
           title: '제품 외형'
         }, {
           body: 'Boot4Dust 프로젝트 사진입니다 :)',
           date: new Date('2018-11-05').toLocaleTimeString(),
-          src: 'assets/boot4dust_sample3.jpeg',
+          src: 'statics/boot4dust_sample3.jpeg',
           title: '회로 제작기'
         }, {
           body: 'Boot4Dust 프로젝트 사진입니다 :)',
           date: new Date('2018-11-05').toLocaleTimeString(),
-          src: 'assets/boot4dust_sample4.jpeg',
+          src: 'statics/boot4dust_sample4.jpeg',
           title: '미세먼지 센서'
         }],
         place: '부트방 (중장비동 306-3호)',

@@ -48,7 +48,7 @@ export default {
   .bg {
     height: 10em;
     background-color: #63417a;
-    background-image: url("../assets/profile_background.jpg");
+    background-image: url("../statics/profile_background.jpg");
     background-size: cover;
     z-index: -1;
   }

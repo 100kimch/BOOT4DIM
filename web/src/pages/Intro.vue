@@ -1,11 +1,11 @@
 <template>
   <q-page class="intro-page">
-    <q-parallax src="assets/bg_seminar.jpg" :speed="1" :height="400">
+    <q-parallax src="statics/bg_seminar.jpg" :speed="1" :height="400">
       <h2 class="title q-display-1">Boost Your Passion,</h2>
       <h1 class="title q-display-3">부트사차원</h1>
     </q-parallax>
     <div class="custom-box custom-main row" :class="{'custom-for-mobile': $q.platform.is.mobile}">
-      <img src="assets/icon_friendship.png" />
+      <img src="statics/icon_friendship.png" />
       <span :class="{ 'col': $q.platform.is.desktop }">
         <h1 class="q-display-2">배우고, 즐기는 학술동아리</h1>
         <p>부트사차원은 자유로운 분위기를 추구합니다. 동아리 안에서 선후배 간 허물없이 놀고 즐기며 문득 떠오르는 아이디어가 있으면 자발적으로 몇 명의 동아리 부원이 모여 프로젝트를 진행합니다. 또한 새로움을 추구합니다. 새로운 발상을 토대로 전자, 컴퓨터 지식을 활용해 그것을 구현합니다.</p>
@@ -13,7 +13,7 @@
     </div>
     <q-parallax class="custom-blackbox" :height="height" :class="{'custom-for-mobile': $q.platform.is.mobile}">
       <video slot="media" poster="http://www.markhillard.com/sandbox/media/polina.jpg" :height="height + 250" autoplay loop muted>
-        <source type="video/mp4" src="assets/video_coding.mp4">
+        <source type="video/mp4" src="statics/video_coding.mp4">
       </video>
       <h1 class="q-display-2">When hardware meets software</h1>
       <p class="centered">1989년부터 시작된 건국대학교 전자공학과 소속 학술동아리 부트사차원은 하드웨어 동아리 ‘부트’와 소프트웨어 동아리 ‘4차원’이 힘을 합해 전자공학과 대표 학술 동아리로서 자리매김했습니다. 그리고 2017년, 전자공학과 학과 개편 후 공과대학 소속으로 전환하면서 더욱 활발한 활동을 이어나가고 있습니다.</p>

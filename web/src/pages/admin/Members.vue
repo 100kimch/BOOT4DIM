@@ -63,43 +63,43 @@ export default {
       tableData: [
         {
           label: '김지형',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: '100kimch@naver.com',
           level: '관리자'
         },
         {
           label: '김한솔',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: 'saifjoqwd@naver.com',
           level: '관리자'
         },
         {
           label: '홍길동',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: 'gtgerf@naver.com',
           level: '졸업생'
         },
         {
           label: '김기리',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: 'degrwedd@naver.com',
           level: '준회원'
         },
         {
           label: '양하영',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: 'gregref@naver.com',
           level: '졸업생'
         },
         {
           label: '이미리',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: 'biotbjrtio2@naver.com',
           level: '졸업생'
         },
         {
           label: '박하림',
-          avatar: 'assets/profile_kjh.png',
+          avatar: 'statics/profile_kjh.png',
           email: 'sdf312ds@naver.com',
           level: '정회원'
         }

@@ -142,25 +142,25 @@ export default {
             },
             pictures: [
               {
-                src: 'assets/boot4dust_sample1.jpeg',
+                src: 'statics/boot4dust_sample1.jpeg',
                 title: '부스 사진',
                 date: new Date('2018-11-05').toLocaleTimeString(),
                 body: 'Boot4Dust 프로젝트 사진입니다 :)'
               },
               {
-                src: 'assets/boot4dust_sample2.jpeg',
+                src: 'statics/boot4dust_sample2.jpeg',
                 title: '제품 외형',
                 date: new Date('2018-11-05').toLocaleTimeString(),
                 body: 'Boot4Dust 프로젝트 사진입니다 :)'
               },
               {
-                src: 'assets/boot4dust_sample3.jpeg',
+                src: 'statics/boot4dust_sample3.jpeg',
                 title: '회로 제작기',
                 date: new Date('2018-11-05').toLocaleTimeString(),
                 body: 'Boot4Dust 프로젝트 사진입니다 :)'
               },
               {
-                src: 'assets/boot4dust_sample4.jpeg',
+                src: 'statics/boot4dust_sample4.jpeg',
                 title: '미세먼지 센서',
                 date: new Date('2018-11-05').toLocaleTimeString(),
                 body: 'Boot4Dust 프로젝트 사진입니다 :)'
@@ -170,25 +170,25 @@ export default {
               {
                 label: '새 프로젝트를 생성하였습니다.',
                 date: new Date() - 7200000,
-                avatar: 'assets/boot_logo.png'
+                avatar: 'statics/boot_logo.png'
               },
               {
                 label: '운영진에게 프로젝트 진행 시 필요한 사항을 전달했습니다.',
                 date: new Date() - 360000,
-                avatar: 'assets/boot_logo.png'
+                avatar: 'statics/boot_logo.png'
               }
             ],
             contributors: [
               {
                 label: '김지형',
-                avatar: 'assets/profile_kjh.png',
+                avatar: 'statics/profile_kjh.png',
                 email: '100kimch@naver.com',
                 position: '매니저'
               }
             ],
             comments: [
               {
-                avatar: 'assets/profile_kjh.png',
+                avatar: 'statics/profile_kjh.png',
                 body: ['프로젝트 후기입니다.보람찼네요.'],
                 date: new Date('2018-11-26')
               }
@@ -219,7 +219,7 @@ export default {
                 numIssue: 0,
                 contributor: {
                   label: '김지형',
-                  avatar: 'assets/profile_kjh.png',
+                  avatar: 'statics/profile_kjh.png',
                   email: '100kimch@naver.com'
                 },
                 isModifying: false,
@@ -236,7 +236,7 @@ export default {
                     date: new Date('2018-11-09'),
                     writer: {
                       label: '김기리',
-                      avatar: 'assets/profile_kjh.png',
+                      avatar: 'statics/profile_kjh.png',
                       email: 'oioi@naver.com'
                     },
                     body: ['안녕하세요']
@@ -245,7 +245,7 @@ export default {
                     date: new Date('2018-11-09'),
                     writer: {
                       label: '김지형',
-                      avatar: 'assets/profile_kjh.png',
+                      avatar: 'statics/profile_kjh.png',
                       email: '100kimch@naver.com'
                     },
                     body: ['안녕하세요']
@@ -254,7 +254,7 @@ export default {
                     date: new Date('2018-11-09'),
                     writer: {
                       label: '이한울',
-                      avatar: 'assets/profile_kjh.png',
+                      avatar: 'statics/profile_kjh.png',
                       email: 'kim@naver.com'
                     },
                     body: ['안녕하세요']
@@ -263,7 +263,7 @@ export default {
                     date: new Date('2018-11-10'),
                     writer: {
                       label: '김지형',
-                      avatar: 'assets/profile_kjh.png',
+                      avatar: 'statics/profile_kjh.png',
                       email: '100kimch@naver.com'
                     },
                     body: ['댓글 시험중입니다.']
@@ -320,25 +320,25 @@ export default {
             },
             pictures: [
               {
-                src: 'assets/boot4dust_sample1.jpeg',
+                src: 'statics/boot4dust_sample1.jpeg',
                 title: '부스 사진',
                 date: new Date('2018-11-05').toLocaleTimeString(),
                 body: 'Boot4Dust 프로젝트 사진입니다 :)'
               },
               {
-                src: 'assets/boot4dust_sample2.jpeg',
+                src: 'statics/boot4dust_sample2.jpeg',
                 title: '제품 외형',
                 date: new Date('2018-11-05').toLocaleTimeString(),
                 body: 'Boot4Dust 프로젝트 사진입니다 :)'
               },
               {
-                src: 'assets/boot4dust_sample3.jpeg',
+                src: 'statics/boot4dust_sample3.jpeg',
                 title: '회로 제작기',
                 date: new Date('2018-11-05').toLocaleTimeString(),
                 body: 'Boot4Dust 프로젝트 사진입니다 :)'
               },
               {
-                src: 'assets/boot4dust_sample4.jpeg',
+                src: 'statics/boot4dust_sample4.jpeg',
                 title: '미세먼지 센서',
                 date: new Date('2018-11-05').toLocaleTimeString(),
                 body: 'Boot4Dust 프로젝트 사진입니다 :)'
@@ -348,25 +348,25 @@ export default {
               {
                 label: '새 프로젝트를 생성하였습니다.',
                 date: new Date() - 7200000,
-                avatar: 'assets/boot_logo.png'
+                avatar: 'statics/boot_logo.png'
               },
               {
                 label: '운영진에게 프로젝트 진행 시 필요한 사항을 전달했습니다.',
                 date: new Date() - 360000,
-                avatar: 'assets/boot_logo.png'
+                avatar: 'statics/boot_logo.png'
               }
             ],
             contributors: [
               {
                 label: '김지형',
-                avatar: 'assets/profile_kjh.png',
+                avatar: 'statics/profile_kjh.png',
                 email: '100kimch@naver.com',
                 position: '매니저'
               }
             ],
             comments: [
               {
-                avatar: 'assets/profile_kjh.png',
+                avatar: 'statics/profile_kjh.png',
                 body: ['프로젝트 후기입니다.보람찼네요.'],
                 date: new Date('2018-11-26')
               }
@@ -397,7 +397,7 @@ export default {
                 numIssue: 0,
                 contributor: {
                   label: '김지형',
-                  avatar: 'assets/profile_kjh.png',
+                  avatar: 'statics/profile_kjh.png',
                   email: '100kimch@naver.com'
                 },
                 isModifying: false,
@@ -414,7 +414,7 @@ export default {
                     date: new Date('2018-11-09'),
                     writer: {
                       label: '김기리',
-                      avatar: 'assets/profile_kjh.png',
+                      avatar: 'statics/profile_kjh.png',
                       email: 'oioi@naver.com'
                     },
                     body: ['안녕하세요']
@@ -423,7 +423,7 @@ export default {
                     date: new Date('2018-11-09'),
                     writer: {
                       label: '김지형',
-                      avatar: 'assets/profile_kjh.png',
+                      avatar: 'statics/profile_kjh.png',
                       email: '100kimch@naver.com'
                     },
                     body: ['안녕하세요']
@@ -432,7 +432,7 @@ export default {
                     date: new Date('2018-11-09'),
                     writer: {
                       label: '이한울',
-                      avatar: 'assets/profile_kjh.png',
+                      avatar: 'statics/profile_kjh.png',
                       email: 'kim@naver.com'
                     },
                     body: ['안녕하세요']
@@ -441,7 +441,7 @@ export default {
                     date: new Date('2018-11-10'),
                     writer: {
                       label: '김지형',
-                      avatar: 'assets/profile_kjh.png',
+                      avatar: 'statics/profile_kjh.png',
                       email: '100kimch@naver.com'
                     },
                     body: ['댓글 시험중입니다.']
