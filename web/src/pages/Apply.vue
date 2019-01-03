@@ -10,7 +10,8 @@
         </q-stepper-navigation>
       </q-step>
       <q-step title="가입방법 선택">
-        <h2 class="q-title">카카오 계정에 로그인해주세요!</h2>
+        <h2 class="q-body-2">카카오 계정에 로그인해주세요!</h2>
+        <c-login-btn type="kakao" dense></c-login-btn>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
@@ -102,6 +103,9 @@ export default {
 <style lang="scss">
 .q-stepper {
   background: white;
+  h3 {
+    line-height: 130%;
+  }
 }
 // .q-alert {
 //   p:first-child {

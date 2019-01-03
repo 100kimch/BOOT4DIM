@@ -362,6 +362,14 @@ button + button {
   }
 }
 
+.q-card {
+  background: white;
+  margin-bottom: 0.5rem;
+  .q-btn:hover, .q-btn:focus {
+    transform: scale(1.1);
+  }
+}
+
 .custom-title {
   padding: 0;
   margin: 1em 0;

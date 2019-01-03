@@ -18,12 +18,13 @@
             <ul>학과: 전자전기공학과</ul>
             <ul>거주지: 서울시 광진구 화양동</ul>
             <ul>핸드폰: 010-000-0000</ul>
+            <ul>SNS: fb.com/100kimch</ul>
           </q-collapsible>
-          <q-collapsible icon="explore" label="프로젝트 활동">
-            <div>기본 정보입니다.</div>
+          <q-collapsible icon="developer_board" label="프로젝트 활동">
+            <div>존재하지 않습니다.</div>
           </q-collapsible>
-          <q-collapsible icon="explore" label="글쓴 목록">
-            <div>기본 정보입니다.</div>
+          <q-collapsible icon="create" label="글쓴 목록">
+            <div>존재하지 않습니다.</div>
           </q-collapsible>
         </q-list>
         <div class="custom-option-box">

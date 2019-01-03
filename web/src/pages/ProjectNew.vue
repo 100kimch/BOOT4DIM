@@ -1,6 +1,7 @@
 <template>
   <q-page padding>
-    <h1 class="custom-title q-display-1">프로젝트</h1>
+    <c-navigation/>
+    <!-- <h1 class="custom-title q-display-1">프로젝트</h1> -->
     <q-alert v-if="infoVisible" color="info" icon="offline_bolt" appear :actions="[{ label: '닫기', handler: ()=> { infoVisible = false } }]">
       <p class="q-title">새로운 프로젝트 진행을 환영합니다!</p>
       <p class="q-body-1 description">보다 원활한 프로젝트가 될 수 있도록 부트사차원에서 도와드릴게요.</p>
@@ -21,7 +22,7 @@
         <q-field icon="face" label="어떤 종류의 프로젝트인가요?">
           <q-select :display-value="selectMultipleText(formValue.typeMultipleSelect)" multiple v-model="formValue.typeMultipleSelect" :options="listOptions.type" />
         </q-field>
-        <q-field icon="face" label="해당하는 사항에 모두 체크해주세요.">
+        <q-field icon="none" label="해당하는 사항에 모두 체크해주세요.">
           <q-select :display-value="selectMultipleText(formValue.topicMultipleSelect)" multiple v-model="formValue.topicMultipleSelect" :options="listOptions.topic" />
         </q-field>
         <q-field icon="face" label="마감 기한이 있나요?">
@@ -30,7 +31,7 @@
             <q-radio class="col" v-model="formValue.deadlineOption" :val="false" label="없어요!" />
           </div>
         </q-field>
-        <q-field v-if="formValue.deadlineOption!==null" icon="face" label="진행 기간을 적어주세요.">
+        <q-field v-if="formValue.deadlineOption!==null" icon="none" label="진행 기간을 적어주세요.">
           <q-datetime v-model="formValue.startDuration" type="date" float-label="시작일" />
           <q-datetime v-if="formValue.deadlineOption===true" v-model="formValue.endDuration" type="date" float-label="종료일" />
         </q-field>
@@ -46,7 +47,7 @@
             <q-radio v-model="formValue.hasPlace" class="col" :val="false" label="없어요." />
           </div>
         </q-field>
-        <q-field v-if="formValue.hasPlace" icon="face" label="공간 어디서 진행하나요?">
+        <q-field icon="none" v-if="formValue.hasPlace" label="공간 어디서 진행하나요?">
           <q-input type="text" v-model="formValue.place" placeholder="주소/호실명" />
         </q-field>
         <q-stepper-navigation>
@@ -100,7 +101,7 @@
           <q-field label="몇 회의 모임을 가지나요?">
             <q-input type="text" v-model="formValue.seminar.meeting" placeholder="예시> 주당 2회 총 8회" />
           </q-field>
-          <q-field icon="face" label="해당 내용을 가르쳐주는 튜터가 있나요?">
+          <q-field label="해당 내용을 가르쳐주는 튜터가 있나요?">
             <div class="row">
               <q-radio v-model="formValue.seminar.tutorOption" :val="true" class="col" label="있어요!" />
               <q-radio class="col" v-model="formValue.seminar.tutorOption" :val="false" label="없어요!" />
@@ -165,8 +166,8 @@
             <q-radio v-model="formValue.request.needCookie" :val="false" class="col" label="필요없어요!" />
           </div>
         </q-field>
-        <q-field label="추가적으로 필요한 도움 있으면 적어주세요">
-          <q-input v-model="formValue.request.extra" placeholder="추가 요청사항을 적어주세요." />
+        <q-field>
+          <q-input v-model="formValue.request.extra" placeholder="추가적으로 필요한 도움 있으면 적어주세요." />
         </q-field>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />

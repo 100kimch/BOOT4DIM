@@ -27,7 +27,11 @@
       <hr class="custom-hr q-hr q-my-lg">
       <q-input v-if="content.isModifying" class="custom-body q-body-1" type="textarea" v-model="content.body" hide-underline />
       <div v-if="!content.isModifying" class="custom-body" v-html="marked(content.body, { sanitize: true })"></div>
-      <p class="q-body-1">좋아요 {{ content.numLikes }}개 | 댓글 {{ content.numComments }}개</p>
+      <q-item>
+        <q-item-side left class="q-body-1" icon="thumb_up"> {{ content.numLikes }}명이 이 글을 좋아합니다.</q-item-side>
+        <q-item-main></q-item-main>
+        <q-item-side right class="q-body-1" @click.native="onClickComment(content)">댓글 {{ content.numComments }}개</q-item-side>
+      </q-item>
 
       <hr class="custom-hr q-hr q-my-lg">
       <q-btn v-if="content.isModifying" class="full-width" color='negative' label="수정 끝내기" @click="content.isModifying = false" />
@@ -45,11 +49,11 @@
         </div>
         <q-item class="q-pa-none">
           <q-item-main>
-            <q-input type="textarea" v-model="content.newCommentBody" :before="[{icon: 'sms'}]" placeholder="댓글을 입력하세요." @keyup.enter.exact="addComment(content)" @submit.prevent />
+            <q-input type="textarea" v-model="content.newCommentBody" :before="[{icon: 'sms'}]" :after="[{icon: (content.newCommentBody) ? 'send' : ''}]" placeholder="댓글을 입력하세요." @keyup.enter.exact="addComment(content)" @submit.prevent />
           </q-item-main>
-          <q-item-side right>
-            <q-btn color="primary" label="등록" @click="addComment(content)" />
-          </q-item-side>
+          <!-- <q-item-side right>
+            <q-icon color="primary" name="send" @click="addComment(content)" />
+          </q-item-side> -->
         </q-item>
       </q-list>
     </q-card>
@@ -74,11 +78,11 @@ export default {
       // setTimeout(() => {
       //   // http request
       //   // sample codes below:
-      //   let sample = Object.create(this.project.contents[0])
+      //   let sample = Object.create(this.contents[0])
       //   sample.date = new Date()
-      //   // console.log(sample, sample === this.project.contents[0])
-      //   this.project.contents.push(sample)
-      //   this.project.contents.push(sample)
+      //   // console.log(sample, sample === this.contents[0])
+      //   this.contents.push(sample)
+      //   this.contents.push(sample)
       //   done()
       // }, 10000)
     },
@@ -91,10 +95,10 @@ export default {
         cancel: true,
         preventClose: true
       }).then(() => {
-        let index = this.project.contents.indexOf(content)
-        // console.log(this.project.contents)
-        this.project.contents.splice(index, 1)
-        // console.log(this.project.contents)
+        let index = this.contents.indexOf(content)
+        // console.log(this.contents)
+        this.contents.splice(index, 1)
+        // console.log(this.contents)
       })
     },
     onModifyContent: function (content) {
@@ -164,6 +168,7 @@ export default {
         body: body
       })
       content.newCommentBody = ''
+      content.numComments += 1
     },
     loadCommentsMore: function (content) {
     }

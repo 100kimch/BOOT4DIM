@@ -1,6 +1,6 @@
 <template>
-  <q-page class="plans-page">
-    <div class="custom-box">
+  <q-page class="plans-page" padding>
+      <c-navigation />
       <h1 class="custom-title q-display-1">
         <b>연간 계획</b> 및 진행 현황</h1>
       <q-card v-if="!editable">
@@ -20,7 +20,6 @@
           <q-btn color="secondary" @click="editData()">등록</q-btn>
         </div>
       </q-card>
-    </div>
   </q-page>
 </template>
 

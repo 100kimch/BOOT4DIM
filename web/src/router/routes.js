@@ -1,11 +1,5 @@
-import Project from 'layouts/Project.vue'
-
 import Projects from 'pages/Projects.vue'
 import Plans from 'pages/Plans.vue'
-import Board from 'pages/Board.vue'
-import Notice from 'pages/Notice.vue'
-import Profile from 'pages/Profile.vue'
-import Report from 'pages/Report.vue'
 import Login from 'pages/Login.vue'
 
 import Dashboard from 'pages/admin/Dashboard.vue'
@@ -23,57 +17,70 @@ const routes = [
       },
       {
         path: 'projects',
-        component: Project,
+        name: '프로젝트',
+        component: () => import('layouts/Project.vue'),
         children: [
           {
             path: '/',
+            icon: 'home',
             component: Projects
           },
           {
             path: 'new',
+            name: '새로만들기',
             component: () => import('pages/ProjectNew.vue')
           },
           {
             path: 'detail',
+            name: '상세정보',
             component: () => import('pages/ProjectDetail.vue')
           },
           {
             path: 'sample',
+            name: '예시',
             component: () => import('pages/ProjectSample.vue')
           }
         ]
       },
       {
         path: 'plans',
+        name: '연간계획',
         component: Plans
       },
       {
         path: 'apply',
+        name: '신입지원',
         component: () => import('pages/Apply.vue')
       },
       {
         path: 'register',
+        name: '기존회원등록',
         component: () => import('pages/Register.vue')
       },
       {
         path: 'login',
+        name: '로그인',
         component: Login
       },
       {
         path: 'board',
-        component: Board
+        name: '자유게시판',
+        component: () => import('pages/Board.vue')
       },
       {
         path: 'notice',
-        component: Notice
+        name: '공지사항',
+        component: () => import('pages/Notice.vue')
       },
       {
         path: 'profile',
-        component: Profile
+        name: '프로필',
+        component: () => import('pages/Profile.vue')
       },
       {
         path: 'report',
-        component: Report
+        name: '오류신고',
+        component: () => import('pages/Report.vue')
       },
       {
         path: 'admin',

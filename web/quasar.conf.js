@@ -3,7 +3,7 @@
 module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
-    plugins: ['axios', 'customizedTime', 'account'],
+    plugins: ['axios', 'customizedTime', 'account', 'cComponents'],
     css: ['app.styl'],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
@@ -100,7 +100,11 @@ module.exports = function (ctx) {
         'QSearch',
         'QPopover',
         'QInfiniteScroll',
-        'QSpinnerDots'
+        'QSpinnerDots',
+        'QBreadcrumbs',
+        'QBreadcrumbsEl',
+        'QChipsInput',
+        'QAutocomplete'
       ],
       directives: ['Ripple', 'CloseOverlay'],
       // Quasar plugins
