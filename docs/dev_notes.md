@@ -55,3 +55,7 @@ npm i -D webpack-merge
 ### How to import an external library on Vue
 
 ![See this page](https://forum.quasar-framework.org/topic/734/how-to-load-external-dependencies-cdn-async/2)
+
+### Handling Static Assets
+
+![See this page](http://vuejs-templates.github.io/webpack/static.html)
