@@ -14,7 +14,8 @@
     "aws-amplify": "^1.1.18",
     "aws-amplify-vue": "^0.2.5",
     "axios": "^0.18.0",
-    "marked": "^0.5.2"
+    "marked": "^0.5.2",
+    "quasar": "^1.0.0-alpha.7"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
