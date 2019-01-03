@@ -8,6 +8,15 @@
 npm install --save-dev sass-loader node-sass
 ```
 
+### AWS Amplify
+
+see ![this page.](https://aws-amplify.github.io/docs/)
+
+``` bash
+npm install -g @aws-amplify/cli
+amplify configure
+```
+
 ## Trouble Shoots
 
 ### git
