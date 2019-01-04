@@ -1,6 +1,6 @@
 <template>
   <q-card v-if="type==='kakao'" :class="{'dense': dense }" @click.native="loginWithKakao">
-    <img src="/~assets/kakao_logo.png" />
+    <img src="~assets/kakao_logo.png" />
     <h1>카카오톡으로 로그인</h1>
   </q-card>
 </template>

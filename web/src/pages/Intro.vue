@@ -1,6 +1,6 @@
 <template>
   <q-page class="intro-page">
-    <q-parallax src="~assets/bg_seminar.jpg" :speed="1" :height="400">
+    <q-parallax :src="'~assets/bg_seminar.jpg'" :speed="1" :height="400">
       <h2 class="title q-display-1">Boost Your Passion,</h2>
       <h1 class="title q-display-3">부트사차원</h1>
     </q-parallax>
@@ -12,7 +12,7 @@
       </span>
     </div>
     <q-parallax class="custom-blackbox" :height="height" :class="{'custom-for-mobile': $q.platform.is.mobile}">
-      <video slot="media" poster="http://www.markhillard.com/sandbox/media/polina.jpg" :height="height + 250" autoplay loop muted>
+      <video slot="media" poster="~assets/poster_video_coding.png" :height="height + 250" autoplay loop muted>
         <source type="video/mp4" src="~assets/video_coding.mp4">
       </video>
       <h1 class="q-display-2">When hardware meets software</h1>

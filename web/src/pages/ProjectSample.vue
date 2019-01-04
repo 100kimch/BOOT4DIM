@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <c-navigation />
-    <q-jumbotron dark img-src="~assets/boot_project_boot4dust.jpg">
+    <q-jumbotron dark :img-src="'~assets/boot_project_boot4dust.jpg'">
       <h2 class="q-body-2">프로젝트</h2>
       <h1 class="q-display-2">{{ project.name }}</h1>
       <hr class="q-hr q-my-lg">
