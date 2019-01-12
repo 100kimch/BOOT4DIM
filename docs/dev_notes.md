@@ -72,7 +72,7 @@ npm i -D webpack-merge
 
 #### Error in ./src/aws-exports.js
 
-- JSlint Problem. Set grammar as JSlint hints
+- JSlint Problem. Set grammar as JSlint hints or edit .eslintignore
 
 ### Vue
 

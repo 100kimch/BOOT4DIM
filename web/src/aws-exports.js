@@ -19,7 +19,10 @@ const awsmobile =  {
             "tableName": "dynamoBoot4Dim",
             "region": "us-west-2"
         }
-    ]
+    ],
+    "aws_content_delivery_bucket": "hostingbucket-boot4dim",
+    "aws_content_delivery_bucket_region": "us-west-2",
+    "aws_content_delivery_url": "https://d398e056hnettz.cloudfront.net"
 };
 
 

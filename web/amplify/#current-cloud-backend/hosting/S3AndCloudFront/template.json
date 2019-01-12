@@ -8,8 +8,8 @@
             "Properties": {
                 "BucketName": "hostingbucket-boot4dim",
                 "WebsiteConfiguration": {
-                    "IndexDocument": "web/dist/pwa-mat/index.html",
-                    "ErrorDocument": "web/dist/pwa-mat/index.html"
+                    "IndexDocument": "index.html",
+                    "ErrorDocument": "index.html"
                 },
                 "CorsConfiguration": {
                     "CorsRules": [
@@ -131,7 +131,7 @@
                         "MinTTL": 60,
                         "Compress": true
                     },
-                    "DefaultRootObject": "web/dist/pwa-mat/index.html",
+                    "DefaultRootObject": "index.html",
                     "CustomErrorResponses": [
                         {
                             "ErrorCachingMinTTL": 300,

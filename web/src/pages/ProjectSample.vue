@@ -136,7 +136,7 @@
       <q-list>
         <q-item class="row q-py-none">
           <q-item-side class="col-5 q-pa-xs">
-            <img class="full-width" src="~statics/icon_project.jpg" />
+            <img class="full-width" src="/statics/icon_project.jpg" />
           </q-item-side>
           <q-item-main class="col">
             <h1 class="q-title">프로젝트 매니저님 안녕하세요!</h1>
