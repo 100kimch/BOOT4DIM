@@ -1,0 +1,9 @@
+{
+    "bucketName": "bucket-boot4dim",
+    "authPolicyName": "s3_amplify_8ca3307f",
+    "unauthPolicyName": "s3_amplify_8ca3307f",
+    "authRoleName": "web-20190111112042-authRole",
+    "unauthRoleName": "web-20190111112042-unauthRole",
+    "authPermissions": "rw",
+    "unauthPermissions": "r"
+}

@@ -1,0 +1,5 @@
+{
+    "tableName": "dynamoBoot4Dim",
+    "partitionKeyName": "id",
+    "partitionKeyType": "S"
+}

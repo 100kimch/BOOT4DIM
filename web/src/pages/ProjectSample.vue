@@ -52,6 +52,7 @@
                 <img :src="picture.src" />
               </q-carousel-slide>
             </q-carousel>
+            <amplify-photo-picker v-bind:photoPickerConfig="photoPickerConfig" header="'사진 추가'" path="'/test'" accept="'image/*'"></amplify-photo-picker>
             <q-card class="text-black">
               <h1 class="q-display-1">{{ pictureDetail.title }}</h1>
               <h2 class="q-body-2 text-gray">{{ pictureDetail.date }}</h2>
@@ -608,6 +609,7 @@ export default {
   },
   data () {
     return {
+      photoPickerConfig: null,
       selectedTab: null,
       pictureSlide: null,
       pictureVisible: false,

@@ -12,7 +12,7 @@
       </span>
     </div>
     <q-parallax class="custom-blackbox" :height="height" :class="{'custom-for-mobile': $q.platform.is.mobile}">
-      <video slot="media" poster="~assets/poster_video_coding.png" :height="height + 250" autoplay loop muted>
+      <video slot="media" poster="/assets/poster_video_coding.png" :height="height + 250" autoplay loop muted>
         <source type="video/mp4" src="~assets/video_coding.mp4">
       </video>
       <h1 class="q-display-2">When hardware meets software</h1>
@@ -52,10 +52,17 @@
 <script>
 export default {
   name: 'page-intro',
-  mounted () {
+  async mounted () {
     if (this.$q.platform.is.mobile) {
       this.height = 500
     }
+    const sampleFile = {
+      name: 'Sample Todo 1',
+      description: 'Sample Todo Contents.'
+    }
+
+    const newTodo = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createTodo, { input: sampleFile }))
+    console.log(newTodo)
   },
   methods: {
     go: function (url) {

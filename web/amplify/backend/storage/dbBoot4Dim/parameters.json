@@ -1,0 +1,5 @@
+{
+    "tableName": "dbBoot4Dim",
+    "partitionKeyName": "id",
+    "partitionKeyType": "B"
+}

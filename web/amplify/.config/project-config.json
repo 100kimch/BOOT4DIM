@@ -1,0 +1,20 @@
+{
+    "projectName": "web",
+    "projectPath": "/Users/KJH/OneDrive - konkuk.ac.kr(1)/Boot/git/web",
+    "defaultEditor": "code",
+    "frontendHandler": {
+        "javascript": "/Users/KJH/.npm-global/lib/node_modules/@aws-amplify/cli/node_modules/amplify-frontend-javascript"
+    },
+    "javascript": {
+        "framework": "vue",
+        "config": {
+            "SourceDir": "src",
+            "DistributionDir": "dist",
+            "BuildCommand": "quasar build -m pwa",
+            "StartCommand": "quasar serve"
+        }
+    },
+    "providers": {
+        "awscloudformation": "/Users/KJH/.npm-global/lib/node_modules/@aws-amplify/cli/node_modules/amplify-provider-awscloudformation"
+    }
+}

@@ -11,6 +11,7 @@
       </q-step>
       <q-step title="가입방법 선택">
         <h2 class="q-title">카카오 계정에 로그인해주세요!</h2>
+        <c-login-btn type="kakao" dense></c-login-btn>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
@@ -30,6 +31,9 @@
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
+      <q-step title="최종 확인">
+        <amplify-sign-up v-bind:signUpConfig="signUpConfig" header="'회원가입'"></amplify-sign-up>
+      </q-step>
     </q-stepper>
   </q-page>
 </template>
@@ -39,6 +43,7 @@ export default {
   // name: 'PageName',
   data () {
     return {
+      signUpConfig: {},
       formValue: {}
     }
   }

@@ -18,11 +18,12 @@
         </q-stepper-navigation>
       </q-step>
       <q-step title="기본정보 입력">
+        <amplify-sign-up v-bind:signUpConfig="signUpConfig"></amplify-sign-up>
         <q-field icon="face">
           <q-input v-model="formValue.name" float-label="이름" autofocus />
           <q-input v-model="formValue.schoolNumber" type="number" float-label="학번" />
           <q-input v-model="formValue.major" float-label="학과" />
-          <q-datetime type="date"  default-value="1995-01-01" v-model="formValue.birthdate" float-label="생년월일" />
+          <q-datetime type="date" default-value="1995-01-01" v-model="formValue.birthdate" float-label="생년월일" />
           <q-input type="tel" v-model="formValue.phone" float-label="전화번호" />
           <q-input v-model="formValue.address" float-label="거주지" />
         </q-field>
@@ -53,6 +54,7 @@ export default {
   data () {
     return {
       enableApply: true,
+      signUpConfig: null,
       formValue: {
         name: null,
         SNSLogin: null,

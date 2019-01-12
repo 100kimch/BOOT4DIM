@@ -4,7 +4,7 @@
 
 ### scss
 
-``` bash
+```bash
 npm install --save-dev sass-loader node-sass
 ```
 
@@ -12,7 +12,7 @@ npm install --save-dev sass-loader node-sass
 
 see ![this page.](https://aws-amplify.github.io/docs/)
 
-``` bash
+```bash
 npm install -g @aws-amplify/cli
 amplify configure
 ```
@@ -23,7 +23,7 @@ amplify configure
 
 #### Git merge local repositories with remote
 
-``` bash
+```bash
 git merge origin/master --allow-unrelated-histories
 git commit -m "Initialization"
 git push --set-upstream origin master
@@ -33,7 +33,7 @@ git push --set-upstream origin master
 
 #### Vue command not found
 
-``` bash
+```bash
 # place at ~/.zshrc
 export PATH=$PATH:/Users/KJH/.npm-global/bin
 ```
@@ -42,9 +42,13 @@ export PATH=$PATH:/Users/KJH/.npm-global/bin
 
 #### Error: Cannot find module 'webpack-merge'
 
-``` bash
+```bash
 npm i -D webpack-merge
 ```
+
+#### Error in ./src/aws-exports.js
+
+- JSlint Problem. Set grammar as JSlint hints
 
 ### Vue
 
