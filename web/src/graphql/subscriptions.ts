@@ -1,162 +1,114 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBlog = `subscription OnCreateBlog {
-  onCreateBlog {
+export const onCreateNotice = `subscription OnCreateNotice {
+  onCreateNotice {
     id
-    name
-    posts {
-      items {
-        id
-        title
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onUpdateBlog = `subscription OnUpdateBlog {
-  onUpdateBlog {
-    id
-    name
-    posts {
-      items {
-        id
-        title
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onDeleteBlog = `subscription OnDeleteBlog {
-  onDeleteBlog {
-    id
-    name
-    posts {
-      items {
-        id
-        title
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const onCreatePost = `subscription OnCreatePost {
-  onCreatePost {
-    id
-    title
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-    }
+    body
     comments {
-      items {
-        id
-        content
-      }
-      nextToken
+      id
+      body
     }
+    contributor {
+      label
+    }
+    date
+    headerImgSrc
+    isLike
+    isModifying
+    numComments
+    numIssue
+    numLikes
+    numShares
+    themeColor
+    title
   }
 }
 `;
-export const onUpdatePost = `subscription OnUpdatePost {
-  onUpdatePost {
+export const onUpdateNotice = `subscription OnUpdateNotice {
+  onUpdateNotice {
     id
-    title
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-    }
+    body
     comments {
-      items {
-        id
-        content
-      }
-      nextToken
+      id
+      body
     }
+    contributor {
+      label
+    }
+    date
+    headerImgSrc
+    isLike
+    isModifying
+    numComments
+    numIssue
+    numLikes
+    numShares
+    themeColor
+    title
   }
 }
 `;
-export const onDeletePost = `subscription OnDeletePost {
-  onDeletePost {
+export const onDeleteNotice = `subscription OnDeleteNotice {
+  onDeleteNotice {
     id
-    title
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-    }
+    body
     comments {
-      items {
-        id
-        content
-      }
-      nextToken
+      id
+      body
     }
+    contributor {
+      label
+    }
+    date
+    headerImgSrc
+    isLike
+    isModifying
+    numComments
+    numIssue
+    numLikes
+    numShares
+    themeColor
+    title
   }
 }
 `;
 export const onCreateComment = `subscription OnCreateComment {
   onCreateComment {
     id
-    content
-    post {
-      id
-      title
-      blog {
-        id
-        name
-      }
-      comments {
-        nextToken
-      }
-    }
+    body
   }
 }
 `;
 export const onUpdateComment = `subscription OnUpdateComment {
   onUpdateComment {
     id
-    content
-    post {
-      id
-      title
-      blog {
-        id
-        name
-      }
-      comments {
-        nextToken
-      }
-    }
+    body
   }
 }
 `;
 export const onDeleteComment = `subscription OnDeleteComment {
   onDeleteComment {
     id
-    content
-    post {
-      id
-      title
-      blog {
-        id
-        name
-      }
-      comments {
-        nextToken
-      }
-    }
+    body
+  }
+}
+`;
+export const onCreateUser = `subscription OnCreateUser {
+  onCreateUser {
+    label
+  }
+}
+`;
+export const onUpdateUser = `subscription OnUpdateUser {
+  onUpdateUser {
+    label
+  }
+}
+`;
+export const onDeleteUser = `subscription OnDeleteUser {
+  onDeleteUser {
+    label
   }
 }
 `;

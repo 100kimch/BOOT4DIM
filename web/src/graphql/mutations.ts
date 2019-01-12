@@ -1,162 +1,114 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
-export const createBlog = `mutation CreateBlog($input: CreateBlogInput!) {
-  createBlog(input: $input) {
+export const createNotice = `mutation CreateNotice($input: CreateNoticeInput!) {
+  createNotice(input: $input) {
     id
-    name
-    posts {
-      items {
-        id
-        title
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const updateBlog = `mutation UpdateBlog($input: UpdateBlogInput!) {
-  updateBlog(input: $input) {
-    id
-    name
-    posts {
-      items {
-        id
-        title
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const deleteBlog = `mutation DeleteBlog($input: DeleteBlogInput!) {
-  deleteBlog(input: $input) {
-    id
-    name
-    posts {
-      items {
-        id
-        title
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const createPost = `mutation CreatePost($input: CreatePostInput!) {
-  createPost(input: $input) {
-    id
-    title
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-    }
+    body
     comments {
-      items {
-        id
-        content
-      }
-      nextToken
+      id
+      body
     }
+    contributor {
+      label
+    }
+    date
+    headerImgSrc
+    isLike
+    isModifying
+    numComments
+    numIssue
+    numLikes
+    numShares
+    themeColor
+    title
   }
 }
 `;
-export const updatePost = `mutation UpdatePost($input: UpdatePostInput!) {
-  updatePost(input: $input) {
+export const updateNotice = `mutation UpdateNotice($input: UpdateNoticeInput!) {
+  updateNotice(input: $input) {
     id
-    title
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-    }
+    body
     comments {
-      items {
-        id
-        content
-      }
-      nextToken
+      id
+      body
     }
+    contributor {
+      label
+    }
+    date
+    headerImgSrc
+    isLike
+    isModifying
+    numComments
+    numIssue
+    numLikes
+    numShares
+    themeColor
+    title
   }
 }
 `;
-export const deletePost = `mutation DeletePost($input: DeletePostInput!) {
-  deletePost(input: $input) {
+export const deleteNotice = `mutation DeleteNotice($input: DeleteNoticeInput!) {
+  deleteNotice(input: $input) {
     id
-    title
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-    }
+    body
     comments {
-      items {
-        id
-        content
-      }
-      nextToken
+      id
+      body
     }
+    contributor {
+      label
+    }
+    date
+    headerImgSrc
+    isLike
+    isModifying
+    numComments
+    numIssue
+    numLikes
+    numShares
+    themeColor
+    title
   }
 }
 `;
 export const createComment = `mutation CreateComment($input: CreateCommentInput!) {
   createComment(input: $input) {
     id
-    content
-    post {
-      id
-      title
-      blog {
-        id
-        name
-      }
-      comments {
-        nextToken
-      }
-    }
+    body
   }
 }
 `;
 export const updateComment = `mutation UpdateComment($input: UpdateCommentInput!) {
   updateComment(input: $input) {
     id
-    content
-    post {
-      id
-      title
-      blog {
-        id
-        name
-      }
-      comments {
-        nextToken
-      }
-    }
+    body
   }
 }
 `;
 export const deleteComment = `mutation DeleteComment($input: DeleteCommentInput!) {
   deleteComment(input: $input) {
     id
-    content
-    post {
-      id
-      title
-      blog {
-        id
-        name
-      }
-      comments {
-        nextToken
-      }
-    }
+    body
+  }
+}
+`;
+export const createUser = `mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    label
+  }
+}
+`;
+export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
+  updateUser(input: $input) {
+    label
+  }
+}
+`;
+export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
+  deleteUser(input: $input) {
+    label
   }
 }
 `;

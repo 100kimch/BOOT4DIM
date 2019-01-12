@@ -1,74 +1,56 @@
 // tslint:disable
 // this is an auto generated file. This will be overwritten
 
-export const getBlog = `query GetBlog($id: ID!) {
-  getBlog(id: $id) {
+export const getNotice = `query GetNotice($id: ID!) {
+  getNotice(id: $id) {
     id
-    name
-    posts {
-      items {
-        id
-        title
-      }
-      nextToken
-    }
-  }
-}
-`;
-export const listBlogs = `query ListBlogs(
-  $filter: ModelBlogFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
-      posts {
-        nextToken
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const getPost = `query GetPost($id: ID!) {
-  getPost(id: $id) {
-    id
-    title
-    blog {
-      id
-      name
-      posts {
-        nextToken
-      }
-    }
+    body
     comments {
-      items {
-        id
-        content
-      }
-      nextToken
+      id
+      body
     }
+    contributor {
+      label
+    }
+    date
+    headerImgSrc
+    isLike
+    isModifying
+    numComments
+    numIssue
+    numLikes
+    numShares
+    themeColor
+    title
   }
 }
 `;
-export const listPosts = `query ListPosts(
-  $filter: ModelPostFilterInput
+export const listNotices = `query ListNotices(
+  $filter: ModelNoticeFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listNotices(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      title
-      blog {
-        id
-        name
-      }
+      body
       comments {
-        nextToken
+        id
+        body
       }
+      contributor {
+        label
+      }
+      date
+      headerImgSrc
+      isLike
+      isModifying
+      numComments
+      numIssue
+      numLikes
+      numShares
+      themeColor
+      title
     }
     nextToken
   }
@@ -77,18 +59,7 @@ export const listPosts = `query ListPosts(
 export const getComment = `query GetComment($id: ID!) {
   getComment(id: $id) {
     id
-    content
-    post {
-      id
-      title
-      blog {
-        id
-        name
-      }
-      comments {
-        nextToken
-      }
-    }
+    body
   }
 }
 `;
@@ -100,11 +71,26 @@ export const listComments = `query ListComments(
   listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      content
-      post {
-        id
-        title
-      }
+      body
+    }
+    nextToken
+  }
+}
+`;
+export const getUser = `query GetUser($id: ID!) {
+  getUser(id: $id) {
+    label
+  }
+}
+`;
+export const listUsers = `query ListUsers(
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      label
     }
     nextToken
   }

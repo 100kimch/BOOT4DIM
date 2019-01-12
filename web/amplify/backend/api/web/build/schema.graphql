@@ -1,20 +1,44 @@
-type Blog {
+interface Post {
   id: ID!
-  name: String!
-  posts(filter: ModelPostFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelPostConnection
+  body: String!
+  comments: [Comment!]!
+  contributor: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  isModifying: Boolean
+  numComments: Int
+  numIssue: Int!
+  numLikes: Int!
+  numShares: Int!
+  themeColor: Boolean
+  title: String
 }
 
-type Post {
+type Notice {
   id: ID!
-  title: String!
-  blog: Blog
-  comments(filter: ModelCommentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCommentConnection
+  body: String!
+  comments: [Comment!]!
+  contributor: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  isModifying: Boolean
+  numComments: Int
+  numIssue: Int!
+  numLikes: Int!
+  numShares: Int!
+  themeColor: Boolean
+  title: String
 }
 
 type Comment {
   id: ID!
-  content: String
-  post: Post
+  body: String!
+}
+
+type User {
+  label: String!
 }
 
 enum ModelSortDirection {
@@ -22,8 +46,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelBlogConnection {
-  items: [Blog]
+type ModelNoticeConnection {
+  items: [Notice]
   nextToken: String
 }
 
@@ -82,88 +106,89 @@ input ModelBooleanFilterInput {
   eq: Boolean
 }
 
-input ModelBlogFilterInput {
+input ModelNoticeFilterInput {
   id: ModelIDFilterInput
-  name: ModelStringFilterInput
-  and: [ModelBlogFilterInput]
-  or: [ModelBlogFilterInput]
-  not: ModelBlogFilterInput
+  body: ModelStringFilterInput
+  date: ModelStringFilterInput
+  headerImgSrc: ModelStringFilterInput
+  isLike: ModelBooleanFilterInput
+  isModifying: ModelBooleanFilterInput
+  numComments: ModelIntFilterInput
+  numIssue: ModelIntFilterInput
+  numLikes: ModelIntFilterInput
+  numShares: ModelIntFilterInput
+  themeColor: ModelBooleanFilterInput
+  title: ModelStringFilterInput
+  and: [ModelNoticeFilterInput]
+  or: [ModelNoticeFilterInput]
+  not: ModelNoticeFilterInput
 }
 
 type Query {
-  getBlog(id: ID!): Blog
-  listBlogs(filter: ModelBlogFilterInput, limit: Int, nextToken: String): ModelBlogConnection
-  getPost(id: ID!): Post
-  listPosts(filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection
+  getNotice(id: ID!): Notice
+  listNotices(filter: ModelNoticeFilterInput, limit: Int, nextToken: String): ModelNoticeConnection
   getComment(id: ID!): Comment
   listComments(filter: ModelCommentFilterInput, limit: Int, nextToken: String): ModelCommentConnection
+  getUser(id: ID!): User
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
 }
 
-input CreateBlogInput {
+input CreateNoticeInput {
   id: ID
-  name: String!
+  body: String!
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  isModifying: Boolean
+  numComments: Int
+  numIssue: Int!
+  numLikes: Int!
+  numShares: Int!
+  themeColor: Boolean
+  title: String
 }
 
-input UpdateBlogInput {
+input UpdateNoticeInput {
   id: ID!
-  name: String
+  body: String
+  date: String
+  headerImgSrc: String
+  isLike: Boolean
+  isModifying: Boolean
+  numComments: Int
+  numIssue: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: Boolean
+  title: String
 }
 
-input DeleteBlogInput {
+input DeleteNoticeInput {
   id: ID
 }
 
 type Mutation {
-  createBlog(input: CreateBlogInput!): Blog
-  updateBlog(input: UpdateBlogInput!): Blog
-  deleteBlog(input: DeleteBlogInput!): Blog
-  createPost(input: CreatePostInput!): Post
-  updatePost(input: UpdatePostInput!): Post
-  deletePost(input: DeletePostInput!): Post
+  createNotice(input: CreateNoticeInput!): Notice
+  updateNotice(input: UpdateNoticeInput!): Notice
+  deleteNotice(input: DeleteNoticeInput!): Notice
   createComment(input: CreateCommentInput!): Comment
   updateComment(input: UpdateCommentInput!): Comment
   deleteComment(input: DeleteCommentInput!): Comment
+  createUser(input: CreateUserInput!): User
+  updateUser(input: UpdateUserInput!): User
+  deleteUser(input: DeleteUserInput!): User
 }
 
 type Subscription {
-  onCreateBlog: Blog @aws_subscribe(mutations: ["createBlog"])
-  onUpdateBlog: Blog @aws_subscribe(mutations: ["updateBlog"])
-  onDeleteBlog: Blog @aws_subscribe(mutations: ["deleteBlog"])
-  onCreatePost: Post @aws_subscribe(mutations: ["createPost"])
-  onUpdatePost: Post @aws_subscribe(mutations: ["updatePost"])
-  onDeletePost: Post @aws_subscribe(mutations: ["deletePost"])
+  onCreateNotice: Notice @aws_subscribe(mutations: ["createNotice"])
+  onUpdateNotice: Notice @aws_subscribe(mutations: ["updateNotice"])
+  onDeleteNotice: Notice @aws_subscribe(mutations: ["deleteNotice"])
   onCreateComment: Comment @aws_subscribe(mutations: ["createComment"])
   onUpdateComment: Comment @aws_subscribe(mutations: ["updateComment"])
   onDeleteComment: Comment @aws_subscribe(mutations: ["deleteComment"])
-}
-
-type ModelPostConnection {
-  items: [Post]
-  nextToken: String
-}
-
-input ModelPostFilterInput {
-  id: ModelIDFilterInput
-  title: ModelStringFilterInput
-  and: [ModelPostFilterInput]
-  or: [ModelPostFilterInput]
-  not: ModelPostFilterInput
-}
-
-input CreatePostInput {
-  id: ID
-  title: String!
-  postBlogId: ID
-}
-
-input UpdatePostInput {
-  id: ID!
-  title: String
-  postBlogId: ID
-}
-
-input DeletePostInput {
-  id: ID
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"])
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"])
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"])
 }
 
 type ModelCommentConnection {
@@ -173,7 +198,7 @@ type ModelCommentConnection {
 
 input ModelCommentFilterInput {
   id: ModelIDFilterInput
-  content: ModelStringFilterInput
+  body: ModelStringFilterInput
   and: [ModelCommentFilterInput]
   or: [ModelCommentFilterInput]
   not: ModelCommentFilterInput
@@ -181,16 +206,38 @@ input ModelCommentFilterInput {
 
 input CreateCommentInput {
   id: ID
-  content: String
-  commentPostId: ID
+  body: String!
 }
 
 input UpdateCommentInput {
   id: ID!
-  content: String
-  commentPostId: ID
+  body: String
 }
 
 input DeleteCommentInput {
+  id: ID
+}
+
+type ModelUserConnection {
+  items: [User]
+  nextToken: String
+}
+
+input ModelUserFilterInput {
+  label: ModelStringFilterInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+input CreateUserInput {
+  label: String!
+}
+
+input UpdateUserInput {
+  label: String
+}
+
+input DeleteUserInput {
   id: ID
 }

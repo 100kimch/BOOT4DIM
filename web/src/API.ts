@@ -1,58 +1,82 @@
 /* tslint:disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateBlogInput = {
+export type CreateNoticeInput = {
   id?: string | null,
-  name: string,
-};
-
-export type UpdateBlogInput = {
-  id: string,
-  name?: string | null,
-};
-
-export type DeleteBlogInput = {
-  id?: string | null,
-};
-
-export type CreatePostInput = {
-  id?: string | null,
-  title: string,
-  postBlogId?: string | null,
-};
-
-export type UpdatePostInput = {
-  id: string,
+  body: string,
+  date: string,
+  headerImgSrc?: string | null,
+  isLike?: boolean | null,
+  isModifying?: boolean | null,
+  numComments?: number | null,
+  numIssue: number,
+  numLikes: number,
+  numShares: number,
+  themeColor?: boolean | null,
   title?: string | null,
-  postBlogId?: string | null,
 };
 
-export type DeletePostInput = {
+export type UpdateNoticeInput = {
+  id: string,
+  body?: string | null,
+  date?: string | null,
+  headerImgSrc?: string | null,
+  isLike?: boolean | null,
+  isModifying?: boolean | null,
+  numComments?: number | null,
+  numIssue?: number | null,
+  numLikes?: number | null,
+  numShares?: number | null,
+  themeColor?: boolean | null,
+  title?: string | null,
+};
+
+export type DeleteNoticeInput = {
   id?: string | null,
 };
 
 export type CreateCommentInput = {
   id?: string | null,
-  content?: string | null,
-  commentPostId?: string | null,
+  body: string,
 };
 
 export type UpdateCommentInput = {
   id: string,
-  content?: string | null,
-  commentPostId?: string | null,
+  body?: string | null,
 };
 
 export type DeleteCommentInput = {
   id?: string | null,
 };
 
-export type ModelBlogFilterInput = {
+export type CreateUserInput = {
+  label: string,
+};
+
+export type UpdateUserInput = {
+  label?: string | null,
+};
+
+export type DeleteUserInput = {
+  id?: string | null,
+};
+
+export type ModelNoticeFilterInput = {
   id?: ModelIDFilterInput | null,
-  name?: ModelStringFilterInput | null,
-  and?: Array< ModelBlogFilterInput | null > | null,
-  or?: Array< ModelBlogFilterInput | null > | null,
-  not?: ModelBlogFilterInput | null,
+  body?: ModelStringFilterInput | null,
+  date?: ModelStringFilterInput | null,
+  headerImgSrc?: ModelStringFilterInput | null,
+  isLike?: ModelBooleanFilterInput | null,
+  isModifying?: ModelBooleanFilterInput | null,
+  numComments?: ModelIntFilterInput | null,
+  numIssue?: ModelIntFilterInput | null,
+  numLikes?: ModelIntFilterInput | null,
+  numShares?: ModelIntFilterInput | null,
+  themeColor?: ModelBooleanFilterInput | null,
+  title?: ModelStringFilterInput | null,
+  and?: Array< ModelNoticeFilterInput | null > | null,
+  or?: Array< ModelNoticeFilterInput | null > | null,
+  not?: ModelNoticeFilterInput | null,
 };
 
 export type ModelIDFilterInput = {
@@ -81,172 +105,128 @@ export type ModelStringFilterInput = {
   beginsWith?: string | null,
 };
 
-export type ModelPostFilterInput = {
-  id?: ModelIDFilterInput | null,
-  title?: ModelStringFilterInput | null,
-  and?: Array< ModelPostFilterInput | null > | null,
-  or?: Array< ModelPostFilterInput | null > | null,
-  not?: ModelPostFilterInput | null,
+export type ModelBooleanFilterInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+};
+
+export type ModelIntFilterInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  contains?: number | null,
+  notContains?: number | null,
+  between?: Array< number | null > | null,
 };
 
 export type ModelCommentFilterInput = {
   id?: ModelIDFilterInput | null,
-  content?: ModelStringFilterInput | null,
+  body?: ModelStringFilterInput | null,
   and?: Array< ModelCommentFilterInput | null > | null,
   or?: Array< ModelCommentFilterInput | null > | null,
   not?: ModelCommentFilterInput | null,
 };
 
-export type CreateBlogMutationVariables = {
-  input: CreateBlogInput,
+export type ModelUserFilterInput = {
+  label?: ModelStringFilterInput | null,
+  and?: Array< ModelUserFilterInput | null > | null,
+  or?: Array< ModelUserFilterInput | null > | null,
+  not?: ModelUserFilterInput | null,
 };
 
-export type CreateBlogMutation = {
-  createBlog:  {
-    __typename: "Blog",
+export type CreateNoticeMutationVariables = {
+  input: CreateNoticeInput,
+};
+
+export type CreateNoticeMutation = {
+  createNotice:  {
+    __typename: "Notice",
     id: string,
-    name: string,
-    posts:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type UpdateBlogMutationVariables = {
-  input: UpdateBlogInput,
-};
-
-export type UpdateBlogMutation = {
-  updateBlog:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type DeleteBlogMutationVariables = {
-  input: DeleteBlogInput,
-};
-
-export type DeleteBlogMutation = {
-  deleteBlog:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type CreatePostMutationVariables = {
-  input: CreatePostInput,
-};
-
-export type CreatePostMutation = {
-  createPost:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog:  {
-      __typename: "Blog",
+    body: string,
+    comments:  Array< {
+      __typename: "Comment",
       id: string,
-      name: string,
-      posts:  {
-        __typename: "ModelPostConnection",
-        nextToken: string | null,
-      } | null,
+      body: string,
+    } >,
+    contributor:  {
+      __typename: "User",
+      label: string,
     } | null,
-    comments:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
+    date: string,
+    headerImgSrc: string | null,
+    isLike: boolean | null,
+    isModifying: boolean | null,
+    numComments: number | null,
+    numIssue: number,
+    numLikes: number,
+    numShares: number,
+    themeColor: boolean | null,
+    title: string | null,
   } | null,
 };
 
-export type UpdatePostMutationVariables = {
-  input: UpdatePostInput,
+export type UpdateNoticeMutationVariables = {
+  input: UpdateNoticeInput,
 };
 
-export type UpdatePostMutation = {
-  updatePost:  {
-    __typename: "Post",
+export type UpdateNoticeMutation = {
+  updateNotice:  {
+    __typename: "Notice",
     id: string,
-    title: string,
-    blog:  {
-      __typename: "Blog",
+    body: string,
+    comments:  Array< {
+      __typename: "Comment",
       id: string,
-      name: string,
-      posts:  {
-        __typename: "ModelPostConnection",
-        nextToken: string | null,
-      } | null,
+      body: string,
+    } >,
+    contributor:  {
+      __typename: "User",
+      label: string,
     } | null,
-    comments:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
+    date: string,
+    headerImgSrc: string | null,
+    isLike: boolean | null,
+    isModifying: boolean | null,
+    numComments: number | null,
+    numIssue: number,
+    numLikes: number,
+    numShares: number,
+    themeColor: boolean | null,
+    title: string | null,
   } | null,
 };
 
-export type DeletePostMutationVariables = {
-  input: DeletePostInput,
+export type DeleteNoticeMutationVariables = {
+  input: DeleteNoticeInput,
 };
 
-export type DeletePostMutation = {
-  deletePost:  {
-    __typename: "Post",
+export type DeleteNoticeMutation = {
+  deleteNotice:  {
+    __typename: "Notice",
     id: string,
-    title: string,
-    blog:  {
-      __typename: "Blog",
+    body: string,
+    comments:  Array< {
+      __typename: "Comment",
       id: string,
-      name: string,
-      posts:  {
-        __typename: "ModelPostConnection",
-        nextToken: string | null,
-      } | null,
+      body: string,
+    } >,
+    contributor:  {
+      __typename: "User",
+      label: string,
     } | null,
-    comments:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
+    date: string,
+    headerImgSrc: string | null,
+    isLike: boolean | null,
+    isModifying: boolean | null,
+    numComments: number | null,
+    numIssue: number,
+    numLikes: number,
+    numShares: number,
+    themeColor: boolean | null,
+    title: string | null,
   } | null,
 };
 
@@ -258,21 +238,7 @@ export type CreateCommentMutation = {
   createComment:  {
     __typename: "Comment",
     id: string,
-    content: string | null,
-    post:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-      } | null,
-      comments:  {
-        __typename: "ModelCommentConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
+    body: string,
   } | null,
 };
 
@@ -284,21 +250,7 @@ export type UpdateCommentMutation = {
   updateComment:  {
     __typename: "Comment",
     id: string,
-    content: string | null,
-    post:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-      } | null,
-      comments:  {
-        __typename: "ModelCommentConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
+    body: string,
   } | null,
 };
 
@@ -310,119 +262,106 @@ export type DeleteCommentMutation = {
   deleteComment:  {
     __typename: "Comment",
     id: string,
-    content: string | null,
-    post:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-      } | null,
-      comments:  {
-        __typename: "ModelCommentConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
+    body: string,
   } | null,
 };
 
-export type GetBlogQueryVariables = {
+export type CreateUserMutationVariables = {
+  input: CreateUserInput,
+};
+
+export type CreateUserMutation = {
+  createUser:  {
+    __typename: "User",
+    label: string,
+  } | null,
+};
+
+export type UpdateUserMutationVariables = {
+  input: UpdateUserInput,
+};
+
+export type UpdateUserMutation = {
+  updateUser:  {
+    __typename: "User",
+    label: string,
+  } | null,
+};
+
+export type DeleteUserMutationVariables = {
+  input: DeleteUserInput,
+};
+
+export type DeleteUserMutation = {
+  deleteUser:  {
+    __typename: "User",
+    label: string,
+  } | null,
+};
+
+export type GetNoticeQueryVariables = {
   id: string,
 };
 
-export type GetBlogQuery = {
-  getBlog:  {
-    __typename: "Blog",
+export type GetNoticeQuery = {
+  getNotice:  {
+    __typename: "Notice",
     id: string,
-    name: string,
-    posts:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-      } | null > | null,
-      nextToken: string | null,
+    body: string,
+    comments:  Array< {
+      __typename: "Comment",
+      id: string,
+      body: string,
+    } >,
+    contributor:  {
+      __typename: "User",
+      label: string,
     } | null,
+    date: string,
+    headerImgSrc: string | null,
+    isLike: boolean | null,
+    isModifying: boolean | null,
+    numComments: number | null,
+    numIssue: number,
+    numLikes: number,
+    numShares: number,
+    themeColor: boolean | null,
+    title: string | null,
   } | null,
 };
 
-export type ListBlogsQueryVariables = {
-  filter?: ModelBlogFilterInput | null,
+export type ListNoticesQueryVariables = {
+  filter?: ModelNoticeFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListBlogsQuery = {
-  listBlogs:  {
-    __typename: "ModelBlogConnection",
+export type ListNoticesQuery = {
+  listNotices:  {
+    __typename: "ModelNoticeConnection",
     items:  Array< {
-      __typename: "Blog",
+      __typename: "Notice",
       id: string,
-      name: string,
-      posts:  {
-        __typename: "ModelPostConnection",
-        nextToken: string | null,
-      } | null,
-    } | null > | null,
-    nextToken: string | null,
-  } | null,
-};
-
-export type GetPostQueryVariables = {
-  id: string,
-};
-
-export type GetPostQuery = {
-  getPost:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog:  {
-      __typename: "Blog",
-      id: string,
-      name: string,
-      posts:  {
-        __typename: "ModelPostConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
-    comments:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
+      body: string,
+      comments:  Array< {
         __typename: "Comment",
         id: string,
-        content: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type ListPostsQueryVariables = {
-  filter?: ModelPostFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ListPostsQuery = {
-  listPosts:  {
-    __typename: "ModelPostConnection",
-    items:  Array< {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
+        body: string,
+      } >,
+      contributor:  {
+        __typename: "User",
+        label: string,
       } | null,
-      comments:  {
-        __typename: "ModelCommentConnection",
-        nextToken: string | null,
-      } | null,
+      date: string,
+      headerImgSrc: string | null,
+      isLike: boolean | null,
+      isModifying: boolean | null,
+      numComments: number | null,
+      numIssue: number,
+      numLikes: number,
+      numShares: number,
+      themeColor: boolean | null,
+      title: string | null,
     } | null > | null,
     nextToken: string | null,
   } | null,
@@ -436,21 +375,7 @@ export type GetCommentQuery = {
   getComment:  {
     __typename: "Comment",
     id: string,
-    content: string | null,
-    post:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-      } | null,
-      comments:  {
-        __typename: "ModelCommentConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
+    body: string,
   } | null,
 };
 
@@ -466,143 +391,118 @@ export type ListCommentsQuery = {
     items:  Array< {
       __typename: "Comment",
       id: string,
-      content: string | null,
-      post:  {
-        __typename: "Post",
-        id: string,
-        title: string,
-      } | null,
+      body: string,
     } | null > | null,
     nextToken: string | null,
   } | null,
 };
 
-export type OnCreateBlogSubscription = {
-  onCreateBlog:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
+export type GetUserQueryVariables = {
+  id: string,
+};
+
+export type GetUserQuery = {
+  getUser:  {
+    __typename: "User",
+    label: string,
   } | null,
 };
 
-export type OnUpdateBlogSubscription = {
-  onUpdateBlog:  {
-    __typename: "Blog",
-    id: string,
-    name: string,
-    posts:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
+export type ListUsersQueryVariables = {
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListUsersQuery = {
+  listUsers:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      label: string,
+    } | null > | null,
+    nextToken: string | null,
   } | null,
 };
 
-export type OnDeleteBlogSubscription = {
-  onDeleteBlog:  {
-    __typename: "Blog",
+export type OnCreateNoticeSubscription = {
+  onCreateNotice:  {
+    __typename: "Notice",
     id: string,
-    name: string,
-    posts:  {
-      __typename: "ModelPostConnection",
-      items:  Array< {
-        __typename: "Post",
-        id: string,
-        title: string,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
-  } | null,
-};
-
-export type OnCreatePostSubscription = {
-  onCreatePost:  {
-    __typename: "Post",
-    id: string,
-    title: string,
-    blog:  {
-      __typename: "Blog",
+    body: string,
+    comments:  Array< {
+      __typename: "Comment",
       id: string,
-      name: string,
-      posts:  {
-        __typename: "ModelPostConnection",
-        nextToken: string | null,
-      } | null,
+      body: string,
+    } >,
+    contributor:  {
+      __typename: "User",
+      label: string,
     } | null,
-    comments:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
+    date: string,
+    headerImgSrc: string | null,
+    isLike: boolean | null,
+    isModifying: boolean | null,
+    numComments: number | null,
+    numIssue: number,
+    numLikes: number,
+    numShares: number,
+    themeColor: boolean | null,
+    title: string | null,
   } | null,
 };
 
-export type OnUpdatePostSubscription = {
-  onUpdatePost:  {
-    __typename: "Post",
+export type OnUpdateNoticeSubscription = {
+  onUpdateNotice:  {
+    __typename: "Notice",
     id: string,
-    title: string,
-    blog:  {
-      __typename: "Blog",
+    body: string,
+    comments:  Array< {
+      __typename: "Comment",
       id: string,
-      name: string,
-      posts:  {
-        __typename: "ModelPostConnection",
-        nextToken: string | null,
-      } | null,
+      body: string,
+    } >,
+    contributor:  {
+      __typename: "User",
+      label: string,
     } | null,
-    comments:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
+    date: string,
+    headerImgSrc: string | null,
+    isLike: boolean | null,
+    isModifying: boolean | null,
+    numComments: number | null,
+    numIssue: number,
+    numLikes: number,
+    numShares: number,
+    themeColor: boolean | null,
+    title: string | null,
   } | null,
 };
 
-export type OnDeletePostSubscription = {
-  onDeletePost:  {
-    __typename: "Post",
+export type OnDeleteNoticeSubscription = {
+  onDeleteNotice:  {
+    __typename: "Notice",
     id: string,
-    title: string,
-    blog:  {
-      __typename: "Blog",
+    body: string,
+    comments:  Array< {
+      __typename: "Comment",
       id: string,
-      name: string,
-      posts:  {
-        __typename: "ModelPostConnection",
-        nextToken: string | null,
-      } | null,
+      body: string,
+    } >,
+    contributor:  {
+      __typename: "User",
+      label: string,
     } | null,
-    comments:  {
-      __typename: "ModelCommentConnection",
-      items:  Array< {
-        __typename: "Comment",
-        id: string,
-        content: string | null,
-      } | null > | null,
-      nextToken: string | null,
-    } | null,
+    date: string,
+    headerImgSrc: string | null,
+    isLike: boolean | null,
+    isModifying: boolean | null,
+    numComments: number | null,
+    numIssue: number,
+    numLikes: number,
+    numShares: number,
+    themeColor: boolean | null,
+    title: string | null,
   } | null,
 };
 
@@ -610,21 +510,7 @@ export type OnCreateCommentSubscription = {
   onCreateComment:  {
     __typename: "Comment",
     id: string,
-    content: string | null,
-    post:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-      } | null,
-      comments:  {
-        __typename: "ModelCommentConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
+    body: string,
   } | null,
 };
 
@@ -632,21 +518,7 @@ export type OnUpdateCommentSubscription = {
   onUpdateComment:  {
     __typename: "Comment",
     id: string,
-    content: string | null,
-    post:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-      } | null,
-      comments:  {
-        __typename: "ModelCommentConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
+    body: string,
   } | null,
 };
 
@@ -654,20 +526,27 @@ export type OnDeleteCommentSubscription = {
   onDeleteComment:  {
     __typename: "Comment",
     id: string,
-    content: string | null,
-    post:  {
-      __typename: "Post",
-      id: string,
-      title: string,
-      blog:  {
-        __typename: "Blog",
-        id: string,
-        name: string,
-      } | null,
-      comments:  {
-        __typename: "ModelCommentConnection",
-        nextToken: string | null,
-      } | null,
-    } | null,
+    body: string,
+  } | null,
+};
+
+export type OnCreateUserSubscription = {
+  onCreateUser:  {
+    __typename: "User",
+    label: string,
+  } | null,
+};
+
+export type OnUpdateUserSubscription = {
+  onUpdateUser:  {
+    __typename: "User",
+    label: string,
+  } | null,
+};
+
+export type OnDeleteUserSubscription = {
+  onDeleteUser:  {
+    __typename: "User",
+    label: string,
   } | null,
 };

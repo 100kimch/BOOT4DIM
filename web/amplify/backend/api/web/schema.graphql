@@ -1,59 +1,87 @@
+# type Note @model @searchable {
+#   id: ID!
+#   title: String!
+#   content: String!
+# }
+
+# type Query {
+#   getNote(id: ID!): Note
+#   listNotes: [Note]
+# }
+
+# type Mutation {
+#   createNote(title: String!, content: String!): Note
+#   updateNote(id: ID!, title: String!, content: String!): Note
+#   deleteNote(id: ID!): Note
+# }
+
+# schema {
+#   query Query
+#   mutation Mutation
+# }
+
 # scalar Date
 
-type Blog @model {
+# type Blog @model {
+#   id: ID!
+#   name: String!
+#   posts: [Post] @connection(name: "BlogPosts")
+# }
+# type Post @model {
+#   id: ID!
+#   title: String!
+#   blog: Blog @connection(name: "BlogPosts")
+#   comments: [Comment] @connection(name: "PostComments")
+# }
+# type Comment @model {
+#   id: ID!
+#   content: String
+#   post: Post @connection(name: "PostComments")
+# }
+
+interface Post {
   id: ID!
-  name: String!
-  posts: [Post] @connection(name: "BlogPosts")
+  body: String!
+  comments: [Comment!]!
+  contributor: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  isModifying: Boolean
+  numComments: Int
+  numIssue: Int!
+  numLikes: Int!
+  numShares: Int!
+  themeColor: Boolean
+  title: String
 }
-type Post @model {
+
+type Notice @model {
   id: ID!
-  title: String!
-  blog: Blog @connection(name: "BlogPosts")
-  comments: [Comment] @connection(name: "PostComments")
+  body: String!
+  comments: [Comment!]!
+  contributor: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  isModifying: Boolean
+  numComments: Int
+  numIssue: Int!
+  numLikes: Int!
+  numShares: Int!
+  themeColor: Boolean
+  title: String
 }
+
 type Comment @model {
   id: ID!
-  content: String
-  post: Post @connection(name: "PostComments")
+  body: String!
 }
 
-# interface Character {
-#   id: ID!
-#   body: String!
-#   comments: [Comments!]!
-#   contributor: User
-#   date: Date!
-#   headerImgSrc: String
-#   isLike: Boolean = false
-#   isModifying: Boolean = false
-#   numComments: Int
-#   numIssue: Int!
-#   numLikes: Int!
-#   numShares: Int!
-#   themeColor: Boolean
-#   title: String
-# }
+type User @model {
+  label: String!
+}
 
-# type Notice @model implements Post {
-#   id: ID!
-#   body: String!
-#   comments: [Comments!]!
-#   contributor: User
-#   date: Date!
-#   headerImgSrc: String
-#   isLike: Boolean = false
-#   isModifying: Boolean = false
-#   numComments: Int
-#   numIssue: Int!
-#   numLikes: Int!
-#   numShares: Int!
-#   themeColor: Boolean
-#   title: String
-# }
-
-# type PostNotice @model {
-#   body: String!
-#   comments: [Comment!]!
-
-#   id: ID!
+# type Query {
+#   comment(id: ID): Comment
 # }

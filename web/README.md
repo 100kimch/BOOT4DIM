@@ -16,7 +16,6 @@ Kim Jihyeong(100kimch@naver.com)
 - [Quasar Framework](https://quasar-framework.org/)
 - [Vue.js](https://vuejs.org/)
 - [AWS Amplify](https://aws-amplify.github.io/)
-- [Apollo Client](https://github.com/apollographql/apollo-client/)
 
 ### Backend
 
