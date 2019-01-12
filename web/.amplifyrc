@@ -10,5 +10,6 @@
             "StackName": "web-20190111112042",
             "StackId": "arn:aws:cloudformation:us-west-2:955517153658:stack/web-20190111112042/7f214960-1547-11e9-9a44-503ac9ec24fd"
         }
-    }
+    },
+    "publish-ignore": []
 }

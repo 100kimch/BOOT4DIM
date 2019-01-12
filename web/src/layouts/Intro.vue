@@ -2,7 +2,7 @@
   <q-layout>
     <q-layout-header>
       <q-toolbar class="top-toolbar" height="300">
-        <img class="logo" src="~assets/boot_logo.png">
+        <img class="logo" src="/statics/boot_logo.png">
         <q-toolbar-title>
           {{ appName }}
         </q-toolbar-title>
@@ -365,7 +365,8 @@ button + button {
 .q-card {
   background: white;
   margin-bottom: 0.5rem;
-  .q-btn:hover, .q-btn:focus {
+  .q-btn:hover,
+  .q-btn:focus {
     transform: scale(1.1);
   }
 }

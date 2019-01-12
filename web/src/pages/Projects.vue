@@ -25,7 +25,7 @@
       <div class="q-body-2 q-mb-md">로그인한 부트사차원 부원만 사용하실 수 있습니다.</div>
       <q-btn @click="go('/projects/new')" color="primary" class="q-py-sm q-px-xl" label="프로젝트 생성하기" />
     </q-jumbotron>
-    <q-jumbotron dark :img-src="'/assets/boot_project_boot4dust.jpg'">
+    <q-jumbotron dark :img-src="'/statics/boot_project_boot4dust.jpg'">
       <div class="custom-heading q-display-3">
         <span>Boot4Dust </span>
       </div>

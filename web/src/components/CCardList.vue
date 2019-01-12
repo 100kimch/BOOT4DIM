@@ -131,21 +131,21 @@ export default {
         actions: [
           {
             label: '카카오톡',
-            avatar: '~assets/kakao_logo.png',
+            avatar: '/statics/kakao_logo.png',
             handler () {
               console.log('share with Kakao...')
             }
           },
           {
             label: '페이스북',
-            avatar: '~assets/facebook_logo.png',
+            avatar: '/statics/facebook_logo.png',
             handler () {
               console.log('share with Facebook...')
             }
           },
           {
             label: '구글',
-            avatar: '~assets/google_logo.png',
+            avatar: '/statics/google_logo.png',
             handler () {
               console.log('share with Google...')
             }

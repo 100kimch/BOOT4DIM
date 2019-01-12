@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/auth/cognito6f050dfb-cloudformation-template.yml",
 				"logicalId": "authcognito6f050dfb"
 			},
-			"lastPushTimeStamp": "2019-01-12T09:41:03.877Z",
+			"lastPushTimeStamp": "2019-01-12T12:47:11.621Z",
 			"output": {
 				"IdentityPoolId": "us-west-2:8d10c69f-825b-45e0-a43b-1af5abed3ab9",
 				"IdentityPoolName": "web_identitypool_db409822",
@@ -40,7 +40,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
 				"logicalId": "analyticsweb"
 			},
-			"lastPushTimeStamp": "2019-01-12T09:41:02.161Z",
+			"lastPushTimeStamp": "2019-01-12T12:47:11.622Z",
 			"output": {
 				"appName": "web",
 				"Region": "us-west-2",
@@ -66,8 +66,8 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apiweb"
 			},
-			"lastPushTimeStamp": "2019-01-12T09:41:03.877Z",
-			"lastPushDirHash": "i+ZiPphe4+3QgqnWpCO0d6hd8z8="
+			"lastPushTimeStamp": "2019-01-12T12:47:13.936Z",
+			"lastPushDirHash": "FdMes4PtGIR6iNOMeDdpPr2MFGk="
 		}
 	},
 	"storage": {
@@ -78,7 +78,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
 				"logicalId": "storageresourceBoot4Dim"
 			},
-			"lastPushTimeStamp": "2019-01-12T09:41:03.877Z",
+			"lastPushTimeStamp": "2019-01-12T12:47:11.625Z",
 			"output": {
 				"BucketName": "bucket-boot4dim",
 				"Region": "us-west-2"
@@ -92,7 +92,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/storage/dynamoBoot4Dim-cloudformation-template.json",
 				"logicalId": "storagedynamoBoot4Dim"
 			},
-			"lastPushTimeStamp": "2019-01-12T09:41:03.877Z",
+			"lastPushTimeStamp": "2019-01-12T12:47:11.626Z",
 			"output": {
 				"PartitionKeyName": "id",
 				"Region": "us-west-2",
