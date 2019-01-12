@@ -1,6 +1,6 @@
 <template>
   <q-page class="intro-page">
-    <q-parallax :src="'../assets/bg_seminar.jpg'" :speed="1" :height="400">
+    <q-parallax :src="'/statics/bg_seminar.jpg'" :speed="1" :height="400">
       <h2 class="title q-display-1">Boost Your Passion,</h2>
       <h1 class="title q-display-3">부트사차원</h1>
     </q-parallax>

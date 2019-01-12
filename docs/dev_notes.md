@@ -17,6 +17,30 @@ npm install -g @aws-amplify/cli
 amplify configure
 ```
 
+### Build Methods on AWS Amplify
+
+```bash
+version: 0.1
+frontend:
+  phases:
+    # IMPORTANT - Please verify your build commands
+    build:
+      commands: [
+          'cd web',
+          'npm install -g vue-cli',
+          'npm install -g quasar-cli',
+          'npm install',
+          'quasar build -m pwa'
+          ]
+  artifacts:
+    # IMPORTANT - Please verify your build output directory
+    baseDirectory: /web/dist/pwa-mat
+    files:
+      - '**/*'
+  cache:
+    paths: []
+```
+
 ## Trouble Shoots
 
 ### git
