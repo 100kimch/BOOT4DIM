@@ -57,10 +57,13 @@ export default {
       this.height = 500
     }
     const sampleFile = {
+      id: 'testing',
       body: 'Sample comment 1'
     }
 
     console.log('mutating using graphQL...')
+    const qu = await this.$API.graphql(this.$graphqlOperation(this.$queries.listComments))
+    console.log('qu: ', qu)
     const newTodo = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createComment, { input: sampleFile }))
     console.log('newTodo: ', newTodo)
   },
