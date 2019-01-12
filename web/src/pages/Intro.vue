@@ -63,6 +63,7 @@ export default {
 
     console.log('mutating using graphQL...')
     const qu = await this.$API.graphql(this.$graphqlOperation(this.$queries.listComments))
+    console.log('umm..')
     console.log('qu: ', qu)
     const newTodo = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createComment, { input: sampleFile }))
     console.log('newTodo: ', newTodo)
