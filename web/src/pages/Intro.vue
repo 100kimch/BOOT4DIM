@@ -1,6 +1,6 @@
 <template>
   <q-page class="intro-page">
-    <q-parallax :src="'/assets/bg_seminar.jpg'" :speed="1" :height="400">
+    <q-parallax :src="'../assets/bg_seminar.jpg'" :speed="1" :height="400">
       <h2 class="title q-display-1">Boost Your Passion,</h2>
       <h1 class="title q-display-3">부트사차원</h1>
     </q-parallax>
@@ -61,8 +61,9 @@ export default {
       description: 'Sample Todo Contents.'
     }
 
+    console.log('mutating using graphQL...')
     const newTodo = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createTodo, { input: sampleFile }))
-    console.log(newTodo)
+    console.log('newTodo: ', newTodo)
   },
   methods: {
     go: function (url) {
