@@ -17,15 +17,32 @@ type Comment @model {
   post: Post @connection(name: "PostComments")
 }
 
-type Post @model {
+interface Character {
   id: ID!
   body: String!
-  comments: [Comments]!
+  comments: [Comments!]!
   contributor: User
   date: Date!
   headerImgSrc: String
-  isLike: Boolean
-  isModifying: Boolean
+  isLike: Boolean = false
+  isModifying: Boolean = false
+  numComments: Int
+  numIssue: Int!
+  numLikes: Int!
+  numShares: Int!
+  themeColor: Boolean
+  title: String
+}
+
+type Notice @model implements Post {
+  id: ID!
+  body: String!
+  comments: [Comments!]!
+  contributor: User
+  date: Date!
+  headerImgSrc: String
+  isLike: Boolean = false
+  isModifying: Boolean = false
   numComments: Int
   numIssue: Int!
   numLikes: Int!
