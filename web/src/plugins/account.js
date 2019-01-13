@@ -18,17 +18,17 @@ export default ({ Vue }) => {
       username: userData.username,
       password: userData.password,
       attributes: {
-        email: userData.email, // optional
-        phone_number: userData.phone_number, // optional - E.164 number convention
+        address: userData.address,
         birthdate: userData.birthdate,
+        email: userData.email,
+        hope: userData.hope,
+        motivation: userData.motivation,
+        phone_number: userData.phone_number,
         picture: userData.picture,
         profile: userData.profile,
-        address: userData.address,
-        updated_at: userData.updated_at,
         univ_id: userData.univ_id,
         univ_major: userData.univ_major,
-        hope: userData.hope,
-        motivation: userData.motivation
+        updated_at: userData.updated_at
       },
       validationData: [] //optional
     })

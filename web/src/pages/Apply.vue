@@ -45,7 +45,7 @@
         </amplify-authenticator>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
-          <q-btn color="secondary" @click="console.log(formValue);$auth.signUp(formValue)" label="완료" />
+          <q-btn color="secondary" @click="test()" label="완료" />
         </q-stepper-navigation>
       </q-step>
     </q-stepper>
@@ -75,6 +75,13 @@ export default {
     sendFormValue: function () {
       // console.log(this.formValue)
       this.$router.push('/projects/sample')
+    },
+    test: function () {
+      console.log('formValue:')
+      console.log(this.formValue)
+      this.$auth.signUp(this.formValue)
+        .then(data => console.log(data))
+        .catch(err => console.log(err))
     }
   },
   watch: {
