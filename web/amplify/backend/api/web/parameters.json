@@ -1,13 +1,7 @@
 {
     "AppSyncApiName": "web",
-    "AuthCognitoUserPoolId": {
-        "Fn::GetAtt": [
-            "authcognito6f050dfb",
-            "Outputs.UserPoolId"
-        ]
-    },
-    "schemaGraphql": "s3://web-20190111112042-deployment/amplify-appsync-files/schema.graphql.1547341004942",
+    "schemaGraphql": "s3://web-20190111112042-deployment/amplify-appsync-files/schema.graphql.1547345235339",
     "ResolverBucket": "web-20190111112042-deployment",
     "ResolverRootKey": "amplify-appsync-files",
-    "DeploymentTimestamp": "1547341004942"
+    "DeploymentTimestamp": "1547345235339"
 }

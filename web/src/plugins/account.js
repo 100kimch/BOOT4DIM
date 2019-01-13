@@ -14,20 +14,20 @@ export default ({ Vue }) => {
   Vue.prototype.$signUp = userData => {
     /* eslint-disable */
     Auth.signUp({
-      username,
-      password,
+      username: userData.username,
+      password: userData.password,
       attributes: {
-        email, // optional
-        phone_number, // optional - E.164 number convention
-        birthdate,
-        picture,
-        profile,
-        address,
-        updated_at,
-        univ_id,
-        univ_major,
-        hope,
-        motivation
+        // email: userData.email, // optional
+        // userData.phone_number, // optional - E.164 number convention
+        // userData.birthdate,
+        // userData.picture,
+        // userData.profile,
+        // userData.address,
+        // userData.updated_at,
+        // userData.univ_id,
+        // userData.univ_major,
+        // userData.hope,
+        // motivation
       },
       validationData: [] //optional
     })

@@ -78,54 +78,54 @@
 				}
 			}
 		},
-		"authcognito6f050dfb": {
+		"authcognitoBoot4Dim": {
 			"Type": "AWS::CloudFormation::Stack",
 			"Properties": {
-				"TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/auth/cognito6f050dfb-cloudformation-template.yml",
+				"TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/auth/cognitoBoot4Dim-cloudformation-template.yml",
 				"Parameters": {
-					"identityPoolName": "web_identitypool_db409822",
+					"identityPoolName": "identityPoolBoot4Dim",
 					"allowUnauthenticatedIdentities": true,
 					"thirdPartyAuth": false,
-					"lambdaLogPolicy": "web_lambda_log_policy",
-					"openIdLambdaRoleName": "web_openid_lambda_role",
-					"openIdRolePolicy": "web_openid_pass_role_policy",
-					"openIdLambdaIAMPolicy": "web_openid_lambda_iam_policy",
-					"openIdLogPolicy": "web_openid_lambda_log_policy",
-					"userPoolName": "cognito6f050dfb_userpool_b23c6894",
+					"lambdaLogPolicy": "cognitoBoot4Dim_lambda_log_policy",
+					"openIdLambdaRoleName": "cognitoBoot4Dim_openid_lambda_role",
+					"openIdRolePolicy": "cognitoBoot4Dim_openid_pass_role_policy",
+					"openIdLambdaIAMPolicy": "cognitoBoot4Dim_openid_lambda_iam_policy",
+					"openIdLogPolicy": "cognitoBoot4Dim_openid_lambda_log_policy",
+					"userPoolName": "userpoolBoot4Dim",
 					"autoVerifiedAttributes": "email",
 					"mfaConfiguration": "OFF",
 					"mfaTypes": "SMS Text Message",
-					"roleName": "cognito6f050dfb_sns-role",
-					"roleExternalId": "cognito6f050dfb_role_external_id",
-					"policyName": "cognito6f050dfb-sns-policy",
+					"roleName": "cognitoBoot4Dim_sns-role",
+					"roleExternalId": "cognitoBoot4Dim_role_external_id",
+					"policyName": "cognitoBoot4Dim-sns-policy",
 					"smsAuthenticationMessage": "Your authentication code is {####}",
 					"smsVerificationMessage": "Your verification code is {####}",
-					"emailVerificationSubject": "이메일 인증 코드입니다.",
-					"emailVerificationMessage": "인증번호는 {####}입니다.",
-					"defaultPasswordPolicy": false,
+					"emailVerificationSubject": "부트사차원 회원가입 인증코드입니다.",
+					"emailVerificationMessage": "회원 인증코드는 {####}입니다. 감사합니다.",
+					"defaultPasswordPolicy": true,
 					"passwordPolicyMinLength": 8,
-					"passwordPolicyCharacters": "Requires Lowercase,Requires Uppercase,Requires Numbers,Requires Symbols",
-					"requiredAttributes": "email",
-					"userpoolClientName": "cognito6f050dfb_app_client",
+					"passwordPolicyCharacters": "Requires Numbers,Requires Symbols",
+					"requiredAttributes": "name,phone_number,email",
+					"userpoolClientName": "cognitoBoot4Dim_app_client",
 					"userpoolClientGenerateSecret": true,
 					"userpoolClientRefreshTokenValidity": 30,
-					"userpoolClientReadAttributes": "address,birthdate,email,name,phone_number,email_verified",
-					"mfaLambdaRole": "cognito6f050dfb_totp_lambda_role",
-					"mfaLambdaLogPolicy": "cognito6f050dfb_totp_lambda_log_policy",
-					"mfaPassRolePolicy": "cognito6f050dfb_totp_pass_role_policy",
-					"mfaLambdaIAMPolicy": "cognito6f050dfb_totp_lambda_iam_policy",
-					"userpoolClientLambdaRole": "cognito6f050dfb_userpoolclient_lambda_role",
-					"userpoolClientLogPolicy": "cognito6f050dfb_userpoolclient_lambda_log_policy",
-					"userpoolClientLambdaPolicy": "cognito6f050dfb_userpoolclient_lambda_iam_policy",
+					"userpoolClientReadAttributes": "address,birthdate,email,name,phone_number,picture,profile,email_verified",
+					"mfaLambdaRole": "cognitoBoot4Dim_totp_lambda_role",
+					"mfaLambdaLogPolicy": "cognitoBoot4Dim_totp_lambda_log_policy",
+					"mfaPassRolePolicy": "cognitoBoot4Dim_totp_pass_role_policy",
+					"mfaLambdaIAMPolicy": "cognitoBoot4Dim_totp_lambda_iam_policy",
+					"userpoolClientLambdaRole": "cognitoBoot4Dim_userpoolclient_lambda_role",
+					"userpoolClientLogPolicy": "cognitoBoot4Dim_userpoolclient_lambda_log_policy",
+					"userpoolClientLambdaPolicy": "cognitoBoot4Dim_userpoolclient_lambda_iam_policy",
 					"userpoolClientSetAttributes": true,
+					"useDefault": "manual",
 					"authSelections": "identityPoolAndUserPool",
-					"resourceName": "cognito6f050dfb",
+					"resourceName": "cognitoBoot4Dim",
+					"userpoolClientWriteAttributes": "address,birthdate,picture,profile,email,name,phone_number",
 					"unAuthRoleName": "web-20190111112042-unauthRole",
 					"authRoleName": "web-20190111112042-authRole",
 					"unAuthRoleArn": "arn:aws:iam::955517153658:role/web-20190111112042-unauthRole",
-					"authRoleArn": "arn:aws:iam::955517153658:role/web-20190111112042-authRole",
-					"useDefault": "manual",
-					"userpoolClientWriteAttributes": "address,birthdate,name,phone_number,email"
+					"authRoleArn": "arn:aws:iam::955517153658:role/web-20190111112042-authRole"
 				}
 			}
 		},
@@ -152,16 +152,10 @@
 				"TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"AppSyncApiName": "web",
-					"AuthCognitoUserPoolId": {
-						"Fn::GetAtt": [
-							"authcognito6f050dfb",
-							"Outputs.UserPoolId"
-						]
-					},
-					"schemaGraphql": "s3://web-20190111112042-deployment/amplify-appsync-files/schema.graphql.1547341004942",
+					"schemaGraphql": "s3://web-20190111112042-deployment/amplify-appsync-files/schema.graphql.1547345235339",
 					"ResolverBucket": "web-20190111112042-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1547341004942"
+					"DeploymentTimestamp": "1547345235339"
 				}
 			}
 		},

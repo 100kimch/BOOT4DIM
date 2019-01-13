@@ -107,12 +107,18 @@ Parameters:
   userpoolClientSetAttributes:
     Type: String
           
+  useDefault:
+    Type: String
+            
   authSelections:
     Type: String
             
   resourceName:
     Type: String
-            
+                  
+  userpoolClientWriteAttributes:
+    Type: CommaDelimitedList
+      
   unAuthRoleName:
     Type: String
             
@@ -124,13 +130,7 @@ Parameters:
             
   authRoleArn:
     Type: String
-            
-  useDefault:
-    Type: String
-                  
-  userpoolClientWriteAttributes:
-    Type: CommaDelimitedList
-    
+          
 Resources:
   
   # BEGIN SNS ROLE RESOURCE
@@ -172,6 +172,16 @@ Resources:
       Schema: 
         
         -
+          Name: name
+          Required: true
+          Mutable: true
+        
+        -
+          Name: phone_number
+          Required: true
+          Mutable: true
+        
+        -
           Name: email
           Required: true
           Mutable: true
@@ -186,10 +196,10 @@ Resources:
       Policies:
         PasswordPolicy:
           MinimumLength: !Ref passwordPolicyMinLength
-          RequireLowercase: true
+          RequireLowercase: false
           RequireNumbers: true
           RequireSymbols: true
-          RequireUppercase: true
+          RequireUppercase: false
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
@@ -201,7 +211,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: cognito6f050dfb_app_clientWeb
+      ClientName: cognitoBoot4Dim_app_clientWeb
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
@@ -334,7 +344,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: web_identitypool_db409822
+      IdentityPoolName: identityPoolBoot4Dim
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient

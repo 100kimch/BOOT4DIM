@@ -20,11 +20,11 @@
       <q-step title="기본정보 입력">
         <amplify-sign-up v-bind:signUpConfig="signUpConfig"></amplify-sign-up>
         <q-field icon="face">
-          <q-input v-model="formValue.name" float-label="이름" autofocus />
-          <q-input v-model="formValue.schoolNumber" type="number" float-label="학번" />
-          <q-input v-model="formValue.major" float-label="학과" />
+          <q-input v-model="formValue.username" float-label="이름" autofocus />
+          <q-input v-model="formValue.univ_id" type="number" float-label="학번" />
+          <q-input v-model="formValue.univ_major" float-label="학과" />
           <q-datetime type="date" default-value="1995-01-01" v-model="formValue.birthdate" float-label="생년월일" />
-          <q-input type="tel" v-model="formValue.phone" float-label="전화번호" />
+          <q-input type="tel" v-model="formValue.phone_number" float-label="전화번호" />
           <q-input v-model="formValue.address" float-label="거주지" />
         </q-field>
         <q-field label="부트사차원에서 하고싶은 것(모두 선택해주세요)">
@@ -44,7 +44,7 @@
         </amplify-authenticator>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
-          <q-btn color="secondary" @click="$signUp({})" label="완료" />
+          <q-btn color="secondary" @click="$signUp(formValue)" label="완료" />
         </q-stepper-navigation>
       </q-step>
     </q-stepper>
@@ -65,14 +65,14 @@ export default {
       enableApply: true,
       signUpConfig: null,
       formValue: {
-        name: null,
+        username: null,
         SNSLogin: null,
         id: null,
         email: null,
-        schoolNumber: null,
-        major: null,
+        univ_id: null,
+        univ_major: null,
         birthdate: null,
-        phone: null,
+        phone_number: null,
         address: null,
         motive: null,
         question: null,
