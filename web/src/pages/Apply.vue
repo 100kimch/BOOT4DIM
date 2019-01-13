@@ -38,6 +38,15 @@
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
+      <q-step title="완료">
+        <amplify-authenticator :authConfig="authConfig">
+          <amplify-sign-up :signUpConfig="signUpConfig" :confirmSignUpConfig="confirmSignUpConfig"></amplify-sign-up>
+        </amplify-authenticator>
+        <q-stepper-navigation>
+          <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
+          <q-btn color="secondary" @click="$signUp({})" label="완료" />
+        </q-stepper-navigation>
+      </q-step>
     </q-stepper>
     <q-stepper v-if="!enableApply" class="custom-box">
       <h1 class="q-display-1">

@@ -20,8 +20,8 @@
     "policyName": "cognito6f050dfb-sns-policy",
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "이메일 인증 코드입니다.",
+    "emailVerificationMessage": "인증번호는 {####}입니다.",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [
@@ -37,7 +37,12 @@
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientReadAttributes": [
-        "email"
+        "address",
+        "birthdate",
+        "email",
+        "name",
+        "phone_number",
+        "email_verified"
     ],
     "mfaLambdaRole": "cognito6f050dfb_totp_lambda_role",
     "mfaLambdaLogPolicy": "cognito6f050dfb_totp_lambda_log_policy",
@@ -46,11 +51,19 @@
     "userpoolClientLambdaRole": "cognito6f050dfb_userpoolclient_lambda_role",
     "userpoolClientLogPolicy": "cognito6f050dfb_userpoolclient_lambda_log_policy",
     "userpoolClientLambdaPolicy": "cognito6f050dfb_userpoolclient_lambda_iam_policy",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "cognito6f050dfb",
     "unAuthRoleName": "web-20190111112042-unauthRole",
     "authRoleName": "web-20190111112042-authRole",
     "unAuthRoleArn": "arn:aws:iam::955517153658:role/web-20190111112042-unauthRole",
-    "authRoleArn": "arn:aws:iam::955517153658:role/web-20190111112042-authRole"
+    "authRoleArn": "arn:aws:iam::955517153658:role/web-20190111112042-authRole",
+    "useDefault": "manual",
+    "userpoolClientWriteAttributes": [
+        "address",
+        "birthdate",
+        "name",
+        "phone_number",
+        "email"
+    ]
 }

@@ -124,7 +124,13 @@ Parameters:
             
   authRoleArn:
     Type: String
-          
+            
+  useDefault:
+    Type: String
+                  
+  userpoolClientWriteAttributes:
+    Type: CommaDelimitedList
+    
 Resources:
   
   # BEGIN SNS ROLE RESOURCE
@@ -197,6 +203,9 @@ Resources:
     Properties:
       ClientName: cognito6f050dfb_app_clientWeb
       
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
+      
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
     DependsOn: UserPool
@@ -206,6 +215,9 @@ Resources:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: !Ref userpoolClientName
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
