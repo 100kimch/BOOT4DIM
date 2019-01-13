@@ -21,17 +21,18 @@
         <amplify-sign-up v-bind:signUpConfig="signUpConfig"></amplify-sign-up>
         <q-field icon="face">
           <q-input v-model="formValue.username" float-label="이름" autofocus />
-          <q-input v-model="formValue.univ_id" type="number" float-label="학번" />
-          <q-input v-model="formValue.univ_major" float-label="학과" />
-          <q-datetime type="date" default-value="1995-01-01" v-model="formValue.birthdate" float-label="생년월일" />
-          <q-input type="tel" v-model="formValue.phone_number" float-label="전화번호" />
-          <q-input v-model="formValue.address" float-label="거주지" />
+          <q-input v-model="formValue.attributes.email" type="email" float-label="이메일" />
+          <q-input v-model="formValue.attributes.univ_id" type="number" float-label="학번" />
+          <q-input v-model="formValue.attributes.univ_major" float-label="학과" />
+          <q-datetime type="date" default-value="1995-01-01" v-model="formValue.attributes.birthdate" float-label="생년월일" />
+          <q-input type="tel" v-model="formValue.attributes.phone_number" float-label="전화번호" />
+          <q-input v-model="formValue.attributes.address" float-label="거주지" />
         </q-field>
         <q-field label="부트사차원에서 하고싶은 것(모두 선택해주세요)">
-          <q-select :display-value="selectMultipleText(formValue.whattodoMultipleSelect)" multiple v-model="formValue.whattodoMultipleSelect" :options="listOptions.whattodo" />
+          <q-select :display-value="selectMultipleText(formValue.attributes.hope)" multiple v-model="formValue.attributes.hope" :options="listOptions.whattodo" />
         </q-field>
         <q-field label="가입하게 된 경로">
-          <q-input v-model="formValue.motive" label="예시) 부트 사람의 권유 / 동기의 권유 / 모집공고 포스터 / 홈페이지 등" />
+          <q-input v-model="formValue.attributes.motive" label="예시) 부트 사람의 권유 / 동기의 권유 / 모집공고 포스터 / 홈페이지 등" />
         </q-field>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
@@ -44,7 +45,7 @@
         </amplify-authenticator>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
-          <q-btn color="secondary" @click="$signUp(formValue)" label="완료" />
+          <q-btn color="secondary" @click="console.log(formValue);$auth.signUp(formValue)" label="완료" />
         </q-stepper-navigation>
       </q-step>
     </q-stepper>
@@ -60,38 +61,6 @@
 <script>
 export default {
   // name: 'PageName',
-  data () {
-    return {
-      enableApply: true,
-      signUpConfig: null,
-      formValue: {
-        username: null,
-        SNSLogin: null,
-        id: null,
-        email: null,
-        univ_id: null,
-        univ_major: null,
-        birthdate: null,
-        phone_number: null,
-        address: null,
-        motive: null,
-        question: null,
-        whattodoMultipleSelect: []
-      },
-      listOptions: {
-        whattodo: [
-          { label: '좋은 사람들과 친목 도모', value: '1' },
-          { label: '하드웨어 스터디', value: '2' },
-          { label: '소프트웨어 스터디', value: '3' },
-          { label: '인공지능(머신러닝, 딥러닝) 스터디', value: '4' },
-          { label: '전기/전자분야 공모전', value: '5' },
-          { label: '해커톤/코딩', value: '6' },
-          { label: '전공 공부', value: '7' },
-          { label: '다양한 과 사람들과 시너지를 낼 수 있는 활동', value: '8' }
-        ]
-      }
-    }
-  },
   methods: {
     selectMultipleText: function (array) {
       return `${array.length ? array.length + '개 선택되었어요.' : '선택된 것이 없어요!'}`
@@ -106,6 +75,48 @@ export default {
     sendFormValue: function () {
       // console.log(this.formValue)
       this.$router.push('/projects/sample')
+    }
+  },
+  watch: {
+    'hope': (val, oldVal) => {
+      this.hope = JSON.stringify(val)
+      console.log('changed')
+    }
+  },
+  data () {
+    return {
+      enableApply: true,
+      signUpConfig: null,
+      formValue: {
+        username: null,
+        password: 'Test0123!',
+        attributes: {
+          address: null,
+          birthdate: null,
+          email: null,
+          hope: [],
+          motive: null,
+          phone_number: null,
+          picture: null,
+          profile: null,
+          snsLogin: 'kakao',
+          univ_id: null,
+          univ_major: null,
+          updated: new Date().toISOString()
+        }
+      },
+      listOptions: {
+        whattodo: [
+          { label: '좋은 사람들과 친목 도모', value: '1' },
+          { label: '하드웨어 스터디', value: '2' },
+          { label: '소프트웨어 스터디', value: '3' },
+          { label: '인공지능(머신러닝, 딥러닝) 스터디', value: '4' },
+          { label: '전기/전자분야 공모전', value: '5' },
+          { label: '해커톤/코딩', value: '6' },
+          { label: '전공 공부', value: '7' },
+          { label: '다양한 과 사람들과 시너지를 낼 수 있는 활동', value: '8' }
+        ]
+      }
     }
   }
 }
