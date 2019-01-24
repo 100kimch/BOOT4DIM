@@ -109,7 +109,7 @@
 					"userpoolClientName": "cognitoBoot4Dim_app_client",
 					"userpoolClientGenerateSecret": true,
 					"userpoolClientRefreshTokenValidity": 30,
-					"userpoolClientReadAttributes": "address,birthdate,email,name,phone_number,picture,profile,email_verified",
+					"userpoolClientReadAttributes": "address,birthdate,email,name,phone_number,picture,profile,updated_at,email_verified",
 					"mfaLambdaRole": "cognitoBoot4Dim_totp_lambda_role",
 					"mfaLambdaLogPolicy": "cognitoBoot4Dim_totp_lambda_log_policy",
 					"mfaPassRolePolicy": "cognitoBoot4Dim_totp_pass_role_policy",
@@ -121,7 +121,7 @@
 					"useDefault": "manual",
 					"authSelections": "identityPoolAndUserPool",
 					"resourceName": "cognitoBoot4Dim",
-					"userpoolClientWriteAttributes": "address,birthdate,picture,profile,email,name,phone_number",
+					"userpoolClientWriteAttributes": "address,birthdate,picture,profile,updated_at,email,name,phone_number",
 					"unAuthRoleName": "web-20190111112042-unauthRole",
 					"authRoleName": "web-20190111112042-authRole",
 					"unAuthRoleArn": "arn:aws:iam::955517153658:role/web-20190111112042-unauthRole",
@@ -152,10 +152,10 @@
 				"TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"Parameters": {
 					"AppSyncApiName": "web",
-					"schemaGraphql": "s3://web-20190111112042-deployment/amplify-appsync-files/schema.graphql.1547345235339",
+					"schemaGraphql": "s3://web-20190111112042-deployment/amplify-appsync-files/schema.graphql.1547353051838",
 					"ResolverBucket": "web-20190111112042-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1547345235339"
+					"DeploymentTimestamp": "1547353051838"
 				}
 			}
 		},

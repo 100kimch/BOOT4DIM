@@ -1,22 +1,20 @@
 <template>
   <q-layout>
-    <q-layout-header>
-      <q-toolbar class="top-toolbar" height="300">
+    <q-layout-header reveal>
+      <q-toolbar class="custom-logobar" :class="{'darken': darkenTheme}">
         <img class="logo" src="/statics/boot_logo.png">
-        <q-toolbar-title>
+        <span class="logo-name">
           {{ appName }}
-        </q-toolbar-title>
+        </span>
         <q-btn flat round dense icon="menu" @click="rightDrawer = !rightDrawer" />
       </q-toolbar>
+    </q-layout-header>
+
+    <div class="custom-menu" :class="{'darken': darkenTheme}">
       <q-tabs>
         <q-route-tab slot="title" :key="index" v-for="(tab, index) in selectedTab" :default="index==0" replace :label="tab.label" :icon="tab.icon" :to="tab.to" />
       </q-tabs>
-    </q-layout-header>
-
-    <q-layout-footer>
-      2019 Boot4Dim 부트사차원 (c) All rights reserved. <br/>
-      <span class="darken">Pages made by KJH(100kimch@naver.com) <br/> Icon made by Freepik from www.flaticon.com & material.io</span>
-    </q-layout-footer>
+    </div>
 
     <q-layout-drawer side="right" v-model="rightDrawer" :overlay="true" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
       <!-- QScrollArea is optional -->
@@ -64,6 +62,10 @@
             <q-item-side :icon="link.icon" />
             <q-item-main :label="link.title" :sublabel="link.url" />
           </q-item>
+        </q-list>
+        <q-list class="copyright" no-border inset-delimiter>
+          <span class="title">(c) 2019 Boot4Dim 부트사차원<br/></span>
+          <span class="subtitle">Pages made by KJH(100kimch@naver.com) <br/> Icon made by Freepik from www.flaticon.com & material.io</span>
         </q-list>
       </q-scroll-area>
     </q-layout-drawer>
@@ -162,6 +164,16 @@ export default {
       // for rerendering v-for, selectedTab should be set individually.
       for (let i in this.selectedTab) {
         this.$set(this.selectedTab, i, this.tabs[level][i])
+      }
+    }
+  },
+  computed: {
+    darkenTheme: {
+      get () {
+        return this.$store.state.showcase.darkenTheme
+      },
+      set (val) {
+        this.$store.commit('showcase/updateDarkenTheme', val)
       }
     }
   },
@@ -328,6 +340,10 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  margin-bottom: 4rem;
+}
+
 * {
   word-break: keep-all;
   word-wrap: break-word;
@@ -337,34 +353,103 @@ button + button {
   margin-left: 0.5em;
 }
 
-.top-toolbar {
-  border-top: 3px solid var(--q-color-secondary);
-  padding: 1em;
-  overflow: initial;
-  height: 2em;
+.q-layout-header {
+  box-shadow: none;
+}
+
+.custom-logobar {
+  height: 4.5rem;
+  padding: 1rem 1rem 2rem 1rem;
+  display: flex;
+  color: black !important;
+  background: linear-gradient(
+    rgba(238, 238, 238, 0.3) 50%,
+    transparent 100%
+  ) !important;
+  // background: linear-gradient(
+  //   rgba(238, 238, 238, 1) 50%,
+  //   transparent 100%
+  // ) !important;
+  &.darken {
+    color: white !important;
+    background: linear-gradient(
+      rgba(51, 51, 51, 0.7) 50%,
+      transparent 100%
+    ) !important;
+  }
   .logo {
-    height: calc(100% + 1em);
+    height: 1.5rem;
     width: auto;
+  }
+  .logo-name {
+    flex: 1;
+    padding: 0 1rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+  .q-btn {
+    margin: -0.25rem 0;
+    height: 1.5rem;
+    width: 1.5rem;
   }
 }
 
-.menu {
-  cursor: pointer;
+.custom-menu {
+  position: fixed;
+  width: 100vw;
+  bottom: 0;
+  padding-top: 1.5rem;
+  background: linear-gradient(transparent, rgb(97, 88, 80) 30%) !important;
+  z-index: 2500;
+  .q-tabs-head {
+    color: white !important;
+    background: transparent !important;
+  }
+  &.darken {
+    background: transparent !important;
+    .q-tabs-head {
+      color: white !important;
+      background: #333 !important;
+    }
+  }
 }
 
-.q-layout-footer {
-  background: var(--q-color-primary);
-  color: #ccc;
-  padding: 1em;
-  .darken {
+.q-layout-drawer {
+  box-shadow: none;
+  border-radius: 1rem 0 0 1rem;
+  margin: 0.5rem;
+  margin-right: 0;
+}
+
+// .top-toolbar {
+//   border-top: 3px solid var(--q-color-secondary);
+//   padding: 1em;
+//   overflow: initial;
+//   height: 2em;
+//   .logo {
+//     height: calc(100% + 1em);
+//     width: auto;
+//   }
+// }
+
+.copyright {
+  padding: 1rem;
+  .title {
+    line-height: 250%;
+  }
+  .subtitle {
+    line-height: 100%;
     font-size: 0.8em;
-    color: #999;
+    color: #666;
   }
 }
 
 .q-card {
   background: white;
-  margin-bottom: 0.5rem;
+  margin: 0 0 0.5rem 0;
+  border-radius: 1rem;
+  box-shadow: none;
+
   .q-btn:hover,
   .q-btn:focus {
     transform: scale(1.1);
@@ -382,6 +467,11 @@ button + button {
     color: #eee;
     padding: 0.2em;
   }
+}
+
+.custom-title-box {
+  padding: 3em 0 5em 0;
+  text-align: center;
 }
 
 .custom-box {

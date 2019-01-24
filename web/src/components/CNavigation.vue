@@ -21,9 +21,9 @@ export default {
 
 <style lang="scss" scoped>
 .q-breadcrumbs {
-  margin: 0 0 1rem 0;
+  margin: -3.5rem 0 0 0;
   padding: 0 1rem 0.5rem 1rem;
-  border-radius: 0.25rem;
-  background: rgb(236, 236, 236);
+  border-radius: 1rem;
+  // background: rgb(255, 255, 255);
 }
 </style>

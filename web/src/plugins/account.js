@@ -1,6 +1,7 @@
 // http://andreybleme.com/2018-01-07/sharing-data-across-vuejs-components/
 import Vue from 'vue'
 import { Auth } from 'aws-amplify'
+import { Notify } from 'quasar'
 
 export const accountBus = new Vue()
 
@@ -11,74 +12,156 @@ export default ({ Vue }) => {
     email: '',
     level: ''
   }
-  Vue.prototype.$auth = Auth
+  // Vue.prototype.$auth = Auth
   Vue.prototype.$signUp = userData => {
-    /* eslint-disable */
-    Auth.signUp({
-      username: userData.username,
-      password: userData.password,
-      attributes: {
-        address: userData.address,
-        birthdate: userData.birthdate,
-        email: userData.email,
-        hope: userData.hope,
-        motivation: userData.motivation,
-        phone_number: userData.phone_number,
-        picture: userData.picture,
-        profile: userData.profile,
-        univ_id: userData.univ_id,
-        univ_major: userData.univ_major,
-        updated_at: userData.updated_at
-      },
-      validationData: [] //optional
-    })
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  }
-  Vue.prototype.$confirmSignUp = () => {
-    // After retrieveing the confirmation code from the user
-    Auth.confirmSignUp(username, code, {
-      // Optional. Force user confirmation irrespective of existing alias. By default set to True.
-      forceAliasCreation: true
-    })
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  }
+    let phoneFiltered = userData.phone_number
+    if (phoneFiltered[0] === '0') {
+      phoneFiltered = phoneFiltered.replace('-', '').substr(1)
+    }
+    phoneFiltered = '+82' + phoneFiltered
 
-  Vue.prototype.$resendSignUp = () => {
-    Auth.resendSignUp(username)
-      .then(() => {
-        console.log('code resent successfully')
-      })
-      .catch(e => {
-        console.log(e)
-      })
-    /* eslint-enable */
+    return new Promise((resolve, reject) => {
+      const sendData = {
+        username: userData.username,
+        password: 'Test!1234',
+        attributes: {
+          address: userData.address,
+          birthdate: userData.birthdate.slice(0, 10),
+          'custom:hope': userData.hope,
+          'custom:motive': userData.motive,
+          'custom:snsLogin': 'kakao',
+          'custom:univ_id': userData.univ_id,
+          'custom:univ_major': userData.univ_major,
+          email: userData.email,
+          phone_number: phoneFiltered,
+          name: userData.username,
+          picture: userData.picture,
+          profile: userData.profile
+        },
+        validationData: [] // optional
+      }
+      // const sendData = {
+      //   username: 'Testing03',
+      //   password: 'Test!2342',
+      //   attributes: {
+      //     address: userData.address,
+      //     birthdate: userData.birthdate,
+      //     'custom:hope': userData.hope,
+      //     'custom:motive': userData.motive,
+      //     'custom:snsLogin': userData.snsLogin,
+      //     'custom:univ_id': userData.univ_id,
+      //     'custom:univ_major': userData.univ_major,
+      //     email: 'test@naver.com',
+      //     phone_number: '+82101010110',
+      //     name: 'rlawlgud',
+      //     picture: userData.picture,
+      //     profile: userData.profile
+      //   },
+      //   validationData: [] // optional
+      // }
+
+      console.log(sendData)
+      /* eslint-disable */
+      Auth.signUp(sendData)
+        .then(data => {
+          console.log(data)
+          Notify.create({
+            color: 'positive',
+            message: '성공적으로 회원등록했습니다.'
+          })
+          resolve(false)
+        })
+        .catch(err => {
+          console.log(err)
+          Notify.create({
+            color: 'negative',
+            message: '등록에 실패하였습니다: ' + err.message
+          })
+          resolve(err.name)
+        })
+    })
   }
-  Vue.prototype.$login = function (request) {
+  Vue.prototype.$confirmSignUp = (username, code) => {
+    return new Promise((resolve, reject) => {
+      Auth.confirmSignUp(username, code, {
+        forceAliasCreation: true
+      })
+        .then(data => {
+          console.log(data)
+          Notify.create({
+            color: 'positive',
+            message: '이메일이 확인되었습니다.'
+          })
+          resolve(false)
+        })
+        .catch(err => {
+          console.log(err)
+          Notify.create({
+            color: 'negative',
+            message: '이메일 확인에 실패하였습니다.'
+          })
+          resolve('인증 코드가 맞지 않아요 :(')
+        })
+    })
+  }
+  Vue.prototype.$resendSignUp = username => {
+    return new Promise((resolve, reject) => {
+      Auth.resendSignUp(username)
+        .then(() => {
+          console.log('code resent successfully')
+          Notify.create({
+            color: 'positive',
+            message: '이메일이 재전송되었습니다.'
+          })
+          resolve('이메일이 재전송되었어요 :)')
+        })
+        .catch(e => {
+          console.log(e)
+          Notify.create({
+            color: 'negative',
+            message: '이메일 재전송에 실패하였습니다.'
+          })
+          resolve('이메일 재전송에 실패하였어요 :(')
+        })
+      /* eslint-enable */
+    })
+  }
+  Vue.prototype.$login = (username, password) => {
     return new Promise(function (resolve, reject) {
       // http request
-      setTimeout(() => {
-        accountBus.$emit('loginInfo', {
-          label: '김지형',
-          avatar: '/statics/profile_kjh.png',
-          email: '100kimch@naver.com',
-          level: '관리자',
-          userLevel: 0,
-          adminMode: ''
+      Auth.signIn(username, 'Test!1234')
+        .then(user => {
+          console.log('login success!', user)
+          resolve('success')
         })
-        Vue.prototype.$loginInfo = {
-          label: '김지형',
-          avatar: '/statics/profile_kjh.png',
-          email: '100kimch@naver.com',
-          level: '관리자',
-          userLevel: 0,
-          adminMode: ''
-        }
-        resolve({
-          message: '로그인되었습니다.'
+        .catch(err => {
+          console.log('login failed: ', err)
+          if (err.code === 'UserNotConfirmedException') {
+            resolve('needConfirm')
+          }
+          resolve('failed')
         })
-      }, 1500)
+      // setTimeout(() => {
+      //   accountBus.$emit('loginInfo', {
+      //     label: '김지형',
+      //     avatar: '/statics/profile_kjh.png',
+      //     email: '100kimch@naver.com',
+      //     level: '관리자',
+      //     userLevel: 0,
+      //     adminMode: ''
+      //   })
+      //   Vue.prototype.$loginInfo = {
+      //     label: '김지형',
+      //     avatar: '/statics/profile_kjh.png',
+      //     email: '100kimch@naver.com',
+      //     level: '관리자',
+      //     userLevel: 0,
+      //     adminMode: ''
+      //   }
+      //   resolve({
+      //     message: '로그인되었습니다.'
+      //   })
+      // }, 1500)
     })
   }
   Vue.prototype.$logout = function () {

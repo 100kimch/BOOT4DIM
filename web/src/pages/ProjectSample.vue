@@ -354,6 +354,9 @@ export default {
   created () {
     this.marked = require('marked')
   },
+  mounted () {
+    this.$store.commit('showcase/updateDarkenTheme', false)
+  },
   methods: {
     openPictureDetail: function (picture, index) {
       this.pictureVisible = true

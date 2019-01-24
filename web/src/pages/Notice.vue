@@ -40,6 +40,9 @@
 <script>
 export default {
   name: 'page-notice',
+  mounted () {
+    this.$store.commit('showcase/updateDarkenTheme', false)
+  },
   computed: {
     reversedContents: function () {
       return this.contents.slice().reverse()

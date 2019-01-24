@@ -13,6 +13,7 @@ const routes = [
     children: [
       {
         path: '',
+        darken: true,
         component: () => import('pages/Intro.vue')
       },
       {
@@ -61,6 +62,11 @@ const routes = [
         path: 'login',
         name: '로그인',
         component: Login
+      },
+      {
+        path: 'confirm_email',
+        name: '이메일 인증',
+        component: () => import('pages/ConfirmEmail.vue')
       },
       {
         path: 'board',

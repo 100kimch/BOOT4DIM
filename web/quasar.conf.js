@@ -3,7 +3,14 @@
 module.exports = function (ctx) {
   return {
     // app plugins (/src/plugins)
-    plugins: ['axios', 'customizedTime', 'account', 'cComponents', 'amplify'],
+    plugins: [
+      'axios',
+      'customizedTime',
+      'account',
+      'cComponents',
+      'amplify',
+      'vuelidate'
+    ],
     css: ['app.styl'],
     extras: [
       ctx.theme.mat ? 'roboto-font' : null,
@@ -108,13 +115,7 @@ module.exports = function (ctx) {
       ],
       directives: ['Ripple', 'CloseOverlay'],
       // Quasar plugins
-      plugins: [
-        'Notify',
-        'Loading',
-        'Dialog',
-        'ActionSheet',
-        'AddressbarColor'
-      ]
+      plugins: ['Notify', 'Loading', 'Dialog', 'ActionSheet', 'AddressbarColor']
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language
     },

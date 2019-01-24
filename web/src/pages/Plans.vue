@@ -1,31 +1,41 @@
 <template>
-  <q-page class="plans-page" padding>
-      <c-navigation />
-      <h1 class="custom-title q-display-1">
+  <q-page class="plans-page">
+    <!-- <div class="custom-title-box">
+      <h1 class="q-display-1">
         <b>연간 계획</b> 및 진행 현황</h1>
-      <q-card v-if="!editable">
-        <q-timeline responsive color="secondary">
-          <q-timeline-entry :key="index" v-for="(data, index) in planData" :heading="data.heading" :title="data.title" :subtitle="data.subtitle">
-            <p>{{ data.body }}</p>
-          </q-timeline-entry>
-        </q-timeline>
-        <div class="custom-option-box">
-          <q-btn color="primary" @click="editable = true">수정하기</q-btn>
-        </div>
-      </q-card>
-      <q-card v-if="editable">
-        <q-input type="textarea" v-model="strPlanData" />
-        <div class="custom-option-box">
-          <q-btn color="primary" @click="resetData()">취소</q-btn>
-          <q-btn color="secondary" @click="editData()">등록</q-btn>
-        </div>
-      </q-card>
+    </div> -->
+    <!-- <q-parallax :src="'/statics/cover_plans.png'" :speed="1" :height="300">
+      <h1 class="title q-display-1">
+        <b>연간 계획</b> 및 진행 현황</h1>
+    </q-parallax> -->
+    <c-title title="<b>연간 계획</b> 및 진행 현황" />
+    <c-navigation />
+    <q-card v-if="!editable">
+      <q-timeline responsive color="secondary">
+        <q-timeline-entry :key="index" v-for="(data, index) in planData" :heading="data.heading" :title="data.title" :subtitle="data.subtitle">
+          <p>{{ data.body }}</p>
+        </q-timeline-entry>
+      </q-timeline>
+      <div class="custom-option-box">
+        <q-btn color="primary" @click="editable = true">수정하기</q-btn>
+      </div>
+    </q-card>
+    <q-card v-if="editable">
+      <q-input type="textarea" v-model="strPlanData" />
+      <div class="custom-option-box">
+        <q-btn color="primary" @click="resetData()">취소</q-btn>
+        <q-btn color="secondary" @click="editData()">등록</q-btn>
+      </div>
+    </q-card>
   </q-page>
 </template>
 
 <script>
 export default {
   // name: 'PageName',
+  mounted () {
+    this.$store.commit('showcase/updateDarkenTheme', false)
+  },
   data () {
     return {
       editable: false,
@@ -105,6 +115,9 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+  background: rgb(130, 130, 125);
+}
 @media screen and (max-width: 767px) {
   h6 {
     font-size: 20px !important;
@@ -119,5 +132,9 @@ export default {
 .custom-box p {
   text-align: left !important;
   word-break: keep-all;
+}
+
+.q-parallax {
+  z-index: -1;
 }
 </style>

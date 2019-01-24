@@ -12,6 +12,7 @@ Amplify.configure(awsExports)
 export default ({ app, router, Vue }) => {
   Vue.use(AmplifyPlugin, AmplifyModules)
   Vue.component('components', components)
+
   Vue.prototype.$queries = queries
   Vue.prototype.$mutations = mutations
   Vue.prototype.$subscriptions = subscriptions

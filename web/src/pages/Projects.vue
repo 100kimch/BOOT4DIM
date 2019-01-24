@@ -1,6 +1,7 @@
 <template>
-  <q-page padding>
+  <q-page>
     <!-- <h1 class="custom-title q-display-1">프로젝트</h1> -->
+    <c-title title="프로젝트" />
     <c-navigation />
     <q-card>
       <q-tabs v-model="selectedTab" inverted>
@@ -17,7 +18,7 @@
       </q-tabs>
     </q-card>
     <q-jumbotron>
-      <div class="custom-heading q-display-2">
+      <div class="custom-heading q-heading">
         프로젝트 생성하기
       </div>
       <div class="q-subheading">부트사차원 내부 프로젝트 진행 시 문서 관리 프로그램으로서 자유롭게 본 프로젝트 서비스를 이용할 수 있습니다. 간편한 문서 관리 매뉴얼을 보고 프로젝트 도움을 받으세요!</div>
@@ -40,6 +41,9 @@
 <script>
 export default {
   // name: 'PageName',
+  mounted () {
+    this.$store.commit('showcase/updateDarkenTheme', false)
+  },
   methods: {
     go: function (url) {
       this.$router.push(url)
@@ -61,5 +65,7 @@ export default {
 }
 .q-jumbotron {
   margin-bottom: 1em;
+  background: white;
+  border-radius: 1rem;
 }
 </style>

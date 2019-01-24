@@ -7,6 +7,9 @@
 <script>
 export default {
   // name: 'PageName',
+  mounted () {
+    this.$store.commit('showcase/updateDarkenTheme', false)
+  }
 }
 </script>
 

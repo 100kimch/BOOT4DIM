@@ -11,8 +11,8 @@
         <p>부트사차원은 자유로운 분위기를 추구합니다. 동아리 안에서 선후배 간 허물없이 놀고 즐기며 문득 떠오르는 아이디어가 있으면 자발적으로 몇 명의 동아리 부원이 모여 프로젝트를 진행합니다. 또한 새로움을 추구합니다. 새로운 발상을 토대로 전자, 컴퓨터 지식을 활용해 그것을 구현합니다.</p>
       </span>
     </div>
-    <q-parallax class="custom-blackbox" :height="height" :class="{'custom-for-mobile': $q.platform.is.mobile}">
-      <video slot="media" poster="~assets/poster_video_coding.png" :height="height + 250" autoplay loop muted>
+    <q-parallax class="custom-blackbox" :height="m_height" :class="{'custom-for-mobile': $q.platform.is.mobile}">
+      <video slot="media" poster="/assets/poster_video_coding.png" :height="m_height + 250" autoplay loop muted>
         <source type="video/mp4" src="~assets/video_coding.mp4">
       </video>
       <h1 class="q-display-2">When hardware meets software</h1>
@@ -54,19 +54,21 @@ export default {
   name: 'page-intro',
   async mounted () {
     if (this.$q.platform.is.mobile) {
-      this.height = 500
+      this.m_height = 500
     }
-    const sampleFile = {
-      id: 'testing',
-      body: 'Sample comment 1'
-    }
+    // const sampleFile = {
+    //   id: 'testing',
+    //   body: 'Sample comment 1'
+    // }
 
-    console.log('mutating using graphQL...')
-    const qu = await this.$API.graphql(this.$graphqlOperation(this.$queries.listComments))
-    console.log('umm..')
-    console.log('qu: ', qu)
-    const newTodo = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createComment, { input: sampleFile }))
-    console.log('newTodo: ', newTodo)
+    // console.log('mutating using graphQL...')
+    // const qu = await this.$API.graphql(this.$graphqlOperation(this.$queries.listComments))
+    // console.log('umm..')
+    // console.log('qu: ', qu)
+    // const newTodo = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createComment, { input: sampleFile }))
+    // console.log('newTodo: ', newTodo)
+
+    this.$store.commit('showcase/updateDarkenTheme', true)
   },
   methods: {
     go: function (url) {
@@ -75,7 +77,7 @@ export default {
   },
   data () {
     return {
-      height: 300,
+      m_height: 300,
       links: [
         {
           title: '네이버 카페',
@@ -105,6 +107,7 @@ export default {
 
 <style lang="scss">
 .intro-page {
+  margin-top: -4.5rem;
   .q-parallax {
     color: white;
     .title {
