@@ -126,20 +126,24 @@ export default ({ Vue }) => {
       /* eslint-enable */
     })
   }
+  Vue.prototype.$getUserInfo = () => {
+    return new Promise((resolve, reject) => {
+      Auth.currentAuthenticatedUser({
+        bypassCache: true
+      })
+        .then(user => resolve(user))
+        .catch(err => reject(err))
+    })
+  }
   Vue.prototype.$login = (username, password) => {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
       // http request
       Auth.signIn(username, 'Test!1234')
         .then(user => {
-          console.log('login success!', user)
-          resolve('success')
+          resolve(user)
         })
         .catch(err => {
-          console.log('login failed: ', err)
-          if (err.code === 'UserNotConfirmedException') {
-            resolve('needConfirm')
-          }
-          resolve('failed')
+          reject(err.code)
         })
       // setTimeout(() => {
       //   accountBus.$emit('loginInfo', {
@@ -166,13 +170,15 @@ export default ({ Vue }) => {
   }
   Vue.prototype.$logout = function () {
     return new Promise(function (resolve, reject) {
-      setTimeout(() => {
-        accountBus.$emit('loginInfo', {})
-        Vue.prototype.$loginInfo = {}
-        resolve({
-          message: '로그아웃되었습니다.'
+      Auth.signOut()
+        .then(data => {
+          console.log('logout success: ', data)
+          resolve(true)
         })
-      }, 700)
+        .catch(err => {
+          console.log('error on logout(): ', err)
+          reject(err)
+        })
     })
   }
 }

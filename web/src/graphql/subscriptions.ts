@@ -10,7 +10,7 @@ export const onCreateNotice = `subscription OnCreateNotice {
       body
     }
     contributor {
-      label
+      name
     }
     date
     headerImgSrc
@@ -34,7 +34,7 @@ export const onUpdateNotice = `subscription OnUpdateNotice {
       body
     }
     contributor {
-      label
+      name
     }
     date
     headerImgSrc
@@ -58,7 +58,7 @@ export const onDeleteNotice = `subscription OnDeleteNotice {
       body
     }
     contributor {
-      label
+      name
     }
     date
     headerImgSrc
@@ -94,21 +94,63 @@ export const onDeleteComment = `subscription OnDeleteComment {
   }
 }
 `;
+export const onCreateHistory = `subscription OnCreateHistory {
+  onCreateHistory {
+    id
+    date
+    body
+  }
+}
+`;
+export const onUpdateHistory = `subscription OnUpdateHistory {
+  onUpdateHistory {
+    id
+    date
+    body
+  }
+}
+`;
+export const onDeleteHistory = `subscription OnDeleteHistory {
+  onDeleteHistory {
+    id
+    date
+    body
+  }
+}
+`;
+export const onCreateTesting = `subscription OnCreateTesting {
+  onCreateTesting {
+    name
+  }
+}
+`;
+export const onUpdateTesting = `subscription OnUpdateTesting {
+  onUpdateTesting {
+    name
+  }
+}
+`;
+export const onDeleteTesting = `subscription OnDeleteTesting {
+  onDeleteTesting {
+    name
+  }
+}
+`;
 export const onCreateUser = `subscription OnCreateUser {
   onCreateUser {
-    label
+    name
   }
 }
 `;
 export const onUpdateUser = `subscription OnUpdateUser {
   onUpdateUser {
-    label
+    name
   }
 }
 `;
 export const onDeleteUser = `subscription OnDeleteUser {
   onDeleteUser {
-    label
+    name
   }
 }
 `;

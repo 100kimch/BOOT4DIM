@@ -78,8 +78,18 @@ type Comment @model {
   body: String!
 }
 
+type History @model {
+  id: ID!
+  date: String
+  body: String!
+}
+
+type Testing @model {
+  name: String!
+}
+
 type User @model {
-  label: String!
+  name: String!
 }
 
 # type Query {

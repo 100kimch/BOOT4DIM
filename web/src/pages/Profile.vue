@@ -1,24 +1,23 @@
 <template>
-  <q-page padding>
+  <q-page>
     <q-card>
       <div class="bg"></div>
       <div class="profile">
         <img slot="left" :src="$loginInfo.avatar" class="profile-image" />
         <div class="profile-info row">
-          <span class="name q-display-1"> {{ $loginInfo.label }} </span>
-          <span class="sublabel col q-body-2"> kimjihyeong100 </span>
+          <span class="name q-display-1"> {{ userInfo['name'] }} </span>
+          <span class="sublabel col q-body-2"> {{ userInfo['email'] }} </span>
         </div>
         <div class="profile-description q-body-1">부트사차원 31기 정회원</div>
       </div>
       <q-card-main>
         <q-list>
           <q-collapsible default opened icon="explore" label="기본 정보">
-            <ul>카카오톡 이메일: kimjihyeong100@gmail.com</ul>
-            <ul>학번: 201000000</ul>
-            <ul>학과: 전자전기공학과</ul>
-            <ul>거주지: 서울시 광진구 화양동</ul>
-            <ul>핸드폰: 010-000-0000</ul>
-            <ul>SNS: fb.com/100kimch</ul>
+            <ul>이메일: {{ userInfo['email'] }} ({{ userInfo['email_verified'] ? '인증됨' : '인증필요' }})</ul>
+            <ul>학번: {{ userInfo['custom:univ_id'] }}</ul>
+            <ul>학과: {{ userInfo['custom:univ_major'] }}</ul>
+            <ul v-if="userInfo['address']">거주지: {{ userInfo['address'] }}</ul>
+            <ul v-if="userInfo['phone_number']">핸드폰: {{ userInfo['phone_number'] }}</ul>
           </q-collapsible>
           <q-collapsible icon="developer_board" label="프로젝트 활동">
             <div>존재하지 않습니다.</div>
@@ -39,8 +38,24 @@
 <script>
 export default {
   // name: 'PageName',
-  mounted () {
-    this.$store.commit('showcase/updateDarkenTheme', false)
+  async mounted () {
+    try {
+      this.$q.loading.show()
+      const user = await this.$getUserInfo()
+      this.userInfo = user.attributes
+      this.$q.loading.hide()
+    } catch (err) {
+      this.$q.notify({
+        title: '어이쿠',
+        message: '잘못 들어오셨네요.'
+      })
+    }
+    // this.$store.commit('showcase/updateTheme', 'custom1')
+  },
+  data () {
+    return {
+      userInfo: {}
+    }
   }
 }
 </script>

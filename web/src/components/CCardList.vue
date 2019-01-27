@@ -236,5 +236,6 @@ export default {
 .q-spinner {
   width: 4rem;
   margin: 0.5rem calc(50% - 2rem);
+  color: white;
 }
 </style>

@@ -3,8 +3,8 @@
     <h1 class="custom-title q-display-1">오류 신고하기</h1>
     <q-stepper ref="stepper" vertical>
       <q-step title="환영합니다">
-        <h2 class="q-title">부트사차원 신입부원 모집기간입니다!</h2>
-        <h3 class="q-body-1">열정적이고 성실한 부트사차원 예비부원들의 많은 지원 바라고 있어요!</h3>
+        <h2 class="q-title">부트사차원 신입회원 모집기간입니다!</h2>
+        <h3 class="q-body-1">열정적이고 성실한 부트사차원 예비회원들의 많은 지원 바라고 있어요!</h3>
         <q-stepper-navigation>
           <q-btn color="secondary" @click="$refs.stepper.next()" label="지원하기!" />
         </q-stepper-navigation>
@@ -41,10 +41,47 @@
 </template>
 
 <script>
+import { API, graphqlOperation } from 'aws-amplify'
+
 export default {
   // name: 'PageName',
-  mounted () {
-    this.$store.commit('showcase/updateDarkenTheme', false)
+  async mounted () {
+    this.$store.commit('showcase/updateTheme', 'black')
+    // const testDetail = {
+    //   body: 'hello'
+    // }
+    // const newTesting = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createTesting, { input: testDetail }))
+    // console.log(newTesting)
+
+    try {
+      // const allTestings = await this.$API.graphql(this.$graphqlOperation(this.$queries.listTestings))
+      // const oneTesting = await this.$API.graphql(this.$graphqlOperation(this.$queries.getTestingQueryVariables, { id: 'Hello' }))
+      // const query = `query ListTestings {
+      //   listTestings {
+      //     items {
+      //       id
+      //       body
+      //     }
+      //   }
+      // }`
+      // const createTestingMutation = `mutation createTesting($body: String!) {
+      //   createTesting(input: { body: $body }) {
+      //     id
+      //     body
+      //   }
+      // }`
+      // this.$Amplify.graphqlOperation(createTestingMutation, { body: 'HiWorld!' })
+
+      const testing = {
+        body: 'Hello World!'
+      }
+      const newTesting = await API.graphql(graphqlOperation(this.$mutations.createTesting, { input: testing }))
+      console.log(newTesting)
+    } catch (e) {
+      console.log('error on allTestings: ', e)
+    }
+
+    // this.$store.commit('showcase/updateDarkenTheme', false)
   },
   data () {
     return {

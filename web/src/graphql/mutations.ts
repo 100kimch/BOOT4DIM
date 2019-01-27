@@ -10,7 +10,7 @@ export const createNotice = `mutation CreateNotice($input: CreateNoticeInput!) {
       body
     }
     contributor {
-      label
+      name
     }
     date
     headerImgSrc
@@ -34,7 +34,7 @@ export const updateNotice = `mutation UpdateNotice($input: UpdateNoticeInput!) {
       body
     }
     contributor {
-      label
+      name
     }
     date
     headerImgSrc
@@ -58,7 +58,7 @@ export const deleteNotice = `mutation DeleteNotice($input: DeleteNoticeInput!) {
       body
     }
     contributor {
-      label
+      name
     }
     date
     headerImgSrc
@@ -94,21 +94,63 @@ export const deleteComment = `mutation DeleteComment($input: DeleteCommentInput!
   }
 }
 `;
+export const createHistory = `mutation CreateHistory($input: CreateHistoryInput!) {
+  createHistory(input: $input) {
+    id
+    date
+    body
+  }
+}
+`;
+export const updateHistory = `mutation UpdateHistory($input: UpdateHistoryInput!) {
+  updateHistory(input: $input) {
+    id
+    date
+    body
+  }
+}
+`;
+export const deleteHistory = `mutation DeleteHistory($input: DeleteHistoryInput!) {
+  deleteHistory(input: $input) {
+    id
+    date
+    body
+  }
+}
+`;
+export const createTesting = `mutation CreateTesting($input: CreateTestingInput!) {
+  createTesting(input: $input) {
+    name
+  }
+}
+`;
+export const updateTesting = `mutation UpdateTesting($input: UpdateTestingInput!) {
+  updateTesting(input: $input) {
+    name
+  }
+}
+`;
+export const deleteTesting = `mutation DeleteTesting($input: DeleteTestingInput!) {
+  deleteTesting(input: $input) {
+    name
+  }
+}
+`;
 export const createUser = `mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
-    label
+    name
   }
 }
 `;
 export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input) {
-    label
+    name
   }
 }
 `;
 export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
   deleteUser(input: $input) {
-    label
+    name
   }
 }
 `;

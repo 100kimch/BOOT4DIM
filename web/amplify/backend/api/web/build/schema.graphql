@@ -37,8 +37,18 @@ type Comment {
   body: String!
 }
 
+type History {
+  id: ID!
+  date: String
+  body: String!
+}
+
+type Testing {
+  name: String!
+}
+
 type User {
-  label: String!
+  name: String!
 }
 
 enum ModelSortDirection {
@@ -129,6 +139,10 @@ type Query {
   listNotices(filter: ModelNoticeFilterInput, limit: Int, nextToken: String): ModelNoticeConnection
   getComment(id: ID!): Comment
   listComments(filter: ModelCommentFilterInput, limit: Int, nextToken: String): ModelCommentConnection
+  getHistory(id: ID!): History
+  listHistorys(filter: ModelHistoryFilterInput, limit: Int, nextToken: String): ModelHistoryConnection
+  getTesting(id: ID!): Testing
+  listTestings(filter: ModelTestingFilterInput, limit: Int, nextToken: String): ModelTestingConnection
   getUser(id: ID!): User
   listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
 }
@@ -174,6 +188,12 @@ type Mutation {
   createComment(input: CreateCommentInput!): Comment
   updateComment(input: UpdateCommentInput!): Comment
   deleteComment(input: DeleteCommentInput!): Comment
+  createHistory(input: CreateHistoryInput!): History
+  updateHistory(input: UpdateHistoryInput!): History
+  deleteHistory(input: DeleteHistoryInput!): History
+  createTesting(input: CreateTestingInput!): Testing
+  updateTesting(input: UpdateTestingInput!): Testing
+  deleteTesting(input: DeleteTestingInput!): Testing
   createUser(input: CreateUserInput!): User
   updateUser(input: UpdateUserInput!): User
   deleteUser(input: DeleteUserInput!): User
@@ -186,6 +206,12 @@ type Subscription {
   onCreateComment: Comment @aws_subscribe(mutations: ["createComment"])
   onUpdateComment: Comment @aws_subscribe(mutations: ["updateComment"])
   onDeleteComment: Comment @aws_subscribe(mutations: ["deleteComment"])
+  onCreateHistory: History @aws_subscribe(mutations: ["createHistory"])
+  onUpdateHistory: History @aws_subscribe(mutations: ["updateHistory"])
+  onDeleteHistory: History @aws_subscribe(mutations: ["deleteHistory"])
+  onCreateTesting: Testing @aws_subscribe(mutations: ["createTesting"])
+  onUpdateTesting: Testing @aws_subscribe(mutations: ["updateTesting"])
+  onDeleteTesting: Testing @aws_subscribe(mutations: ["deleteTesting"])
   onCreateUser: User @aws_subscribe(mutations: ["createUser"])
   onUpdateUser: User @aws_subscribe(mutations: ["updateUser"])
   onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"])
@@ -218,24 +244,78 @@ input DeleteCommentInput {
   id: ID
 }
 
+type ModelHistoryConnection {
+  items: [History]
+  nextToken: String
+}
+
+input ModelHistoryFilterInput {
+  id: ModelIDFilterInput
+  date: ModelStringFilterInput
+  body: ModelStringFilterInput
+  and: [ModelHistoryFilterInput]
+  or: [ModelHistoryFilterInput]
+  not: ModelHistoryFilterInput
+}
+
+input CreateHistoryInput {
+  id: ID
+  date: String
+  body: String!
+}
+
+input UpdateHistoryInput {
+  id: ID!
+  date: String
+  body: String
+}
+
+input DeleteHistoryInput {
+  id: ID
+}
+
+type ModelTestingConnection {
+  items: [Testing]
+  nextToken: String
+}
+
+input ModelTestingFilterInput {
+  name: ModelStringFilterInput
+  and: [ModelTestingFilterInput]
+  or: [ModelTestingFilterInput]
+  not: ModelTestingFilterInput
+}
+
+input CreateTestingInput {
+  name: String!
+}
+
+input UpdateTestingInput {
+  name: String
+}
+
+input DeleteTestingInput {
+  id: ID
+}
+
 type ModelUserConnection {
   items: [User]
   nextToken: String
 }
 
 input ModelUserFilterInput {
-  label: ModelStringFilterInput
+  name: ModelStringFilterInput
   and: [ModelUserFilterInput]
   or: [ModelUserFilterInput]
   not: ModelUserFilterInput
 }
 
 input CreateUserInput {
-  label: String!
+  name: String!
 }
 
 input UpdateUserInput {
-  label: String
+  name: String
 }
 
 input DeleteUserInput {

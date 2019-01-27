@@ -1,7 +1,7 @@
 <template>
   <q-layout>
     <q-layout-header reveal>
-      <q-toolbar class="custom-logobar" :class="{'darken': darkenTheme}">
+      <q-toolbar class="custom-logobar" :style="{'background': 'linear-gradient('+themeColor+' 20%, transparent 100% ) !important'}">
         <img class="logo" src="/statics/boot_logo.png">
         <span class="logo-name">
           {{ appName }}
@@ -10,16 +10,16 @@
       </q-toolbar>
     </q-layout-header>
 
-    <div class="custom-menu" :class="{'darken': darkenTheme}">
+    <div class="custom-menu" :style="{'background-color': themeColor}">
       <q-tabs>
-        <q-route-tab slot="title" :key="index" v-for="(tab, index) in selectedTab" :default="index==0" replace :label="tab.label" :icon="tab.icon" :to="tab.to" />
+        <q-route-tab slot="title" :key="index" v-for="(tab, index) in selectedTab" :default="index==0" replace :label="tab.label" :icon="''/*tab.icon*/" :to="tab.to" />
       </q-tabs>
     </div>
 
     <q-layout-drawer side="right" v-model="rightDrawer" :overlay="true" :content-class="$q.theme === 'mat' ? 'bg-grey-2' : null">
       <!-- QScrollArea is optional -->
       <q-scroll-area class="fit q-pa-sm">
-        <q-list v-if="userLevel" no-border link inset-delimiter>
+        <q-list v-if="userInfo.level" no-border link inset-delimiter>
           <q-item class="q-py-none">
             <q-item-main></q-item-main>
             <q-item-side class="q-body-1" @click.native="logout()" right>로그아웃</q-item-side>
@@ -27,14 +27,14 @@
           <q-item class="q-py-none" @click.native="goto('/profile')">
             <q-item-side>
               <q-item-tile avatar>
-                <img :src="$loginInfo.avatar" alt="Profile Image">
+                <img :src="userInfo.avatar" alt="Profile Image">
               </q-item-tile>
             </q-item-side>
-            <q-item-main :label="$loginInfo.label" :sublabel="$loginInfo.email" />
+            <q-item-main :label="userInfo.username + ' 회원님'" :sublabel="userInfo.email" />
             <q-item-side style="min-width: auto" icon="settings"></q-item-side>
           </q-item>
         </q-list>
-        <q-list v-if="!userLevel" no-border link inset-delimiter>
+        <q-list v-if="!userInfo.level" no-border link inset-delimiter>
           <q-item @click.native="goto('/login')">
             <q-item-side avatar>
               <q-item-tile icon="person"></q-item-tile>
@@ -42,7 +42,7 @@
             <q-item-main label="로그인해주세요." />
           </q-item>
         </q-list>
-        <q-list v-if="userLevel == 3" no-border link inset-delimiter>
+        <q-list v-if="userInfo.level == 3" no-border link inset-delimiter>
           <q-list-header>관리자 권한</q-list-header>
           <q-item class="menu" @click.native="setAdminMode(!adminMode)">
             <q-item-side icon="supervised_user_circle" />
@@ -81,15 +81,17 @@
 <script>
 export default {
   name: 'layout-intro',
-  created () {
-    this.$accountBus.$on('loginInfo', (loginInfo) => {
-      if (loginInfo) {
-        this.setUserLevel(loginInfo.level)
-        this.setAdminMode(this.adminMode)
-      }
-    })
+  async created () {
+    // this.$accountBus.$on('loginInfo', (loginInfo) => {
+    //   if (loginInfo) {
+    //     this.setUserLevel(loginInfo.level)
+    //     this.setAdminMode(this.adminMode)
+    //   }
+    // })
     this.selectedTab = this.tabs[0]
-    this.$login({})
+    // this.$login({})
+    this.$q.addressbarColor.set(this.themeColor)
+    this.$store.commit('showcase/updateTheme', 'black')
   },
   methods: {
     openURL: function (url) {
@@ -135,30 +137,39 @@ export default {
       this.setSelectedTab((newMode) ? 3 : 1)
       this.rightDrawer = false
     },
-    logout () {
-      this.$q.dialog({
-        title: '로그아웃',
-        message: '로그아웃 하시겠습니까?',
-        ok: true,
-        cancel: true
-      }).then(() => {
+    async logout () {
+      try {
+        await this.$q.dialog({
+          title: '로그아웃',
+          message: '로그아웃 하시겠습니까?',
+          ok: true,
+          cancel: true
+        })
+      } catch (err) {
+        this.$q.dialog({
+          title: '취소',
+          message: '취소되었습니다 :)'
+        })
+        return
+      }
+      try {
         this.$q.loading.show()
-        this.$logout().then((res) => {
+        const statusLogout = this.$logout()
+
+        if (statusLogout) {
+          this.$store.commit('showcase/logout')
           this.$q.notify({
             color: 'info',
-            message: res.message
+            message: '로그아웃되었습니다.'
           })
           this.$q.loading.hide()
-        }).catch((err) => {
-          this.$q.dialog({
-            message: '로그아웃에 실패하였습니다:' + err
-          })
-          this.$q.loading.hide()
+        }
+      } catch (err) {
+        this.$q.dialog({
+          message: '로그아웃에 실패하였습니다:' + err
         })
-      }).catch(() => {
         this.$q.loading.hide()
-        // when canceled.
-      })
+      }
     },
     setSelectedTab: function (level) {
       // for rerendering v-for, selectedTab should be set individually.
@@ -168,20 +179,24 @@ export default {
     }
   },
   computed: {
-    darkenTheme: {
+    themeColor: {
       get () {
-        return this.$store.state.showcase.darkenTheme
-      },
-      set (val) {
-        this.$store.commit('showcase/updateDarkenTheme', val)
+        return this.$store.state.showcase.theme.color
+      }
+    },
+    userInfo: {
+      get () {
+        console.log('userInfo: ', this.$store.state.showcase.userInfo)
+        return this.$store.state.showcase.userInfo
       }
     }
   },
   data () {
     return {
+      shadowHeader: false,
       rightDrawer: false,
       appName: window.appName,
-      userLevel: 0,
+      // userLevel: 0,
       adminMode: false,
       adminMenuName: null,
       selectedTab: [],
@@ -261,7 +276,7 @@ export default {
           {
             'icon': 'people',
             'to': '/admin/members',
-            'label': '부원관리'
+            'label': '회원관리'
           },
           {
             'icon': 'next_week',
@@ -340,10 +355,10 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-  margin-bottom: 4rem;
+.q-layout-page-container {
+  // margin-top: -3.5rem;
+  margin-bottom: 3.5rem;
 }
-
 * {
   word-break: keep-all;
   word-wrap: break-word;
@@ -361,13 +376,14 @@ button + button {
   height: 4.5rem;
   padding: 1rem 1rem 2rem 1rem;
   display: flex;
-  color: black !important;
-  background: linear-gradient(
-    rgba(238, 238, 238, 0.3) 50%,
-    transparent 100%
-  ) !important;
+  color: white !important;
   // background: linear-gradient(
   //   rgba(238, 238, 238, 1) 50%,
+  //   transparent 100%
+  // ) !important;
+  // background: linear-gradient(
+  //   #615850 0%,
+  //   rgba(97, 88, 80, 0.8) 50%,
   //   transparent 100%
   // ) !important;
   &.darken {
@@ -376,6 +392,9 @@ button + button {
       rgba(51, 51, 51, 0.7) 50%,
       transparent 100%
     ) !important;
+  }
+  &.shadow {
+    color: black !important;
   }
   .logo {
     height: 1.5rem;
@@ -398,19 +417,20 @@ button + button {
   position: fixed;
   width: 100vw;
   bottom: 0;
-  padding-top: 1.5rem;
-  background: linear-gradient(transparent, rgb(97, 88, 80) 30%) !important;
+  // background: linear-gradient(transparent, rgb(97, 88, 80) 10%) !important;
+  // padding-top: 1.5rem;
+  // background: rgb(97, 88, 80) !important;
+  padding: 0.25rem 1rem;
   z-index: 2500;
+  .q-tab {
+    padding: 0 !important;
+  }
   .q-tabs-head {
     color: white !important;
     background: transparent !important;
   }
   &.darken {
-    background: transparent !important;
-    .q-tabs-head {
-      color: white !important;
-      background: #333 !important;
-    }
+    background: #333 !important;
   }
 }
 
@@ -419,6 +439,10 @@ button + button {
   border-radius: 1rem 0 0 1rem;
   margin: 0.5rem;
   margin-right: 0;
+}
+
+.q-field {
+  margin: 2em 0;
 }
 
 // .top-toolbar {
@@ -444,15 +468,32 @@ button + button {
   }
 }
 
-.q-card {
+.q-card,
+.q-jumbotron,
+.q-stepper,
+.q-alert {
   background: white;
-  margin: 0 0 0.5rem 0;
+  margin: 0;
   border-radius: 1rem;
   box-shadow: none;
+
+  & + &,
+  & + .q-infinite-scroll > .q-infinite-scroll-content {
+    margin-top: 0.5rem;
+  }
 
   .q-btn:hover,
   .q-btn:focus {
     transform: scale(1.1);
+  }
+}
+
+.q-stepper {
+  h3 {
+    line-height: 130%;
+  }
+  .q-stepper-nav {
+    margin-top: 0.5rem;
   }
 }
 

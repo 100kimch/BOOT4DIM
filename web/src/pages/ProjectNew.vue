@@ -1,8 +1,7 @@
 <template>
-  <q-page padding>
-    <c-navigation/>
+  <q-page>
     <!-- <h1 class="custom-title q-display-1">프로젝트</h1> -->
-    <q-alert v-if="infoVisible" color="info" icon="offline_bolt" appear :actions="[{ label: '닫기', handler: ()=> { infoVisible = false } }]">
+    <q-alert v-if="infoVisible" color="info" icon="offline_bolt" :actions="[{ label: '닫기', handler: ()=> { infoVisible = false } }]">
       <p class="q-title">새로운 프로젝트 진행을 환영합니다!</p>
       <p class="q-body-1 description">보다 원활한 프로젝트가 될 수 있도록 부트사차원에서 도와드릴게요.</p>
     </q-alert>
@@ -301,8 +300,9 @@ export default {
 
 <style lang="scss" scoped>
 .q-stepper {
-  background: white;
+  margin-top: 0.5rem;
 }
+
 .q-alert {
   p:first-child {
     margin-bottom: 0.25em;
@@ -311,9 +311,7 @@ export default {
     margin: 0;
   }
 }
-.q-field {
-  margin: 2em 0;
-}
+
 .q-btn + .q-btn {
   margin-left: 1em;
 }

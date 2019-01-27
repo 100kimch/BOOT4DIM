@@ -2,7 +2,6 @@
   <q-page>
     <!-- <h1 class="custom-title q-display-1">프로젝트</h1> -->
     <c-title title="프로젝트" />
-    <c-navigation />
     <q-card>
       <q-tabs v-model="selectedTab" inverted>
         <q-tab label="관리자 메뉴" readonly disable slot="title" />
@@ -23,7 +22,7 @@
       </div>
       <div class="q-subheading">부트사차원 내부 프로젝트 진행 시 문서 관리 프로그램으로서 자유롭게 본 프로젝트 서비스를 이용할 수 있습니다. 간편한 문서 관리 매뉴얼을 보고 프로젝트 도움을 받으세요!</div>
       <hr class="q-hr q-my-lg">
-      <div class="q-body-2 q-mb-md">로그인한 부트사차원 부원만 사용하실 수 있습니다.</div>
+      <div class="q-body-2 q-mb-md">로그인한 부트사차원 회원만 사용하실 수 있습니다.</div>
       <q-btn @click="go('/projects/new')" color="primary" class="q-py-sm q-px-xl" label="프로젝트 생성하기" />
     </q-jumbotron>
     <q-jumbotron dark :img-src="'/statics/boot_project_boot4dust.jpg'">
@@ -42,7 +41,8 @@
 export default {
   // name: 'PageName',
   mounted () {
-    this.$store.commit('showcase/updateDarkenTheme', false)
+    // this.$store.commit('showcase/updateDarkenTheme', false)
+    this.$store.commit('showcase/updateTheme', 'custom1')
   },
   methods: {
     go: function (url) {

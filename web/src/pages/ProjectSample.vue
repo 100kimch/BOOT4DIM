@@ -1,12 +1,12 @@
 <template>
-  <q-page padding>
-    <c-navigation />
-    <q-jumbotron dark :img-src="'/statics/boot_project_boot4dust.jpg'">
+  <q-page>
+    <c-title :title="project.name" subtitle="프로젝트" imgSrc="/statics/boot_project_boot4dust.jpg" />
+    <!-- <q-jumbotron dark :img-src="'/statics/boot_project_boot4dust.jpg'">
       <h2 class="q-body-2">프로젝트</h2>
       <h1 class="q-display-2">{{ project.name }}</h1>
       <hr class="q-hr q-my-lg">
       <div class="q-subheading">{{ project.description }}</div>
-    </q-jumbotron>
+    </q-jumbotron> -->
     <q-card>
       <q-list highlight>
         <q-list-header>최근 활동</q-list-header>
@@ -31,7 +31,7 @@
           <div>
             <q-card class="picture" inline :key="index" v-for="(picture, index) in project.pictures">
               <a @click="openPictureDetail(picture, index)">
-                <q-card-media overlay-position="bottom">
+                <q-card-media class="custom-picture" overlay-position="bottom">
                   <img :src="picture.src" />
                   <q-card-title v-if="picture.title" slot="overlay">
                     {{ picture.title }}
@@ -846,6 +846,11 @@ export default {
     }
   }
 }
+
+.custom-picture {
+  border-radius: 1rem;
+}
+
 .custom-picture-detail {
   .q-carousel-slide {
     padding: 0;

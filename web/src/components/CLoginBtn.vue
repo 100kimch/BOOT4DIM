@@ -59,7 +59,7 @@ export default {
   }
 }
 .q-card.dense {
-  padding: - calc(50% - 25px - 6rem);
+  padding: 0 calc(50% - 25px - 6rem);
   img {
     width: 50px;
     height: 50px;
@@ -67,6 +67,7 @@ export default {
   h1 {
     font-size: 1rem;
     line-height: 50px;
+    text-align: center;
   }
 }
 </style>

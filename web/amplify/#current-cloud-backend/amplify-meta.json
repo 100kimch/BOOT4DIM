@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/auth/cognitoBoot4Dim-cloudformation-template.yml",
 				"logicalId": "authcognitoBoot4Dim"
 			},
-			"lastPushTimeStamp": "2019-01-13T04:19:43.207Z",
+			"lastPushTimeStamp": "2019-01-27T09:15:17.083Z",
 			"output": {
 				"AppClientSecret": "1r6v01dt2jg0bm3kr0j0s0vpsu0u60pt56c1f2d930a4v2l0rkqr",
 				"UserPoolId": "us-west-2_8641GyPB5",
@@ -41,7 +41,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
 				"logicalId": "analyticsweb"
 			},
-			"lastPushTimeStamp": "2019-01-13T04:19:43.203Z",
+			"lastPushTimeStamp": "2019-01-27T09:15:17.084Z",
 			"output": {
 				"appName": "web",
 				"Region": "us-west-2",
@@ -67,8 +67,8 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apiweb"
 			},
-			"lastPushTimeStamp": "2019-01-13T04:19:43.207Z",
-			"lastPushDirHash": "iLc9EsXesW+76pGRbF5xZkF2rLg="
+			"lastPushTimeStamp": "2019-01-27T09:15:20.920Z",
+			"lastPushDirHash": "aWOV4urf+nnuypx1ewqVejcVg4k="
 		}
 	},
 	"storage": {
@@ -79,7 +79,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
 				"logicalId": "storageresourceBoot4Dim"
 			},
-			"lastPushTimeStamp": "2019-01-13T04:19:43.206Z",
+			"lastPushTimeStamp": "2019-01-27T09:15:17.086Z",
 			"output": {
 				"BucketName": "bucket-boot4dim",
 				"Region": "us-west-2"
@@ -93,7 +93,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/storage/dynamoBoot4Dim-cloudformation-template.json",
 				"logicalId": "storagedynamoBoot4Dim"
 			},
-			"lastPushTimeStamp": "2019-01-13T04:19:43.206Z",
+			"lastPushTimeStamp": "2019-01-27T09:15:17.086Z",
 			"output": {
 				"PartitionKeyName": "id",
 				"Region": "us-west-2",

@@ -1,6 +1,7 @@
 <template>
-  <q-page padding>
-    <q-alert v-if="!email.isConfirmed" class="confirmAlert" color="warning" icon="error_outline">
+  <q-page>
+    <c-title title="이메일 인증" :noNavigation="true" />
+    <q-alert v-if="!email.isConfirmed" class="confirmAlert" color="warning" icon="error_outline" flat>
       <h3 class="q-title">{{ email.msg }}</h3>
       <div class="row">
         <q-input v-model="email.code" class="col-auto" placeholder="인증 코드" />
@@ -18,17 +19,19 @@
 export default {
   // name: 'PageName',
   mounted () {
-    this.$store.commit('showcase/updateDarkenTheme', false)
+    if (!this.$store.state.showcase.tempId) {
+      this.$router.push('/login')
+    }
   },
   methods: {
     resendEmail: async function () {
-      const msg = await this.$resendSignUp('user01')
+      const msg = await this.$resendSignUp(this.tempId)
       if (msg) {
         this.email.msg = msg
       }
     },
     confirmEmail: async function () {
-      const msg = await this.$confirmSignUp('user01', this.email.code)
+      const msg = await this.$confirmSignUp(this.tempId, this.email.code)
       if (msg) {
         this.email.msg = msg
       } else {
@@ -48,7 +51,8 @@ export default {
         showMsgConfirmed: false,
         msg: '이메일 확인 후 인증해주세요!',
         code: ''
-      }
+      },
+      tempId: this.$store.state.showcase.tempId
     }
   }
 }

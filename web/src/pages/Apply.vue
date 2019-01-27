@@ -1,10 +1,10 @@
 <template>
-  <q-page padding>
-    <h1 class="custom-title q-display-1">지원하기</h1>
+  <q-page>
+    <c-title title="지원하기" />
     <q-stepper v-if="enableApply" ref="stepper" vertical>
       <q-step title="환영합니다">
-        <h2 class="q-title">부트사차원 신입부원 모집기간입니다!</h2>
-        <h3 class="q-body-1">열정적이고 성실한 부트사차원 예비부원들의 많은 지원 바라고 있어요!</h3>
+        <h2 class="q-title">부트사차원 신입회원 모집기간입니다!</h2>
+        <h3 class="q-body-1">열정적이고 성실한 부트사차원 예비회원들의 많은 지원 바라고 있어요!</h3>
         <q-stepper-navigation>
           <q-btn color="secondary" @click="$refs.stepper.next()" label="지원하기!" />
           <q-btn color="secondary" @click="$signUp(formValue)" label="테스트" />
@@ -48,6 +48,8 @@
         </q-stepper-navigation>
       </q-step>
       <q-step title="완료">
+        <h2 class="q-title">지원해주셔서 감사합니다 :)</h2>
+        <h3 class="q-body-1">작성해주신 내용을 확인 후 핸드폰 번호로 연락드릴게요~</h3>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
           <q-btn color="secondary" @click="$signUp(formValue)" label="완료" />
@@ -69,7 +71,7 @@ import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
 export default {
   // name: 'PageName',
   mounted () {
-    this.$store.commit('showcase/updateDarkenTheme', false)
+    this.$store.commit('showcase/updateTheme', 'brown')
   },
   methods: {
     selectMultipleText: function (array) {
@@ -170,12 +172,6 @@ export default {
 </script>
 
 <style lang="scss">
-.q-stepper {
-  background: white;
-  h3 {
-    line-height: 130%;
-  }
-}
 // .q-alert {
 //   p:first-child {
 //     margin-bottom: 0.25em;
@@ -184,9 +180,6 @@ export default {
 //     margin: 0;
 //   }
 // }
-.q-field {
-  margin: 2em 0;
-}
 .q-btn + .q-btn {
   margin-left: 1em;
 }

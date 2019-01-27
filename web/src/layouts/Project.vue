@@ -7,7 +7,7 @@
       <!-- This is where pages get injected -->
       <router-view />
     </q-page-container>
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
+    <q-page-sticky position="bottom-right" :offset="[18, 88]">
       <q-btn round color="secondary" @click="goBack" icon="arrow_back" />
     </q-page-sticky>
   </q-layout>
@@ -16,6 +16,9 @@
 <script>
 export default {
   // name: 'LayoutName',
+  mounted () {
+    this.$store.commit('showcase/updateTheme', 'custom1')
+  },
   data () {
     return {
       leftDrawer: true

@@ -10,7 +10,7 @@ export const getNotice = `query GetNotice($id: ID!) {
       body
     }
     contributor {
-      label
+      name
     }
     date
     headerImgSrc
@@ -39,7 +39,7 @@ export const listNotices = `query ListNotices(
         body
       }
       contributor {
-        label
+        name
       }
       date
       headerImgSrc
@@ -77,9 +77,51 @@ export const listComments = `query ListComments(
   }
 }
 `;
+export const getHistory = `query GetHistory($id: ID!) {
+  getHistory(id: $id) {
+    id
+    date
+    body
+  }
+}
+`;
+export const listHistorys = `query ListHistorys(
+  $filter: ModelHistoryFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listHistorys(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      date
+      body
+    }
+    nextToken
+  }
+}
+`;
+export const getTesting = `query GetTesting($id: ID!) {
+  getTesting(id: $id) {
+    name
+  }
+}
+`;
+export const listTestings = `query ListTestings(
+  $filter: ModelTestingFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listTestings(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      name
+    }
+    nextToken
+  }
+}
+`;
 export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
-    label
+    name
   }
 }
 `;
@@ -90,7 +132,7 @@ export const listUsers = `query ListUsers(
 ) {
   listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
-      label
+      name
     }
     nextToken
   }

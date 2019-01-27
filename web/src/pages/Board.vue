@@ -1,6 +1,6 @@
 <template>
-  <q-page padding>
-    <c-navigation />
+  <q-page>
+    <c-title title="자유게시판" />
     <q-card bg-color="secondary" color="teal">
       <q-card-title>토픽 별로 찾기</q-card-title>
       <q-card-main>
@@ -110,7 +110,7 @@ export default {
         body: '',
         topic: []
       },
-      topics: ['신입부원', '공모전'],
+      topics: ['신입회원', '공모전'],
       selectedTopic: '',
       contents: [
         {

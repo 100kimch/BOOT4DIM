@@ -9,7 +9,6 @@
         <b>연간 계획</b> 및 진행 현황</h1>
     </q-parallax> -->
     <c-title title="<b>연간 계획</b> 및 진행 현황" />
-    <c-navigation />
     <q-card v-if="!editable">
       <q-timeline responsive color="secondary">
         <q-timeline-entry :key="index" v-for="(data, index) in planData" :heading="data.heading" :title="data.title" :subtitle="data.subtitle">
@@ -34,7 +33,7 @@
 export default {
   // name: 'PageName',
   mounted () {
-    this.$store.commit('showcase/updateDarkenTheme', false)
+    this.$store.commit('showcase/updateTheme', 'bluegreen')
   },
   data () {
     return {
@@ -52,10 +51,10 @@ export default {
           body: '부트사차원의 여섯 팀이 2개월 간의 노력으로 PRIME 학과 작품전시회에 참여하였습니다. 라인트레이서, 미세먼지측정 IoT, 아두이노 활용 작품 등 다양한 작품을 선보였었습니다.'
         },
         {
-          title: '31기 동계 신입부원 모집 (타과생)',
+          title: '31기 동계 신입회원 모집 (타과생)',
           subtitle: '12월',
           side: 'right',
-          body: '전기전자공학과에서 벗어나 타과생을 대상으로 31기 부원을 모집하였습니다. 신입 부원들은 2018-2019 겨울방학 스터디부터 같이 활동합니다.'
+          body: '전기전자공학과에서 벗어나 타과생을 대상으로 31기 회원을 모집하였습니다. 신입 회원들은 2018-2019 겨울방학 스터디부터 같이 활동합니다.'
         },
         {
           heading: true,
@@ -80,16 +79,16 @@ export default {
           body: '겨울방학 하드웨어 스터디로서 AVR 실습이 진행됩니다. 3학년 응용설계 범위를 선행학습하고, 한발 더 들어가 연구합니다.'
         },
         {
-          title: '31기 신입부원 모집',
+          title: '31기 신입회원 모집',
           subtitle: '3월 중',
           side: 'right',
-          body: '신입생을 대상으로 31기 신입부원을 모집합니다.'
+          body: '신입생을 대상으로 31기 신입회원을 모집합니다.'
         },
         {
           title: '춘계 엠티',
           subtitle: '3월 4째주',
           side: 'left',
-          body: '신입부원 및 기존부원이 함께 어울려 활동하는 워크샵입니다.'
+          body: '신입회원 및 기존회원이 함께 어울려 활동하는 워크샵입니다.'
         }
       ]
     }
@@ -115,9 +114,6 @@ export default {
 </script>
 
 <style lang="scss">
-body {
-  background: rgb(130, 130, 125);
-}
 @media screen and (max-width: 767px) {
   h6 {
     font-size: 20px !important;
