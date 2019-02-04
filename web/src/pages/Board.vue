@@ -118,7 +118,7 @@ export default {
           comments: [{
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: 'statics/profile_kjh.png',
               email: 'oioi@naver.com',
               label: '김기리'
@@ -126,7 +126,7 @@ export default {
           }, {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: 'statics/profile_kjh.png',
               email: '100kimch@naver.com',
               label: '김지형'
@@ -134,7 +134,7 @@ export default {
           }, {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: 'statics/profile_kjh.png',
               email: 'kim@naver.com',
               label: '이한울'
@@ -142,7 +142,7 @@ export default {
           }, {
             body: ['댓글 시험중입니다.'],
             date: new Date('2018-11-10'),
-            writer: {
+            author: {
               avatar: 'statics/profile_kjh.png',
               email: '100kimch@naver.com',
               label: '김지형'

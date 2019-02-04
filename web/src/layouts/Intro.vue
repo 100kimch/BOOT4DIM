@@ -27,10 +27,10 @@
           <q-item class="q-py-none" @click.native="goto('/profile')">
             <q-item-side>
               <q-item-tile avatar>
-                <img :src="userInfo.avatar" alt="Profile Image">
+                <img :src="userInfo.avatar ? userInfo.avatar : '/statics/profile_kjh.png'" alt="Profile Image">
               </q-item-tile>
             </q-item-side>
-            <q-item-main :label="userInfo.username + ' 회원님'" :sublabel="userInfo.email" />
+            <q-item-main :label="userInfo.name + ' 회원님'" :sublabel="userInfo.email" />
             <q-item-side style="min-width: auto" icon="settings"></q-item-side>
           </q-item>
         </q-list>
@@ -90,8 +90,13 @@ export default {
     // })
     this.selectedTab = this.tabs[0]
     // this.$login({})
-    this.$q.addressbarColor.set(this.themeColor)
     this.$store.commit('showcase/updateTheme', 'black')
+    // for changing addressbar color:
+    this.$store.commit('showcase/set$q', this.$q)
+
+    const { attributes } = await this.$getUserInfo()
+    // console.log('attributes: ', attributes)
+    this.$store.commit('showcase/setUserInfo', attributes)
   },
   methods: {
     openURL: function (url) {
@@ -154,7 +159,7 @@ export default {
       }
       try {
         this.$q.loading.show()
-        const statusLogout = this.$logout()
+        const statusLogout = await this.$logout()
 
         if (statusLogout) {
           this.$store.commit('showcase/logout')
@@ -362,6 +367,11 @@ export default {
 * {
   word-break: keep-all;
   word-wrap: break-word;
+}
+
+.q-btn {
+  border-radius: 1rem;
+  box-shadow: none;
 }
 
 button + button {

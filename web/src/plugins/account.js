@@ -1,17 +1,19 @@
 // http://andreybleme.com/2018-01-07/sharing-data-across-vuejs-components/
-import Vue from 'vue'
+// import Vue from 'vue'
 import { Auth } from 'aws-amplify'
 import { Notify } from 'quasar'
 
-export const accountBus = new Vue()
+// export const accountBus = new Vue()
 
 export default ({ Vue }) => {
-  Vue.prototype.$accountBus = accountBus
-  Vue.prototype.$loginInfo = {
-    label: '비회원',
-    email: '',
-    level: ''
-  }
+  // Vue.prototype.$accountBus = accountBus
+  // Vue.prototype.$loginInfo = {
+  //   email: 'local_test@naver.com',
+  //   email_verified: true,
+  //   name: '로컬비',
+  //   phone_number: '+821010101010',
+  //   level: 1
+  // }
   // Vue.prototype.$auth = Auth
   Vue.prototype.$signUp = userData => {
     let phoneFiltered = userData.phone_number
@@ -28,6 +30,7 @@ export default ({ Vue }) => {
           address: userData.address,
           birthdate: userData.birthdate.slice(0, 10),
           'custom:hope': userData.hope,
+          'custom:level': '1',
           'custom:motive': userData.motive,
           'custom:snsLogin': 'kakao',
           'custom:univ_id': userData.univ_id,

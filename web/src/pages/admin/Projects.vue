@@ -234,7 +234,7 @@ export default {
                 comments: [
                   {
                     date: new Date('2018-11-09'),
-                    writer: {
+                    author: {
                       label: '김기리',
                       avatar: 'statics/profile_kjh.png',
                       email: 'oioi@naver.com'
@@ -243,7 +243,7 @@ export default {
                   },
                   {
                     date: new Date('2018-11-09'),
-                    writer: {
+                    author: {
                       label: '김지형',
                       avatar: 'statics/profile_kjh.png',
                       email: '100kimch@naver.com'
@@ -252,7 +252,7 @@ export default {
                   },
                   {
                     date: new Date('2018-11-09'),
-                    writer: {
+                    author: {
                       label: '이한울',
                       avatar: 'statics/profile_kjh.png',
                       email: 'kim@naver.com'
@@ -261,7 +261,7 @@ export default {
                   },
                   {
                     date: new Date('2018-11-10'),
-                    writer: {
+                    author: {
                       label: '김지형',
                       avatar: 'statics/profile_kjh.png',
                       email: '100kimch@naver.com'
@@ -412,7 +412,7 @@ export default {
                 comments: [
                   {
                     date: new Date('2018-11-09'),
-                    writer: {
+                    author: {
                       label: '김기리',
                       avatar: 'statics/profile_kjh.png',
                       email: 'oioi@naver.com'
@@ -421,7 +421,7 @@ export default {
                   },
                   {
                     date: new Date('2018-11-09'),
-                    writer: {
+                    author: {
                       label: '김지형',
                       avatar: 'statics/profile_kjh.png',
                       email: '100kimch@naver.com'
@@ -430,7 +430,7 @@ export default {
                   },
                   {
                     date: new Date('2018-11-09'),
-                    writer: {
+                    author: {
                       label: '이한울',
                       avatar: 'statics/profile_kjh.png',
                       email: 'kim@naver.com'
@@ -439,7 +439,7 @@ export default {
                   },
                   {
                     date: new Date('2018-11-10'),
-                    writer: {
+                    author: {
                       label: '김지형',
                       avatar: 'statics/profile_kjh.png',
                       email: '100kimch@naver.com'

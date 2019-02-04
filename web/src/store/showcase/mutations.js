@@ -1,3 +1,8 @@
+export const set$q = (state, $q) => {
+  // for changing addressbar color
+  state.$q = $q
+}
+
 export const updateDarkenTheme = (state, darken) => {
   state.darkenTheme = darken
 }
@@ -26,6 +31,9 @@ export const updateTheme = (state, tone) => {
     }
   }
   document.body.style.background = theme[tone].color
+  if (state.$q) {
+    state.$q.addressbarColor.set(theme[tone].color)
+  }
   state.theme = theme[tone]
 }
 
@@ -39,11 +47,21 @@ export const logout = state => {
 
 export const setUserInfo = (state, userInfo) => {
   state.userInfo = {
-    username: userInfo.username,
-    level: 3,
-    email: '100kimch@naver.com',
-    avatar: 'statics/profile_kjh.png'
+    birthdate: userInfo['birthdate'],
+    snsLogin: userInfo['custom:snsLogin'],
+    email: userInfo['email'],
+    email_verified: userInfo['email_verified'],
+    name: userInfo['name'],
+    phone_number: userInfo['phone_number'],
+    avatar: userInfo['picture'],
+    level: userInfo['custom:level']
+
   }
-  console.log('setUserInfo()', state.userInfo)
-  // console.log('username()', state.userInfo)
+  // state.userInfo = {
+  //   username: userInfo.username,
+  //   level: 3,
+  //   email: '100kimch@naver.com',
+  //   avatar: 'statics/profile_kjh.png'
+  // }
+  // console.log('setUserInfo()', state.userInfo)
 }

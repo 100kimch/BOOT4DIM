@@ -12,7 +12,7 @@
       </q-field>
     </q-card>
     <q-alert v-if="isLoggedIn" color="positive" icon="verified_user">
-      <h1 class="q-title">{{ username + ' 회원님 환영합니다!' }}</h1>
+      <h1 class="q-title">{{ userInfo.name + ' 회원님 환영합니다!' }}</h1>
       <p class="q-body-1">{{ seconds + '초 후에 메인으로 이동합니다.' }}</p>
     </q-alert>
   </q-page>
@@ -27,13 +27,18 @@ export default {
   methods: {
     login: async function () {
       try {
+        this.$q.loading.show()
         const userInfo = await this.$login(this.id, this.password)
         if (userInfo) {
-          console.log('SUCCESS: ', userInfo)
-          this.$store.commit('showcase/setUserInfo', userInfo)
-          this.isLoggedIn = true
+          // console.log('SUCCESS: ', userInfo)
+
           const { attributes } = await this.$getUserInfo()
-          console.log('attributes: ', attributes)
+          // console.log('attributes: ', attributes)
+          await this.$store.commit('showcase/setUserInfo', attributes)
+
+          this.$q.loading.hide()
+          this.isLoggedIn = true
+
           this.counter = setInterval(() => {
             this.seconds--
             if (this.seconds <= 0) {
@@ -59,9 +64,9 @@ export default {
     }
   },
   computed: {
-    username: {
+    userInfo: {
       get () {
-        return this.$store.state.showcase.userInfo.username
+        return this.$store.state.showcase.userInfo
       }
     }
   },

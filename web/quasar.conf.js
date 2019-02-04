@@ -9,6 +9,7 @@ module.exports = function (ctx) {
       'account',
       'cComponents',
       'amplify',
+      'friendlyName',
       'vuelidate'
     ],
     css: ['app.styl'],

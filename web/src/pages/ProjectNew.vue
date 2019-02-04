@@ -19,10 +19,10 @@
       <q-step title="어떻게 진행되나요?">
         <p class="q-body-1">와! 흥미로워요! 어떻게 진행되는지 설명해주세요!</p>
         <q-field icon="face" label="어떤 종류의 프로젝트인가요?">
-          <q-select :display-value="selectMultipleText(formValue.typeMultipleSelect)" multiple v-model="formValue.typeMultipleSelect" :options="listOptions.type" />
+          <q-select multiple v-model="formValue.types" :options="listOptions.type" />
         </q-field>
         <q-field icon="none" label="해당하는 사항에 모두 체크해주세요.">
-          <q-select :display-value="selectMultipleText(formValue.topicMultipleSelect)" multiple v-model="formValue.topicMultipleSelect" :options="listOptions.topic" />
+          <q-select multiple v-model="formValue.topics" :options="listOptions.topic" />
         </q-field>
         <q-field icon="face" label="마감 기한이 있나요?">
           <div class="row">
@@ -56,10 +56,10 @@
       </q-step>
       <q-step title="자세하게 알려주세요!">
         <p class="q-body-1">조금 더 자세하게 알려주세요!</p>
-        <div v-if="formValue.typeMultipleSelect.includes('스터디')">
-          <q-field icon="face">스터디성 프로젝트에 관한 질문입니다.</q-field>
+        <div v-if="formValue.types.includes('study')">
+          <q-field icon="face">스터디/수업에 관한 질문입니다.</q-field>
           <q-field label="다루는 주제를 모두 체크해주세요.">
-            <q-select :display-value="selectMultipleText(formValue.study.topicMultipleSelect)" multiple v-model="formValue.study.topicMultipleSelect" :options="listOptions.study" />
+            <q-select multiple v-model="formValue.study.topics" :options="listOptions.study" />
           </q-field>
           <q-field label="몇 회의 모임을 가지나요?">
             <q-input type="text" v-model="formValue.study.meeting" placeholder="예시> 주당 2회 총 8회" />
@@ -74,58 +74,73 @@
             <q-input type="text" v-model="formValue.study.tutor" placeholder="성함" />
           </q-field>
         </div>
-        <div v-if="formValue.typeMultipleSelect.includes('작품제작')">
+        <div v-if="formValue.types.includes('contest')">
           <q-field icon="face">작품제작/공모전에 관한 질문입니다.</q-field>
           <q-field label="해당 사항을 선택해주세요.">
-            <q-select v-model="formValue.contest.topicSelect" :options="listOptions.contest" />
+            <q-select v-model="formValue.contest.topic" :options="listOptions.contest" />
           </q-field>
-          <q-field label="어떤 공모전/전시회에 나가시나요?">
+          <q-field v-if="formValue.contest.topic==='nocontest'" label="어떤 작품을 만드는지 간단하게 설명해주세요!">
+            <q-input type="text" v-model="formValue.contest.productDescription" placeholder="작품 이름" />
+          </q-field>
+          <q-field v-if="formValue.contest.topic!=='nocontest'" label="어떤 공모전/전시회에 나가시나요?">
             <q-input type="text" v-model="formValue.contest.name" placeholder="공모전 이름" />
           </q-field>
-          <q-field v-if="formValue.contest.topicSelect!=='nocontest'" label="작품 제출일자는 언제인가요?">
+          <q-field v-if="formValue.contest.topic!=='nocontest'" label="작품 제출일자는 언제인가요?">
             <div class="row">
               <q-datetime v-model="formValue.contest.duedate" class="col" type="date" float-label="작품 제출일" :disable="!formValue.contest.hasDuedate" />
               <q-checkbox v-model="formValue.contest.hasDuedate" :true-value="false" :false-value="true" label="미정" @input="resetValue(formValue.contest, 'duedate')" />
             </div>
           </q-field>
-          <q-field v-if="formValue.contest.topicSelect!=='nocontest'" label="공모전/전시회의 목표는?">
+          <q-field v-if="formValue.contest.topic!=='nocontest'" label="공모전/전시회의 목표는?">
             <div class="row">
               <q-radio v-model="formValue.contest.objectives" class="col" :val="'towin'" label="수상!" />
               <q-radio v-model="formValue.contest.objectives" class="col" :val="'tojoin'" label="참여하는데 의미를 둬요!" />
             </div>
           </q-field>
         </div>
-        <div v-if="formValue.typeMultipleSelect.includes('세미나')">
-          <q-field icon="face">세미나/수업에 관한 질문입니다.</q-field>
-          <q-field label="몇 회의 모임을 가지나요?">
-            <q-input type="text" v-model="formValue.seminar.meeting" placeholder="예시> 주당 2회 총 8회" />
+        <div v-if="formValue.types.includes('seminar')">
+          <q-field icon="face">세미나에 관한 질문입니다.</q-field>
+          <q-field label="세미나 주제를 선택해주세요.">
+            <q-select v-model="formValue.seminar.topics" multiple :options="listOptions.study" />
           </q-field>
-          <q-field label="해당 내용을 가르쳐주는 튜터가 있나요?">
+          <q-field label="세미나 유형을 선택해주세요.">
             <div class="row">
-              <q-radio v-model="formValue.seminar.tutorOption" :val="true" class="col" label="있어요!" />
-              <q-radio class="col" v-model="formValue.seminar.tutorOption" :val="false" label="없어요!" />
+              <q-radio v-model="formValue.seminar.isOnce" :val="true" class="col" label="한번만 하는 일회성 세미나" />
+              <q-radio v-model="formValue.seminar.isOnce" :val="false" class="col" label="여러번 하는 세미나" />
             </div>
           </q-field>
-          <q-field v-if="formValue.seminar.tutorOption" label="튜터의 성함을 적어주세요!">
-            <q-input type="text" v-model="formValue.seminar.tutor" placeholder="성함" />
+          <q-field v-if="!formValue.seminar.isOnce" label="몇 회의 세미나를 가지나요?">
+            <q-input type="text" v-model="formValue.seminar.meeting" placeholder="예시> 주당 2회 총 8회" />
+          </q-field>
+          <q-field label="발표자 성함을 적어주세요.">
+            <q-input type="text" v-model="formValue.seminar.presenter" placeholder="성함" />
           </q-field>
         </div>
-        <div v-if="formValue.typeMultipleSelect.includes('단순공유')">
-          <q-field icon="face">단순공유에 관한 질문입니다.</q-field>
+        <div v-if="formValue.types.includes('share')">
+          <q-field icon="face">자료공유에 관한 질문입니다.</q-field>
           <q-field label="본인 외 저작물이 있는 자료를 공유하시나요?">
             <div class="row">
               <q-radio v-model="formValue.share.hasCopyright" :val="true" class="col" label="네!" />
               <q-radio v-model="formValue.share.hasCopyright" :val="false" class="col" label="아니오!" />
             </div>
           </q-field>
+          <q-field v-if="formValue.share.hasCopyright" label="저작물의 출처를 적어주세요.">
+            <q-input type="text" v-model="formValue.share.copyright" placeholder="출처" />
+          </q-field>
         </div>
-        <div v-if="formValue.typeMultipleSelect.includes('애자일')">
+        <div v-if="formValue.types.includes('agile')">
           <q-field icon="face">애자일에 관한 질문입니다.</q-field>
           <q-field label="애자일 프로젝트를 경험해보셨나요?">
             <div class="row">
               <q-radio v-model="formValue.agile.hasBeen" :val="true" class="col" label="네!" />
               <q-radio v-model="formValue.agile.hasBeen" :val="false" class="col" label="아니오!" />
             </div>
+          </q-field>
+        </div>
+        <div v-if="formValue.types.includes('etc')">
+          <q-field icon="face">기타 사항에 관한 질문입니다.</q-field>
+          <q-field label="프로젝트에 관한 구체적인 내용을 설명해주세요!">
+            <q-input v-model="formValue.etc.description" type="textarea" float-label="프로젝트 설명" :max-height="2" rows="2" />
           </q-field>
         </div>
         <q-stepper-navigation>
@@ -137,8 +152,8 @@
         <q-field icon="face">부트사차원에서 도움을 드리려고 해요!</q-field>
         <q-field v-if="!formValue.hasPlace" label="원하시는 공간이 있나요?">
           <div class="row">
-            <q-select class="col" :display-value="selectMultipleText(formValue.request.hopePlaceMultipleSelect)" multiple v-model="formValue.request.hopePlaceMultipleSelect" :options="listOptions.hopePlace" :disable="!formValue.request.hopePlace" />
-            <q-checkbox v-model="formValue.request.hopePlace" :true-value="false" :false-value="true" label="필요없어요" @input="resetValue(formValue.request, 'hopePlaceMultipleSelect')" />
+            <q-select class="col" multiple v-model="formValue.request.hopePlaces" :options="listOptions.hopePlace" :disable="!formValue.request.hasHopePlace" />
+            <q-checkbox v-model="formValue.request.hasHopePlace" :true-value="false" :false-value="true" label="필요없어요" @input="resetValue(formValue.request, 'hopePlaces')" />
           </div>
         </q-field>
         <q-field label="동아리 소유자산 중 필요한 부품/준비물이 있나요?">
@@ -159,7 +174,7 @@
         <q-field v-if="formValue.request.needBudget" label="얼마정도 예상하시나요?">
           <q-input type="number" min="1000" max="150000" v-model="formValue.request.budget" :placeholder="'숫자만, 추천금액: '+formValue.personnel*3000+'원'" />
         </q-field>
-        <q-field v-if="formValue.personnel >= 20" label="20인 이상 프로젝트에 간식비 신청이 가능한데 간식비 신청하시겠어요?">
+        <q-field v-if="formValue.personnel >= 15" label="15인 이상 프로젝트에 간식비 신청이 가능한데 간식비 신청하시겠어요?">
           <div class="row">
             <q-radio v-model="formValue.request.needCookie" :val="true" class="col" label="네!" />
             <q-radio v-model="formValue.request.needCookie" :val="false" class="col" label="필요없어요!" />
@@ -181,7 +196,7 @@
 export default {
   // name: 'PageName',
   mounted () {
-    this.$store.commit('showcase/updateDarkenTheme', false)
+    // this.$store.commit('showcase/updateTheme', 'custom1')
   },
   data () {
     return {
@@ -190,8 +205,8 @@ export default {
       formValue: {
         name: '',
         description: '',
-        typeMultipleSelect: [],
-        topicMultipleSelect: [],
+        types: [],
+        topics: [],
         deadlineOption: true,
         startDuration: null,
         endDuration: null,
@@ -200,33 +215,38 @@ export default {
         hasPlace: null,
         place: null,
         study: {
-          topicMultipleSelect: [],
+          topics: [],
+          meeting: null,
           hasTutor: null,
-          tutor: null,
-          meeting: null
+          tutor: null
         },
         contest: {
-          topicSelect: null,
+          topic: null,
+          productDescription: null,
           name: null,
-          duedate: null,
           hasDuedate: true,
-          objectives: null,
-          select: null
+          duedate: null,
+          objectives: null
         },
         seminar: {
+          topics: [],
+          isOnce: true,
           meeting: null,
-          tutor: null,
-          tutorOption: null
+          presenter: null
         },
         share: {
-          hasCopyright: null
+          hasCopyright: null,
+          copyright: ''
         },
         agile: {
           hasBeen: null
         },
+        etc: {
+          description: null
+        },
         request: {
-          hopePlace: true,
-          hopePlaceMultipleSelect: [],
+          hasHopePlace: true,
+          hopePlaces: [],
           needMaterial: null,
           material: null,
           needBudget: null,
@@ -238,18 +258,19 @@ export default {
       },
       listOptions: {
         type: [
-          { label: '스터디성 프로젝트', value: '스터디' },
-          { label: '작품제작/공모전', value: '작품제작' },
-          { label: '세미나/수업', value: '세미나' },
-          { label: '단순공유', value: '단순공유' },
-          { label: '개인', value: '개인' },
-          { label: '애자일', value: '애자일' }
+          { label: '스터디/수업', value: 'study' },
+          { label: '작품제작/공모전', value: 'contest' },
+          { label: '세미나', value: 'seminar' },
+          { label: '자료공유', value: 'share' },
+          { label: '애자일', value: 'agile' },
+          { label: '기타', value: 'etc' }
         ],
         topic: [
           { label: '소프트웨어/코딩', value: 'sw' },
           { label: '하드웨어', value: 'hw' },
           { label: '인공지능/기계학습', value: 'ai' },
           { label: '통계/분석/빅데이터', value: 'an' },
+          { label: '외국어', value: 'lang' },
           { label: '기타', value: 'etc' }
         ],
         study: [
@@ -267,22 +288,28 @@ export default {
           { label: '위 해당없음', value: 'etc' }
         ],
         contest: [
-          { label: '하드웨어 공모전/전시회', value: 'hwcontest' },
-          { label: '소프트웨어 공모전/전시회', value: 'swcontest' },
-          { label: '공모전/전시회 아님', value: 'noconest' }
+          { label: '하드웨어 공모전/전시회 출품', value: 'hwcontest' },
+          { label: '소프트웨어 공모전/전시회 출품', value: 'swcontest' },
+          { label: '단순 작품제작', value: 'nocontest' }
         ],
         hopePlace: [
           { label: '동아리방', value: 'club' },
           { label: '공대 강의실', value: 'lectureroom' },
           { label: '세미나실', value: 'seminarroom' }
+        ],
+        sharing: [
+          { label: '시험 기출(족보)', value: 'classQuiz' },
+          { label: '수업 자료', value: 'classMaterial' },
+          { label: '지식 공유', value: 'knowledge' },
+          { label: '세미나 자료', value: 'seminar' }
         ]
       }
     }
   },
   methods: {
-    selectMultipleText: function (array) {
-      return `${array.length ? array[0].toUpperCase() + ' 등 ' + array.length + '개 선택되었어요.' : '선택된 것이 없어요!'}`
-    },
+    // selectMultipleText: function (array) {
+    //   return `${array.length ? array[0].toUpperCase() + ' 등 ' + array.length + '개 선택되었어요.' : '선택된 것이 없어요!'}`
+    // },
     resetValue: function (parent, element) {
       if (typeof (parent[element]) === 'object') {
         parent[element] = []

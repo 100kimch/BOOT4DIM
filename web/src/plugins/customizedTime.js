@@ -2,7 +2,8 @@
 
 export default ({ Vue }) => {
   Vue.prototype.$timeSince = function (date) {
-    var seconds = Math.floor((new Date() - date) / 1000)
+    const past = new Date() - new Date(date)
+    var seconds = Math.floor(past / 1000)
     var interval = Math.floor(seconds / 31536000)
 
     if (interval > 1) {

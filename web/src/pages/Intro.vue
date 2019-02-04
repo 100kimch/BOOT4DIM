@@ -21,12 +21,12 @@
     <div class="custom-box">
       <h1 class="q-display-1">정보</h1>
       <ul>
-        <li>지도교수: 조용범 교수님</li>
         <li>소속: 건국대학교 공과대학</li>
-        <li>동아리방: 건국대학교 중장비동 306-3호</li>
+        <li>지도교수: 조용범 교수님</li>
         <li>회장: 김지형 (100kimch@naver.com)</li>
         <li>부회장: 이인원 (inwonlee1541@naver.com)</li>
         <li>운영진: 이재영, 최희정, 권미경, 백이주</li>
+        <li>동아리방: 건국대학교 중장비동 306-3호</li>
         <li>총원: 66명</li>
       </ul>
     </div>

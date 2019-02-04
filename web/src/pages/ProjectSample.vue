@@ -10,17 +10,17 @@
     <q-card>
       <q-list highlight>
         <q-list-header>최근 활동</q-list-header>
-        <q-item :key="index" v-for="(notification, index) in reversedNotifications">
+        <q-item :key="index" v-for="(activity, index) in reversedActivities">
           <q-item-side>
             <q-item-tile avatar>
-              <img :src="notification.avatar" alt="Profile Image">
+              <img :src="activity.avatar" alt="Profile Image">
             </q-item-tile>
           </q-item-side>
           <q-item-main>
-            <q-item-tile label>{{ notification.label }}</q-item-tile>
-            <q-item-tile v-if="notification.sublabel" sublabel>{{ notification.sublabel }}</q-item-tile>
+            <q-item-tile label>{{ activity.label }}</q-item-tile>
+            <q-item-tile v-if="activity.sublabel" sublabel>{{ activity.sublabel }}</q-item-tile>
           </q-item-main>
-          <q-item-side right>{{ $timeSince(notification.date) }}</q-item-side>
+          <q-item-side right>{{ $timeSince(activity.date) }}</q-item-side>
         </q-item>
       </q-list>
     </q-card>
@@ -60,12 +60,12 @@
               <q-item :key="index" v-for="(comment, index) in pictureDetail.comments">
                 <q-item-side>
                   <q-item-tile avatar>
-                    <img :src="comment.writer.avatar" alt="Profile Image">
+                    <img :src="comment.author.avatar" alt="Profile Image">
                   </q-item-tile>
                 </q-item-side>
                 <q-item-main>
                   <q-item-tile label>{{ comment.body }}</q-item-tile>
-                  <q-item-tile v-if="comment.writer.label" sublabel>{{ comment.writer.label }}</q-item-tile>
+                  <q-item-tile v-if="comment.author.label" sublabel>{{ comment.author.label }}</q-item-tile>
                 </q-item-main>
                 <q-item-side right>{{ $timeSince(comment.date) }}</q-item-side>
               </q-item>
@@ -93,7 +93,7 @@
                 </q-item-tile>
               </q-item-side>
               <q-item-main>
-                <q-item-tile label>{{ contributor.label }}</q-item-tile>
+                <q-item-tile label>{{ contributor.author }}</q-item-tile>
                 <q-item-tile sublabel>{{ contributor.email }}</q-item-tile>
               </q-item-main>
               <q-item-side right>{{ contributor.position }}</q-item-side>
@@ -330,8 +330,8 @@
         <q-list v-if="content.showComments && !content.isModifying" class="custom-comment">
           <q-btn flat icon="more_horiz" color="grey-8" class="q-pa-none full-width" @click="loadCommentsMore(content)">더보기</q-btn>
           <div :key="n" v-for="(comment, n) in content.comments">
-            <q-chat-message v-if="comment.writer.email !== $loginInfo['email']" :name="comment.writer.label" :avatar="comment.writer.avatar" :text="comment.body" bg-color="grey-4" :stamp="'&nbsp;&nbsp;' + $timeSince(comment.date)" />
-            <q-chat-message v-if="comment.writer.email === $loginInfo['email']" name="나" :text="comment.body" bg-color="teal-2" :stamp="'&nbsp;&nbsp;' + $timeSince(comment.date)" sent />
+            <q-chat-message v-if="comment.author.email !== userInfo['email']" :name="comment.author.label" :avatar="comment.author.avatar" :text="comment.body" bg-color="grey-4" :stamp="'&nbsp;&nbsp;' + $timeSince(comment.date)" />
+            <q-chat-message v-if="comment.author.email === userInfo['email']" name="나" :text="comment.body" bg-color="teal-2" :stamp="'&nbsp;&nbsp;' + $timeSince(comment.date)" sent />
           </div>
           <q-item class="q-pa-none">
             <q-item-main>
@@ -383,7 +383,7 @@ export default {
         title: this.newData.title || '무제',
         date: date,
         numIssue: 0,
-        contributor: this.$loginInfo,
+        contributor: this.userInfo,
         isModifying: false,
         isLike: false,
         themeColor: false,
@@ -395,11 +395,11 @@ export default {
         newCommentBody: '',
         comments: []
       })
-      this.project.notifications.push({
-        label: this.$loginInfo.label + '님이 새 글을 작성하였습니다:',
+      this.project.activities.push({
+        label: this.userInfo.label + '님이 새 글을 작성하였습니다:',
         sublabel: this.newData.title || '무제',
         date: date,
-        avatar: this.$loginInfo.avatar
+        avatar: this.userInfo.avatar
       })
       this.resetNewContent()
       console.log('httpRequest')
@@ -499,7 +499,7 @@ export default {
       // console.log(body)
       content.comments.push({
         id: new Date(),
-        writer: this.$loginInfo,
+        author: this.userInfo,
         body: body
       })
       content.newCommentBody = ''
@@ -557,10 +557,10 @@ export default {
         } else {
           action.position = '팀원'
           this.project.contributors.push(action)
-          this.project.notifications.push({
-            label: this.$loginInfo.label + '님이 ' + action.label + '님을 팀원으로 추가하였습니다.',
+          this.project.activities.push({
+            author: this.userInfo.label + '님이 ' + action.label + '님을 팀원으로 추가하였습니다.',
             date: new Date(),
-            avatar: this.$loginInfo.avatar
+            avatar: this.userInfo.avatar
           })
           this.$q.notify({
             color: 'positive',
@@ -582,8 +582,8 @@ export default {
     endDate: function () {
       return this.project.endDuration.slice(0, 10)
     },
-    reversedNotifications: function () {
-      return this.project.notifications.slice().reverse()
+    reversedActivities: function () {
+      return this.project.activities.slice().reverse()
     },
     reversedContents: function () {
       return this.project.contents.slice().reverse()
@@ -591,6 +591,11 @@ export default {
     isManager: function () {
       // ajax requests if login user is a project manager.
       return true
+    },
+    userInfo: {
+      get () {
+        return this.$store.state.showcase.userInfo
+      }
     }
   },
   watch: {
@@ -600,8 +605,8 @@ export default {
         {
           date: this.$timeSince(new Date()),
           body: '아주 멋져요!',
-          writer: {
-            label: '김지형',
+          author: {
+            author: '김지형',
             avatar: '/statics/profile_kjh.png',
             email: '100kimch@naver.com',
             position: '매니저'
@@ -638,40 +643,40 @@ export default {
           comments: [{
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: '/statics/profile_kjh.png',
               email: 'oioi@naver.com',
-              label: '김기리'
+              author: '김기리'
             }
           }, {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: '/statics/profile_kjh.png',
               email: '100kimch@naver.com',
-              label: '김지형'
+              author: '김지형'
             }
           }, {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: '/statics/profile_kjh.png',
               email: 'kim@naver.com',
-              label: '이한울'
+              author: '이한울'
             }
           }, {
             body: ['댓글 시험중입니다.'],
             date: new Date('2018-11-10'),
-            writer: {
+            author: {
               avatar: '/statics/profile_kjh.png',
               email: '100kimch@naver.com',
-              label: '김지형'
+              author: '김지형'
             }
           }],
           contributor: {
             avatar: '/statics/profile_kjh.png',
             email: '100kimch@naver.com',
-            label: '김지형'
+            author: '김지형'
           },
           date: new Date('2018-09-03'),
           headerImgSrc: '',
@@ -695,7 +700,7 @@ export default {
         contributors: [{
           avatar: '/statics/profile_kjh.png',
           email: '100kimch@naver.com',
-          label: '김지형',
+          author: '김지형',
           position: '매니저'
         }],
         deadlineOption: true,
@@ -708,7 +713,7 @@ export default {
         manager: '김지형',
         meeting: null,
         name: 'Boot4Dust',
-        notifications: [{
+        activities: [{
           avatar: '/statics/boot_logo.png',
           date: new Date() - 7200000,
           label: '새 프로젝트를 생성하였습니다.'

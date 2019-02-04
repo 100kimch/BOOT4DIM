@@ -7,7 +7,7 @@
         <h3 class="q-body-1">열정적이고 성실한 부트사차원 예비회원들의 많은 지원 바라고 있어요!</h3>
         <q-stepper-navigation>
           <q-btn color="secondary" @click="$refs.stepper.next()" label="지원하기!" />
-          <q-btn color="secondary" @click="$signUp(formValue)" label="테스트" />
+          <!-- <q-btn color="secondary" @click="$signUp(formValue)" label="테스트" /> -->
         </q-stepper-navigation>
       </q-step>
       <q-step title="가입방법 선택">
@@ -91,9 +91,9 @@ export default {
         parent[element] = ''
       }
     },
-    sendConrifmCode: function (code) {
-      this.$auth.signUp(this.formValue.username, code)
-    },
+    // sendConrifmCode: function (code) {
+    //   this.$confirmSignUp(this.formValue.username, code)
+    // },
     sendFormValue: async function () {
       this.loading.sendFormValue = true
       let hasError = await this.$signUp(this.formValue)
@@ -151,7 +151,7 @@ export default {
   validations: {
     formValue: {
       address: {},
-      birthdate: {},
+      birthdate: { required },
       email: { required, email },
       // hope: { required },
       // motive: { required },

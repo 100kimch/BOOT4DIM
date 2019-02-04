@@ -1,24 +1,269 @@
-# type Note @model @searchable {
-#   id: ID!
-#   title: String!
-#   content: String!
+enum GeneralPost {
+  NoticePost
+}
+
+interface Person {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int!
+}
+
+type User implements Person {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int!
+}
+
+type Contributor implements Person {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int!
+  position: String!
+}
+
+input UserInput {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int
+}
+
+input ContributorInput {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int
+  position: String!
+}
+
+interface Post {
+  id: ID!
+  body: String!
+  comments: [Comment]
+  author: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String!
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [User]
+}
+
+type NoticePost implements Post @model {
+  id: ID!
+  body: String!
+  comments: [Comment] # @connection(name: "PostComments")
+  author: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String!
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [User]
+}
+
+type FreePost implements Post @model {
+  id: ID!
+  body: String!
+  comments: [Comment] # @connection(name: "PostComments")
+  author: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String!
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [User]
+}
+
+type ProjectPost implements Post @model {
+  id: ID!
+  body: String!
+  comments: [Comment] # @connection(name: "PostComments")
+  author: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String!
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [User]
+  contributors: [Contributor]
+}
+
+interface Message {
+  id: ID!
+  body: String!
+  date: String!
+  postId: String!
+}
+
+type Comment implements Message @model {
+  id: ID!
+  body: String!
+  date: String!
+  postId: String!
+  author: User!
+  # post: NoticePost @connection(name: "PostComments")
+}
+
+type ProjectComment implements Message @model {
+  id: ID!
+  body: String!
+  date: String!
+  postId: String!
+  projectId: String!
+  author: Contributor!
+}
+
+type Project @model {
+  id: ID!
+  proposer: User!
+  name: String!
+  description: String!
+  types: [String!]!
+  topics: [String!]!
+  deadlineOption: Boolean!
+  startDutaion: String!
+  endDuration: String
+  manager: String!
+  personnel: Int!
+  hasPlace: Boolean!
+  place: String
+  studyTopics: [String]
+  studyMeeting: String
+  studyTutor: String
+  contestTopic: String
+  contestProductDescription: String
+  contestName: String
+  contestDuedate: String
+  contestObjectives: String
+  seminarTopics: [String]
+  seminarIsOnce: Boolean
+  seminarMeeting: String
+  seminarPresenter: String
+  shareCopyright: String
+  agileHasBeen: String
+  etcDescription: String
+  request: [Request]
+  activities: [Activity]
+  contributors: [Contributor]
+  comments: [Comment]
+  contents: [ProjectPost]
+  fixedBudget: Int
+  pictures: [Picture]
+  supports: [Support]
+  # teamNotes: [TeamNotes]
+  status: Int
+  syncGithub: Boolean
+  themeColor: String
+}
+
+type Request @model {
+  id: ID!
+  projectId: String!
+  date: String!
+  requester: Contributor!
+  hopePlaces: [String]
+  material: String
+  budget: String
+  cookie: String
+  extra: String
+  status: Int
+}
+
+type Support {
+  id: ID!
+  projectId: String!
+  date: String!
+  status: Int!
+  title: String!
+  description: String
+}
+
+type Activity {
+  id: ID!
+  projectName: String!
+  date: String!
+  type: Int
+  description: String
+  contributors: [Contributor]
+}
+
+type Picture {
+  body: String
+  date: String!
+  author: Contributor
+  src: String!
+  title: String
+  comments: [Comment]
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  topics: [String]
+}
+
+# type TeamNotes {
+
 # }
 
-# type Query {
-#   getNote(id: ID!): Note
-#   listNotes: [Note]
-# }
+type History @model {
+  id: ID!
+  date: String!
+  body: String!
+  author: User!
+}
 
-# type Mutation {
-#   createNote(title: String!, content: String!): Note
-#   updateNote(id: ID!, title: String!, content: String!): Note
-#   deleteNote(id: ID!): Note
-# }
-
-# schema {
-#   query Query
-#   mutation Mutation
-# }
+type Testing @model {
+  id: ID!
+  name: String!
+}
 
 # scalar Date
 
@@ -39,59 +284,83 @@
 #   post: Post @connection(name: "PostComments")
 # }
 
-interface Post {
-  id: ID!
-  body: String!
-  comments: [Comment!]!
-  contributor: User
-  date: String!
-  headerImgSrc: String
-  isLike: Boolean
-  isModifying: Boolean
-  numComments: Int
-  numIssue: Int!
-  numLikes: Int!
-  numShares: Int!
-  themeColor: Boolean
-  title: String
-}
-
-type Notice @model {
-  id: ID!
-  body: String!
-  comments: [Comment!]!
-  contributor: User
-  date: String!
-  headerImgSrc: String
-  isLike: Boolean
-  isModifying: Boolean
-  numComments: Int
-  numIssue: Int!
-  numLikes: Int!
-  numShares: Int!
-  themeColor: Boolean
-  title: String
-}
-
-type Comment @model {
-  id: ID!
-  body: String!
-}
-
-type History @model {
-  id: ID!
-  date: String
-  body: String!
-}
-
-type Testing @model {
-  name: String!
-}
-
-type User @model {
-  name: String!
-}
-
 # type Query {
-#   comment(id: ID): Comment
+#   listNotices: [NoticePost]
+# }
+
+# type Mutation {
+#   createPostOfNotice(input: CreatePostInput!): NoticePost
+#   updatePostOfNotice(input: UpdatePostInput!): NoticePost
+#   deletePost(id: ID!): NoticePost
+# }
+
+# type Subscription {
+#   onDeltaPost: NoticePost
+#     @aws_subscribe(mutations: ["createPostOfNotice", "updatePostOfNotice"])
+# }
+
+# enum DeltaAction {
+#   DELETE
+# }
+
+# schema {
+#   query: Query
+#   mutation: Mutation
+#   subscription: Subscription
+# }
+
+# input CreatePostInput {
+#   body: String!
+#   author: UserInput
+#   date: String!
+#   headerImgSrc: String
+#   isLike: Boolean!
+#   issueName: String!
+#   numComments: Int!
+#   numLikes: Int!
+#   numShares: Int!
+#   themeColor: String
+#   title: String
+#   topic: [String]
+# }
+
+# input UpdatePostInput {
+#   id: ID!
+#   author: UserInput
+#   title: String
+#   body: String!
+#   date: String!
+#   isLike: Boolean
+#   topic: [String]
+#   whoLike: [User]
+# }
+
+# type NoticesResult {
+#   notices: [NoticePost]
+#   totalCount: Int
+# }
+
+# type FreePost implements Post @model @searchable {
+#   id: ID!
+#   body: String!
+#   comments: [Comment]! # @connection(name: "PostComments")
+#   author: User
+#   contributor: [User]
+#   date: String!
+#   headerImgSrc: String
+#   isLike: Boolean
+#   isModifying: Boolean
+#   numComments: Int
+#   numIssue: Int!
+#   numLikes: Int!
+#   numShares: Int!
+#   themeColor: String
+#   title: String
+# }
+
+# type History @model {
+#   id: ID!
+#   date: String
+#   body: String!
+#   contributor: [User]
 # }

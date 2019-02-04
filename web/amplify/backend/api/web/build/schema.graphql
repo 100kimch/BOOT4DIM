@@ -1,53 +1,261 @@
+enum GeneralPost {
+  NoticePost
+}
+
+interface Person {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int!
+}
+
+type User implements Person {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int!
+}
+
+type Contributor implements Person {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int!
+  position: String!
+}
+
+input UserInput {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int
+}
+
+input ContributorInput {
+  birthdate: String
+  snsLogin: String
+  email: String!
+  email_verified: Boolean!
+  name: String!
+  phone_number: String!
+  posts: [GeneralPost]
+  avatar: String
+  level: Int
+  position: String!
+}
+
 interface Post {
   id: ID!
   body: String!
-  comments: [Comment!]!
-  contributor: User
+  comments: [Comment]
+  author: User
   date: String!
   headerImgSrc: String
   isLike: Boolean
-  isModifying: Boolean
+  issueName: String!
   numComments: Int
-  numIssue: Int!
-  numLikes: Int!
-  numShares: Int!
-  themeColor: Boolean
+  numLikes: Int
+  numShares: Int
+  themeColor: String
   title: String
+  topics: [String]
+  whoLike: [User]
 }
 
-type Notice {
+type NoticePost implements Post {
   id: ID!
   body: String!
-  comments: [Comment!]!
-  contributor: User
+  comments: [Comment]
+  author: User
   date: String!
   headerImgSrc: String
   isLike: Boolean
-  isModifying: Boolean
+  issueName: String!
   numComments: Int
-  numIssue: Int!
-  numLikes: Int!
-  numShares: Int!
-  themeColor: Boolean
+  numLikes: Int
+  numShares: Int
+  themeColor: String
   title: String
+  topics: [String]
+  whoLike: [User]
 }
 
-type Comment {
+type FreePost implements Post {
   id: ID!
   body: String!
+  comments: [Comment]
+  author: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String!
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [User]
+}
+
+type ProjectPost implements Post {
+  id: ID!
+  body: String!
+  comments: [Comment]
+  author: User
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String!
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [User]
+  contributors: [Contributor]
+}
+
+interface Message {
+  id: ID!
+  body: String!
+  date: String!
+  postId: String!
+}
+
+type Comment implements Message {
+  id: ID!
+  body: String!
+  date: String!
+  postId: String!
+  author: User!
+}
+
+type ProjectComment implements Message {
+  id: ID!
+  body: String!
+  date: String!
+  postId: String!
+  projectId: String!
+  author: Contributor!
+}
+
+type Project {
+  id: ID!
+  proposer: User!
+  name: String!
+  description: String!
+  types: [String!]!
+  topics: [String!]!
+  deadlineOption: Boolean!
+  startDutaion: String!
+  endDuration: String
+  manager: String!
+  personnel: Int!
+  hasPlace: Boolean!
+  place: String
+  studyTopics: [String]
+  studyMeeting: String
+  studyTutor: String
+  contestTopic: String
+  contestProductDescription: String
+  contestName: String
+  contestDuedate: String
+  contestObjectives: String
+  seminarTopics: [String]
+  seminarIsOnce: Boolean
+  seminarMeeting: String
+  seminarPresenter: String
+  shareCopyright: String
+  agileHasBeen: String
+  etcDescription: String
+  request: [Request]
+  activities: [Activity]
+  contributors: [Contributor]
+  comments: [Comment]
+  contents: [ProjectPost]
+  fixedBudget: Int
+  pictures: [Picture]
+  supports: [Support]
+  status: Int
+  syncGithub: Boolean
+  themeColor: String
+}
+
+type Request {
+  id: ID!
+  projectId: String!
+  date: String!
+  requester: Contributor!
+  hopePlaces: [String]
+  material: String
+  budget: String
+  cookie: String
+  extra: String
+  status: Int
+}
+
+type Support {
+  id: ID!
+  projectId: String!
+  date: String!
+  status: Int!
+  title: String!
+  description: String
+}
+
+type Activity {
+  id: ID!
+  projectName: String!
+  date: String!
+  type: Int
+  description: String
+  contributors: [Contributor]
+}
+
+type Picture {
+  body: String
+  date: String!
+  author: Contributor
+  src: String!
+  title: String
+  comments: [Comment]
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  topics: [String]
 }
 
 type History {
   id: ID!
-  date: String
+  date: String!
   body: String!
+  author: User!
 }
 
 type Testing {
-  name: String!
-}
-
-type User {
+  id: ID!
   name: String!
 }
 
@@ -56,8 +264,8 @@ enum ModelSortDirection {
   DESC
 }
 
-type ModelNoticeConnection {
-  items: [Notice]
+type ModelNoticePostConnection {
+  items: [NoticePost]
   nextToken: String
 }
 
@@ -116,105 +324,265 @@ input ModelBooleanFilterInput {
   eq: Boolean
 }
 
-input ModelNoticeFilterInput {
+input ModelNoticePostFilterInput {
   id: ModelIDFilterInput
   body: ModelStringFilterInput
   date: ModelStringFilterInput
   headerImgSrc: ModelStringFilterInput
   isLike: ModelBooleanFilterInput
-  isModifying: ModelBooleanFilterInput
+  issueName: ModelStringFilterInput
   numComments: ModelIntFilterInput
-  numIssue: ModelIntFilterInput
   numLikes: ModelIntFilterInput
   numShares: ModelIntFilterInput
-  themeColor: ModelBooleanFilterInput
+  themeColor: ModelStringFilterInput
   title: ModelStringFilterInput
-  and: [ModelNoticeFilterInput]
-  or: [ModelNoticeFilterInput]
-  not: ModelNoticeFilterInput
+  topics: ModelStringFilterInput
+  and: [ModelNoticePostFilterInput]
+  or: [ModelNoticePostFilterInput]
+  not: ModelNoticePostFilterInput
 }
 
 type Query {
-  getNotice(id: ID!): Notice
-  listNotices(filter: ModelNoticeFilterInput, limit: Int, nextToken: String): ModelNoticeConnection
+  getNoticePost(id: ID!): NoticePost
+  listNoticePosts(filter: ModelNoticePostFilterInput, limit: Int, nextToken: String): ModelNoticePostConnection
+  getFreePost(id: ID!): FreePost
+  listFreePosts(filter: ModelFreePostFilterInput, limit: Int, nextToken: String): ModelFreePostConnection
+  getProjectPost(id: ID!): ProjectPost
+  listProjectPosts(filter: ModelProjectPostFilterInput, limit: Int, nextToken: String): ModelProjectPostConnection
   getComment(id: ID!): Comment
   listComments(filter: ModelCommentFilterInput, limit: Int, nextToken: String): ModelCommentConnection
+  getProjectComment(id: ID!): ProjectComment
+  listProjectComments(filter: ModelProjectCommentFilterInput, limit: Int, nextToken: String): ModelProjectCommentConnection
+  getProject(id: ID!): Project
+  listProjects(filter: ModelProjectFilterInput, limit: Int, nextToken: String): ModelProjectConnection
+  getRequest(id: ID!): Request
+  listRequests(filter: ModelRequestFilterInput, limit: Int, nextToken: String): ModelRequestConnection
   getHistory(id: ID!): History
   listHistorys(filter: ModelHistoryFilterInput, limit: Int, nextToken: String): ModelHistoryConnection
   getTesting(id: ID!): Testing
   listTestings(filter: ModelTestingFilterInput, limit: Int, nextToken: String): ModelTestingConnection
-  getUser(id: ID!): User
-  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
 }
 
-input CreateNoticeInput {
+input CreateNoticePostInput {
   id: ID
   body: String!
+  author: UserInput
   date: String!
   headerImgSrc: String
   isLike: Boolean
-  isModifying: Boolean
+  issueName: String!
   numComments: Int
-  numIssue: Int!
-  numLikes: Int!
-  numShares: Int!
-  themeColor: Boolean
+  numLikes: Int
+  numShares: Int
+  themeColor: String
   title: String
+  topics: [String]
+  whoLike: [UserInput]
 }
 
-input UpdateNoticeInput {
+input UpdateNoticePostInput {
   id: ID!
   body: String
+  author: UserInput
   date: String
   headerImgSrc: String
   isLike: Boolean
-  isModifying: Boolean
+  issueName: String
   numComments: Int
-  numIssue: Int
   numLikes: Int
   numShares: Int
-  themeColor: Boolean
+  themeColor: String
   title: String
+  topics: [String]
+  whoLike: [UserInput]
 }
 
-input DeleteNoticeInput {
+input DeleteNoticePostInput {
   id: ID
 }
 
 type Mutation {
-  createNotice(input: CreateNoticeInput!): Notice
-  updateNotice(input: UpdateNoticeInput!): Notice
-  deleteNotice(input: DeleteNoticeInput!): Notice
+  createNoticePost(input: CreateNoticePostInput!): NoticePost
+  updateNoticePost(input: UpdateNoticePostInput!): NoticePost
+  deleteNoticePost(input: DeleteNoticePostInput!): NoticePost
+  createFreePost(input: CreateFreePostInput!): FreePost
+  updateFreePost(input: UpdateFreePostInput!): FreePost
+  deleteFreePost(input: DeleteFreePostInput!): FreePost
+  createProjectPost(input: CreateProjectPostInput!): ProjectPost
+  updateProjectPost(input: UpdateProjectPostInput!): ProjectPost
+  deleteProjectPost(input: DeleteProjectPostInput!): ProjectPost
   createComment(input: CreateCommentInput!): Comment
   updateComment(input: UpdateCommentInput!): Comment
   deleteComment(input: DeleteCommentInput!): Comment
+  createProjectComment(input: CreateProjectCommentInput!): ProjectComment
+  updateProjectComment(input: UpdateProjectCommentInput!): ProjectComment
+  deleteProjectComment(input: DeleteProjectCommentInput!): ProjectComment
+  createProject(input: CreateProjectInput!): Project
+  updateProject(input: UpdateProjectInput!): Project
+  deleteProject(input: DeleteProjectInput!): Project
+  createRequest(input: CreateRequestInput!): Request
+  updateRequest(input: UpdateRequestInput!): Request
+  deleteRequest(input: DeleteRequestInput!): Request
   createHistory(input: CreateHistoryInput!): History
   updateHistory(input: UpdateHistoryInput!): History
   deleteHistory(input: DeleteHistoryInput!): History
   createTesting(input: CreateTestingInput!): Testing
   updateTesting(input: UpdateTestingInput!): Testing
   deleteTesting(input: DeleteTestingInput!): Testing
-  createUser(input: CreateUserInput!): User
-  updateUser(input: UpdateUserInput!): User
-  deleteUser(input: DeleteUserInput!): User
 }
 
 type Subscription {
-  onCreateNotice: Notice @aws_subscribe(mutations: ["createNotice"])
-  onUpdateNotice: Notice @aws_subscribe(mutations: ["updateNotice"])
-  onDeleteNotice: Notice @aws_subscribe(mutations: ["deleteNotice"])
+  onCreateNoticePost: NoticePost @aws_subscribe(mutations: ["createNoticePost"])
+  onUpdateNoticePost: NoticePost @aws_subscribe(mutations: ["updateNoticePost"])
+  onDeleteNoticePost: NoticePost @aws_subscribe(mutations: ["deleteNoticePost"])
+  onCreateFreePost: FreePost @aws_subscribe(mutations: ["createFreePost"])
+  onUpdateFreePost: FreePost @aws_subscribe(mutations: ["updateFreePost"])
+  onDeleteFreePost: FreePost @aws_subscribe(mutations: ["deleteFreePost"])
+  onCreateProjectPost: ProjectPost @aws_subscribe(mutations: ["createProjectPost"])
+  onUpdateProjectPost: ProjectPost @aws_subscribe(mutations: ["updateProjectPost"])
+  onDeleteProjectPost: ProjectPost @aws_subscribe(mutations: ["deleteProjectPost"])
   onCreateComment: Comment @aws_subscribe(mutations: ["createComment"])
   onUpdateComment: Comment @aws_subscribe(mutations: ["updateComment"])
   onDeleteComment: Comment @aws_subscribe(mutations: ["deleteComment"])
+  onCreateProjectComment: ProjectComment @aws_subscribe(mutations: ["createProjectComment"])
+  onUpdateProjectComment: ProjectComment @aws_subscribe(mutations: ["updateProjectComment"])
+  onDeleteProjectComment: ProjectComment @aws_subscribe(mutations: ["deleteProjectComment"])
+  onCreateProject: Project @aws_subscribe(mutations: ["createProject"])
+  onUpdateProject: Project @aws_subscribe(mutations: ["updateProject"])
+  onDeleteProject: Project @aws_subscribe(mutations: ["deleteProject"])
+  onCreateRequest: Request @aws_subscribe(mutations: ["createRequest"])
+  onUpdateRequest: Request @aws_subscribe(mutations: ["updateRequest"])
+  onDeleteRequest: Request @aws_subscribe(mutations: ["deleteRequest"])
   onCreateHistory: History @aws_subscribe(mutations: ["createHistory"])
   onUpdateHistory: History @aws_subscribe(mutations: ["updateHistory"])
   onDeleteHistory: History @aws_subscribe(mutations: ["deleteHistory"])
   onCreateTesting: Testing @aws_subscribe(mutations: ["createTesting"])
   onUpdateTesting: Testing @aws_subscribe(mutations: ["updateTesting"])
   onDeleteTesting: Testing @aws_subscribe(mutations: ["deleteTesting"])
-  onCreateUser: User @aws_subscribe(mutations: ["createUser"])
-  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"])
-  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"])
+}
+
+type ModelFreePostConnection {
+  items: [FreePost]
+  nextToken: String
+}
+
+input ModelFreePostFilterInput {
+  id: ModelIDFilterInput
+  body: ModelStringFilterInput
+  date: ModelStringFilterInput
+  headerImgSrc: ModelStringFilterInput
+  isLike: ModelBooleanFilterInput
+  issueName: ModelStringFilterInput
+  numComments: ModelIntFilterInput
+  numLikes: ModelIntFilterInput
+  numShares: ModelIntFilterInput
+  themeColor: ModelStringFilterInput
+  title: ModelStringFilterInput
+  topics: ModelStringFilterInput
+  and: [ModelFreePostFilterInput]
+  or: [ModelFreePostFilterInput]
+  not: ModelFreePostFilterInput
+}
+
+input CreateFreePostInput {
+  id: ID
+  body: String!
+  author: UserInput
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String!
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [UserInput]
+}
+
+input UpdateFreePostInput {
+  id: ID!
+  body: String
+  author: UserInput
+  date: String
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [UserInput]
+}
+
+input DeleteFreePostInput {
+  id: ID
+}
+
+type ModelProjectPostConnection {
+  items: [ProjectPost]
+  nextToken: String
+}
+
+input ModelProjectPostFilterInput {
+  id: ModelIDFilterInput
+  body: ModelStringFilterInput
+  date: ModelStringFilterInput
+  headerImgSrc: ModelStringFilterInput
+  isLike: ModelBooleanFilterInput
+  issueName: ModelStringFilterInput
+  numComments: ModelIntFilterInput
+  numLikes: ModelIntFilterInput
+  numShares: ModelIntFilterInput
+  themeColor: ModelStringFilterInput
+  title: ModelStringFilterInput
+  topics: ModelStringFilterInput
+  and: [ModelProjectPostFilterInput]
+  or: [ModelProjectPostFilterInput]
+  not: ModelProjectPostFilterInput
+}
+
+input CreateProjectPostInput {
+  id: ID
+  body: String!
+  author: UserInput
+  date: String!
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String!
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [UserInput]
+  contributors: [ContributorInput]
+}
+
+input UpdateProjectPostInput {
+  id: ID!
+  body: String
+  author: UserInput
+  date: String
+  headerImgSrc: String
+  isLike: Boolean
+  issueName: String
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  themeColor: String
+  title: String
+  topics: [String]
+  whoLike: [UserInput]
+  contributors: [ContributorInput]
+}
+
+input DeleteProjectPostInput {
+  id: ID
 }
 
 type ModelCommentConnection {
@@ -225,6 +593,8 @@ type ModelCommentConnection {
 input ModelCommentFilterInput {
   id: ModelIDFilterInput
   body: ModelStringFilterInput
+  date: ModelStringFilterInput
+  postId: ModelStringFilterInput
   and: [ModelCommentFilterInput]
   or: [ModelCommentFilterInput]
   not: ModelCommentFilterInput
@@ -233,14 +603,260 @@ input ModelCommentFilterInput {
 input CreateCommentInput {
   id: ID
   body: String!
+  date: String!
+  postId: String!
+  author: UserInput!
 }
 
 input UpdateCommentInput {
   id: ID!
   body: String
+  date: String
+  postId: String
+  author: UserInput
 }
 
 input DeleteCommentInput {
+  id: ID
+}
+
+type ModelProjectCommentConnection {
+  items: [ProjectComment]
+  nextToken: String
+}
+
+input ModelProjectCommentFilterInput {
+  id: ModelIDFilterInput
+  body: ModelStringFilterInput
+  date: ModelStringFilterInput
+  postId: ModelStringFilterInput
+  projectId: ModelStringFilterInput
+  and: [ModelProjectCommentFilterInput]
+  or: [ModelProjectCommentFilterInput]
+  not: ModelProjectCommentFilterInput
+}
+
+input CreateProjectCommentInput {
+  id: ID
+  body: String!
+  date: String!
+  postId: String!
+  projectId: String!
+  author: ContributorInput!
+}
+
+input UpdateProjectCommentInput {
+  id: ID!
+  body: String
+  date: String
+  postId: String
+  projectId: String
+  author: ContributorInput
+}
+
+input DeleteProjectCommentInput {
+  id: ID
+}
+
+input ActivityInput {
+  projectName: String!
+  date: String!
+  type: Int
+  description: String
+  contributors: [ContributorInput]
+}
+
+input PictureInput {
+  body: String
+  date: String!
+  author: ContributorInput
+  src: String!
+  title: String
+  numComments: Int
+  numLikes: Int
+  numShares: Int
+  topics: [String]
+}
+
+input SupportInput {
+  projectId: String!
+  date: String!
+  status: Int!
+  title: String!
+  description: String
+}
+
+type ModelProjectConnection {
+  items: [Project]
+  nextToken: String
+}
+
+input ModelProjectFilterInput {
+  id: ModelIDFilterInput
+  name: ModelStringFilterInput
+  description: ModelStringFilterInput
+  types: ModelStringFilterInput
+  topics: ModelStringFilterInput
+  deadlineOption: ModelBooleanFilterInput
+  startDutaion: ModelStringFilterInput
+  endDuration: ModelStringFilterInput
+  manager: ModelStringFilterInput
+  personnel: ModelIntFilterInput
+  hasPlace: ModelBooleanFilterInput
+  place: ModelStringFilterInput
+  studyTopics: ModelStringFilterInput
+  studyMeeting: ModelStringFilterInput
+  studyTutor: ModelStringFilterInput
+  contestTopic: ModelStringFilterInput
+  contestProductDescription: ModelStringFilterInput
+  contestName: ModelStringFilterInput
+  contestDuedate: ModelStringFilterInput
+  contestObjectives: ModelStringFilterInput
+  seminarTopics: ModelStringFilterInput
+  seminarIsOnce: ModelBooleanFilterInput
+  seminarMeeting: ModelStringFilterInput
+  seminarPresenter: ModelStringFilterInput
+  shareCopyright: ModelStringFilterInput
+  agileHasBeen: ModelStringFilterInput
+  etcDescription: ModelStringFilterInput
+  fixedBudget: ModelIntFilterInput
+  status: ModelIntFilterInput
+  syncGithub: ModelBooleanFilterInput
+  themeColor: ModelStringFilterInput
+  and: [ModelProjectFilterInput]
+  or: [ModelProjectFilterInput]
+  not: ModelProjectFilterInput
+}
+
+input CreateProjectInput {
+  id: ID
+  proposer: UserInput!
+  name: String!
+  description: String!
+  types: [String!]!
+  topics: [String!]!
+  deadlineOption: Boolean!
+  startDutaion: String!
+  endDuration: String
+  manager: String!
+  personnel: Int!
+  hasPlace: Boolean!
+  place: String
+  studyTopics: [String]
+  studyMeeting: String
+  studyTutor: String
+  contestTopic: String
+  contestProductDescription: String
+  contestName: String
+  contestDuedate: String
+  contestObjectives: String
+  seminarTopics: [String]
+  seminarIsOnce: Boolean
+  seminarMeeting: String
+  seminarPresenter: String
+  shareCopyright: String
+  agileHasBeen: String
+  etcDescription: String
+  activities: [ActivityInput]
+  contributors: [ContributorInput]
+  fixedBudget: Int
+  pictures: [PictureInput]
+  supports: [SupportInput]
+  status: Int
+  syncGithub: Boolean
+  themeColor: String
+}
+
+input UpdateProjectInput {
+  id: ID!
+  proposer: UserInput
+  name: String
+  description: String
+  types: [String!]
+  topics: [String!]
+  deadlineOption: Boolean
+  startDutaion: String
+  endDuration: String
+  manager: String
+  personnel: Int
+  hasPlace: Boolean
+  place: String
+  studyTopics: [String]
+  studyMeeting: String
+  studyTutor: String
+  contestTopic: String
+  contestProductDescription: String
+  contestName: String
+  contestDuedate: String
+  contestObjectives: String
+  seminarTopics: [String]
+  seminarIsOnce: Boolean
+  seminarMeeting: String
+  seminarPresenter: String
+  shareCopyright: String
+  agileHasBeen: String
+  etcDescription: String
+  activities: [ActivityInput]
+  contributors: [ContributorInput]
+  fixedBudget: Int
+  pictures: [PictureInput]
+  supports: [SupportInput]
+  status: Int
+  syncGithub: Boolean
+  themeColor: String
+}
+
+input DeleteProjectInput {
+  id: ID
+}
+
+type ModelRequestConnection {
+  items: [Request]
+  nextToken: String
+}
+
+input ModelRequestFilterInput {
+  id: ModelIDFilterInput
+  projectId: ModelStringFilterInput
+  date: ModelStringFilterInput
+  hopePlaces: ModelStringFilterInput
+  material: ModelStringFilterInput
+  budget: ModelStringFilterInput
+  cookie: ModelStringFilterInput
+  extra: ModelStringFilterInput
+  status: ModelIntFilterInput
+  and: [ModelRequestFilterInput]
+  or: [ModelRequestFilterInput]
+  not: ModelRequestFilterInput
+}
+
+input CreateRequestInput {
+  id: ID
+  projectId: String!
+  date: String!
+  requester: ContributorInput!
+  hopePlaces: [String]
+  material: String
+  budget: String
+  cookie: String
+  extra: String
+  status: Int
+}
+
+input UpdateRequestInput {
+  id: ID!
+  projectId: String
+  date: String
+  requester: ContributorInput
+  hopePlaces: [String]
+  material: String
+  budget: String
+  cookie: String
+  extra: String
+  status: Int
+}
+
+input DeleteRequestInput {
   id: ID
 }
 
@@ -260,14 +876,16 @@ input ModelHistoryFilterInput {
 
 input CreateHistoryInput {
   id: ID
-  date: String
+  date: String!
   body: String!
+  author: UserInput!
 }
 
 input UpdateHistoryInput {
   id: ID!
   date: String
   body: String
+  author: UserInput
 }
 
 input DeleteHistoryInput {
@@ -280,6 +898,7 @@ type ModelTestingConnection {
 }
 
 input ModelTestingFilterInput {
+  id: ModelIDFilterInput
   name: ModelStringFilterInput
   and: [ModelTestingFilterInput]
   or: [ModelTestingFilterInput]
@@ -287,37 +906,15 @@ input ModelTestingFilterInput {
 }
 
 input CreateTestingInput {
+  id: ID
   name: String!
 }
 
 input UpdateTestingInput {
+  id: ID!
   name: String
 }
 
 input DeleteTestingInput {
-  id: ID
-}
-
-type ModelUserConnection {
-  items: [User]
-  nextToken: String
-}
-
-input ModelUserFilterInput {
-  name: ModelStringFilterInput
-  and: [ModelUserFilterInput]
-  or: [ModelUserFilterInput]
-  not: ModelUserFilterInput
-}
-
-input CreateUserInput {
-  name: String!
-}
-
-input UpdateUserInput {
-  name: String
-}
-
-input DeleteUserInput {
   id: ID
 }

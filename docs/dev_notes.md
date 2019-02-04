@@ -41,6 +41,20 @@ frontend:
     paths: []
 ```
 
+### Codegen for GraphQL Schema
+
+```bash
+amplify codegen
+amplify push
+```
+
+## Comments
+
+### friendlyName Plugin
+
+- [과일이름, 야채, 채소이름](https://soonsin.com/376)
+- [분류:한국어 음식](https://ko.wiktionary.org/w/index.php?title=분류:한국어_음식)
+
 ## Trouble Shoots
 
 ### git
@@ -60,6 +74,13 @@ git push --set-upstream origin master
 ```bash
 # place at ~/.zshrc
 export PATH=$PATH:/Users/KJH/.npm-global/bin
+```
+
+#### v-for elements not updated
+
+```javascript
+// content.isModifying = !content.isModifying
+this.$set(content, "isModifying", !content.isModifying);
 ```
 
 ### quasar
@@ -87,3 +108,40 @@ npm i -D webpack-merge
 ### Handling Static Assets
 
 ![See this page](http://vuejs-templates.github.io/webpack/static.html)
+
+### Amplify GraphQL Client
+
+#### Important
+
+![See This](https://github.com/aws-amplify/amplify-cli/issues/82)
+
+- '@connection' and '@searchable' should be done at last! (once push them, cannot modify the schema again!)
+
+#### when editing
+
+- Should amplify codegen add with typescript
+
+### GraphQL
+
+#### remake codegen
+
+1. delete .graphqlconfig.yml
+1. type this:
+
+```bash
+amplify codegen add
+```
+
+#### GraphQL schema file should contain a valid GraphQL introspection query result
+
+![see this page](https://github.com/aws-amplify/amplify-cli/issues/159)
+
+> > Did you make a change to your schema.graphql and did not do a amplify push?
+> > Codegen uses the introspection schema and not the schema.graphql. So if you make any changes to your schmea.graphql please use the following workflow
+> > Push your changes using amplify push
+> > Make sure the code gen is using the latest introspection schema by forcing it to download it by running amplify codegen generate --download
+
+```bash
+amplify push
+amplify codegen generate --download
+```

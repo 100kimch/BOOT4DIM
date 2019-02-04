@@ -19,7 +19,7 @@
 
         <q-tab-pane name="tabNewData">
           <q-input v-model="newData.title" type="text" float-label="제목" />
-          <q-chips-input v-model="newData.topic" float-label="토픽">
+          <q-chips-input v-model="newData.topics" float-label="토픽">
             <q-autocomplete @search="searchTopic" @selected="selectSearch" />
           </q-chips-input>
           <q-input v-model="newData.body" type="textarea" float-label="내용" :max-height="7" rows="7" />
@@ -33,7 +33,7 @@
         </q-tab-pane>
       </q-tabs>
     </q-card>
-    <c-card-list :contents="reversedContents"></c-card-list>
+    <c-card-list :dbHandler="dbHandler"></c-card-list>
   </q-page>
 </template>
 
@@ -41,12 +41,7 @@
 export default {
   name: 'page-notice',
   mounted () {
-    this.$store.commit('showcase/updateDarkenTheme', false)
-  },
-  computed: {
-    reversedContents: function () {
-      return this.contents.slice().reverse()
-    }
+    this.$store.commit('showcase/updateTheme', 'custom1')
   },
   methods: {
     resetNewContent: function () {
@@ -54,32 +49,63 @@ export default {
       this.newData.title = null
       this.newData.body = null
     },
-    saveNewContent: function () {
-      const date = new Date()
-      this.contents.push({
+    saveNewContent: async function () {
+      const date = new Date().toISOString()
+      const issueName = this.$getFriendlyName()
+      const content = {
         body: this.newData.body || '내용이 없습니다.',
         comments: [],
-        contributor: this.$loginInfo,
+        author: this.userInfo,
         date: date,
         headerImgSrc: '',
         isLike: false,
         isModifying: false,
+        issueName: issueName,
         newCommentBody: '',
         numComments: 0,
-        numIssue: 0,
         numLikes: 0,
+        numShares: 0,
         showComments: false,
         themeColor: false,
-        title: this.newData.title || '무제'
-      })
+        title: this.newData.title || '무제',
+        topics: this.newData.topic
+      }
+      const queryContent = {
+        body: this.newData.body || '내용이 없습니다.',
+        author: this.userInfo,
+        date: date,
+        issueName: issueName,
+        numComments: 0,
+        numLikes: 0,
+        numShares: 0,
+        title: this.newData.title || '무제',
+        topics: this.newData.topic
+      }
+      this.contents.push(content)
+      try {
+        const newContent = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createNoticePost, { input: queryContent }))
+        console.log('newContent Success!: ', newContent)
+        this.$q.notify({
+          title: '제목',
+          message: '등록 완료되었습니다.',
+          color: 'positive'
+        })
+      } catch (e) {
+        console.error('newContent Error!: ', e)
+        this.$q.notify({
+          title: '제목',
+          message: '등록에 실패하였습니다..',
+          color: 'negative'
+        })
+      }
+
       // this.notifications.push({
-      //   label: this.$loginInfo.label + '님이 새 글을 작성하였습니다:',
+      //   label: this.userInfo.label + '님이 새 글을 작성하였습니다:',
       //   sublabel: this.newData.title || '무제',
       //   date: date,
-      //   avatar: this.$loginInfo.avatar
+      //   avatar: this.userInfo.avatar
       // })
       this.resetNewContent()
-      console.log('httpRequest')
     },
     searchTopic: function (terms, done) {
       done([
@@ -109,50 +135,62 @@ export default {
       newData: {
         title: '',
         body: '',
-        topic: []
+        topics: []
       },
       topics: ['신입회원', '공모전'],
       selectedTopic: '',
+      hasMoreContents: false,
+      dbHandler: {
+        'listPosts': this.$queries.listNoticePosts,
+        'deletePost': this.$mutations.deleteNoticePost,
+        'createPost': this.$mutations.createNoticePost,
+        'updatePost': this.$mutations.updateNoticePost,
+        'onCreatePost': this.$subscriptions.onCreateNoticePost,
+        'listComments': this.$queries.listComments,
+        'deleteComment': this.$mutations.deleteComment,
+        'createComment': this.$mutations.createComment,
+        'updateComment': this.$mutations.updateComment
+      },
       contents: [
         {
           body: 'hello',
           comments: [{
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: 'statics/profile_kjh.png',
               email: 'oioi@naver.com',
-              label: '김기리'
+              name: '김기리'
             }
           }, {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: 'statics/profile_kjh.png',
               email: '100kimch@naver.com',
-              label: '김지형'
+              name: '김지형'
             }
           }, {
             body: ['안녕하세요'],
             date: new Date('2018-11-09'),
-            writer: {
+            author: {
               avatar: 'statics/profile_kjh.png',
               email: 'kim@naver.com',
-              label: '이한울'
+              name: '이한울'
             }
           }, {
             body: ['댓글 시험중입니다.'],
             date: new Date('2018-11-10'),
-            writer: {
+            author: {
               avatar: 'statics/profile_kjh.png',
               email: '100kimch@naver.com',
-              label: '김지형'
+              name: '김지형'
             }
           }],
           contributor: {
             avatar: 'statics/profile_kjh.png',
             email: '100kimch@naver.com',
-            label: '김지형'
+            name: '김지형'
           },
           date: new Date('2018-09-03'),
           headerImgSrc: '',
@@ -165,7 +203,7 @@ export default {
           showComments: false,
           themeColor: false,
           title: '새로운 프로젝트가 시작되었습니다!',
-          topic: []
+          topics: []
         }
       ]
     }

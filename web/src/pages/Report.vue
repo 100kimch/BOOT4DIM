@@ -1,36 +1,23 @@
 <template>
-  <q-page padding>
-    <h1 class="custom-title q-display-1">오류 신고하기</h1>
+  <q-page>
+    <c-title title="오류 신고하기" />
     <q-stepper ref="stepper" vertical>
-      <q-step title="환영합니다">
-        <h2 class="q-title">부트사차원 신입회원 모집기간입니다!</h2>
-        <h3 class="q-body-1">열정적이고 성실한 부트사차원 예비회원들의 많은 지원 바라고 있어요!</h3>
+      <q-step title="안내">
+        <h2 class="q-title">반갑습니다.</h2>
+        <h3 class="q-body-1">부트사차원 웹서비스 개선 프로그램에 참여해주셔서 감사합니다. 다음을 눌러 오류를 신고해주세요.</h3>
         <q-stepper-navigation>
-          <q-btn color="secondary" @click="$refs.stepper.next()" label="지원하기!" />
+          <q-btn color="primary" @click="$refs.stepper.next()" label="신고하기" />
         </q-stepper-navigation>
       </q-step>
-      <q-step title="가입방법 선택">
-        <h2 class="q-title">카카오 계정에 로그인해주세요!</h2>
+      <q-step title="오류 유형 선택">
+        <h2 class="q-title">오류에 관한 내용을 설명해 주세요.</h2>
+        <q-input v-model="formValue.name" float-label="내용을 적어주세요." autofocus />
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
       <q-step title="기본정보 입력">
-        <q-field icon="face">
-          <q-input v-model="formValue.name" float-label="이름" autofocus />
-          <q-input v-model="formValue.schoolNumber" type="number" float-label="학번" />
-          <q-input v-model="formValue.major" float-label="학과" />
-          <q-datetime type="date" default-value="1995-01-01" v-model="formValue.birthdate" float-label="생년월일" />
-          <q-input type="tel" v-model="formValue.phone" float-label="전화번호" />
-          <q-input v-model="formValue.address" float-label="거주지" />
-        </q-field>
-        <q-field label="부트사차원에서 하고싶은 것(모두 선택해주세요)">
-          <q-select :display-value="selectMultipleText(formValue.whattodoMultipleSelect)" multiple v-model="formValue.whattodoMultipleSelect" :options="listOptions.whattodo" />
-        </q-field>
-        <q-field label="가입하게 된 경로">
-          <q-input v-model="formValue.motive" label="예시) 부트 사람의 권유 / 동기의 권유 / 모집공고 포스터 / 홈페이지 등" />
-        </q-field>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
@@ -41,65 +28,32 @@
 </template>
 
 <script>
-import { API, graphqlOperation } from 'aws-amplify'
-
 export default {
   // name: 'PageName',
   async mounted () {
     this.$store.commit('showcase/updateTheme', 'black')
-    // const testDetail = {
-    //   body: 'hello'
-    // }
-    // const newTesting = await this.$API.graphql(this.$graphqlOperation(this.$mutations.createTesting, { input: testDetail }))
-    // console.log(newTesting)
-
-    try {
-      // const allTestings = await this.$API.graphql(this.$graphqlOperation(this.$queries.listTestings))
-      // const oneTesting = await this.$API.graphql(this.$graphqlOperation(this.$queries.getTestingQueryVariables, { id: 'Hello' }))
-      // const query = `query ListTestings {
-      //   listTestings {
-      //     items {
-      //       id
-      //       body
-      //     }
-      //   }
-      // }`
-      // const createTestingMutation = `mutation createTesting($body: String!) {
-      //   createTesting(input: { body: $body }) {
-      //     id
-      //     body
-      //   }
-      // }`
-      // this.$Amplify.graphqlOperation(createTestingMutation, { body: 'HiWorld!' })
-
-      const testing = {
-        body: 'Hello World!'
-      }
-      const newTesting = await API.graphql(graphqlOperation(this.$mutations.createTesting, { input: testing }))
-      console.log(newTesting)
-    } catch (e) {
-      console.log('error on allTestings: ', e)
-    }
-
-    // this.$store.commit('showcase/updateDarkenTheme', false)
   },
   data () {
     return {
       enableApply: true,
       formValue: {
-        name: null,
-        SNSLogin: null,
-        id: null,
-        email: null,
-        schoolNumber: null,
-        major: null,
-        birthdate: null,
-        phone: null,
-        address: null,
-        motive: null,
-        question: null,
-        whattodoMultipleSelect: []
+        reportBody: null,
+        id: null
       },
+      // formValue: {
+      //   name: null,
+      //   SNSLogin: null,
+      //   id: null,
+      //   email: null,
+      //   schoolNumber: null,
+      //   major: null,
+      //   birthdate: null,
+      //   phone: null,
+      //   address: null,
+      //   motive: null,
+      //   question: null,
+      //   whattodoMultipleSelect: []
+      // },
       listOptions: {
         whattodo: [
           { label: '좋은 사람들과 친목 도모', value: '1' },
@@ -115,9 +69,6 @@ export default {
     }
   },
   methods: {
-    selectMultipleText: function (array) {
-      return `${array.length ? array.length + '개 선택되었어요.' : '선택된 것이 없어요!'}`
-    },
     resetValue: function (parent, element) {
       if (typeof (parent[element]) === 'object') {
         parent[element] = []

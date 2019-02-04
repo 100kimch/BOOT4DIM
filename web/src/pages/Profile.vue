@@ -3,7 +3,7 @@
     <q-card>
       <div class="bg"></div>
       <div class="profile">
-        <img slot="left" :src="$loginInfo.avatar" class="profile-image" />
+        <img slot="left" :src="userInfo.avatar ? userInfo.avatar : '/statics/profile_kjh.png'" class="profile-image" />
         <div class="profile-info row">
           <span class="name q-display-1"> {{ userInfo['name'] }} </span>
           <span class="sublabel col q-body-2"> {{ userInfo['email'] }} </span>

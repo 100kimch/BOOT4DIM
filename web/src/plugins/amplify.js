@@ -18,4 +18,9 @@ export default ({ app, router, Vue }) => {
   Vue.prototype.$subscriptions = subscriptions
   Vue.prototype.$API = AmplifyModules.API
   Vue.prototype.$graphqlOperation = AmplifyModules.graphqlOperation
+
+  // custom
+  Vue.prototype.$gql = (operation, param) => {
+    return AmplifyModules.API.graphql(AmplifyModules.graphqlOperation(operation, param))
+  }
 }

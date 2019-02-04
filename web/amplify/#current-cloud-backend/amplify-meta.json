@@ -19,7 +19,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/auth/cognitoBoot4Dim-cloudformation-template.yml",
 				"logicalId": "authcognitoBoot4Dim"
 			},
-			"lastPushTimeStamp": "2019-01-27T09:15:17.083Z",
+			"lastPushTimeStamp": "2019-02-04T15:13:59.544Z",
 			"output": {
 				"AppClientSecret": "1r6v01dt2jg0bm3kr0j0s0vpsu0u60pt56c1f2d930a4v2l0rkqr",
 				"UserPoolId": "us-west-2_8641GyPB5",
@@ -41,7 +41,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
 				"logicalId": "analyticsweb"
 			},
-			"lastPushTimeStamp": "2019-01-27T09:15:17.084Z",
+			"lastPushTimeStamp": "2019-02-04T15:13:59.545Z",
 			"output": {
 				"appName": "web",
 				"Region": "us-west-2",
@@ -59,16 +59,16 @@
 				"GraphQLAPIIdOutput": "y4dewhfhwfcyheskzfc2kp2py4",
 				"GraphQLAPIEndpointOutput": "https://vkyatt3tsjcuzdjtva2pfqy3va.appsync-api.us-west-2.amazonaws.com/graphql",
 				"GraphQLAPIKeyOutput": "da2-jxbukl3bx5eorpau7tkjacu4ki",
-				"AuthCognitoUserPoolIdOutput": "us-west-2_0nzbv28eL",
-				"AuthCognitoUserPoolNativeClientId": "See UserPool: us-west-2_0nzbv28eL",
-				"AuthCognitoUserPoolJSClientId": "See UserPool: us-west-2_0nzbv28eL"
+				"AuthCognitoUserPoolIdOutput": "us-west-2_8641GyPB5",
+				"AuthCognitoUserPoolNativeClientId": "See UserPool: us-west-2_8641GyPB5",
+				"AuthCognitoUserPoolJSClientId": "See UserPool: us-west-2_8641GyPB5"
 			},
 			"providerMetadata": {
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/api/cloudformation-template.json",
 				"logicalId": "apiweb"
 			},
-			"lastPushTimeStamp": "2019-01-27T09:15:20.920Z",
-			"lastPushDirHash": "aWOV4urf+nnuypx1ewqVejcVg4k="
+			"lastPushTimeStamp": "2019-02-04T15:16:19.137Z",
+			"lastPushDirHash": "wUiMPIgRi2FC3aKXEv4j9vu1THI="
 		}
 	},
 	"storage": {
@@ -79,7 +79,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/storage/s3-cloudformation-template.json",
 				"logicalId": "storageresourceBoot4Dim"
 			},
-			"lastPushTimeStamp": "2019-01-27T09:15:17.086Z",
+			"lastPushTimeStamp": "2019-02-04T15:13:59.548Z",
 			"output": {
 				"BucketName": "bucket-boot4dim",
 				"Region": "us-west-2"
@@ -93,7 +93,7 @@
 				"s3TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/storage/dynamoBoot4Dim-cloudformation-template.json",
 				"logicalId": "storagedynamoBoot4Dim"
 			},
-			"lastPushTimeStamp": "2019-01-27T09:15:17.086Z",
+			"lastPushTimeStamp": "2019-02-04T15:13:59.549Z",
 			"output": {
 				"PartitionKeyName": "id",
 				"Region": "us-west-2",
