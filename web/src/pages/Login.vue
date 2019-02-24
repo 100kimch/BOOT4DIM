@@ -23,6 +23,7 @@ export default {
   // name: 'PageName',
   created () {
     // this.$store.commit('showcase/updateTheme', 'bluegreen')
+    this.$this = this
   },
   methods: {
     onLogin: async ($this, $event) => {

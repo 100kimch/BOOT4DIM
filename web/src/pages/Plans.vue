@@ -52,6 +52,8 @@ export default {
   },
   methods: {
     getData: async function () {
+      this.planData = this.temp_planData
+
       const result = await this.$gql(this.dbHandler.listContent)
       console.log(result)
       this.planData = JSON.parse(result.data.listHistorys.items[0].body)
@@ -118,7 +120,7 @@ export default {
           title: 'Python 활용 스터디',
           subtitle: '1월 7일 ~ 1월 28일',
           side: 'left',
-          body: '겨울방학 소프트웨어 스터디로서 파이썬을 비롯한 프로젝트시 유용한 스킬들을 익힙니다. 34명이 참여하고, 총 10회에 걸쳐 진행됩니다.'
+          body: '겨울방학 소프트웨어 스터디로서 파이썬을 비롯한 프로젝트시 유용한 스킬들을 익혔습니다. 34명이 참여하고, 총 10회에 걸쳐 진행되었습니다.'
         },
         {
           title: 'Tensorflow 및 딥러닝 기초 스터디',
@@ -128,21 +130,33 @@ export default {
         },
         {
           title: 'AVR 스터디',
-          subtitle: '1월 7일 ~ 1월 28일',
+          subtitle: '1월 7일 ~ 2월 22일',
           side: 'left',
-          body: '겨울방학 하드웨어 스터디로서 AVR 실습이 진행됩니다. 3학년 응용설계 범위를 선행학습하고, 한발 더 들어가 연구합니다.'
+          body: '겨울방학 하드웨어 스터디로서 AVR 실습이 진행되었습니다. 3학년 응용설계 범위를 선행학습하고, 한발 더 들어가 연구했습니다.'
+        },
+        {
+          title: '공대 동아리 홍보부스 운영',
+          subtitle: '3월 4일 ~ 3월 5일',
+          side: 'right',
+          body: '부트사차원을 홍보하기 위한 부스를 엽니다. 31기 신입 부원 모집을 받습니다.'
         },
         {
           title: '31기 신입회원 모집',
-          subtitle: '3월 중',
-          side: 'right',
-          body: '신입생을 대상으로 31기 신입회원을 모집합니다.'
+          subtitle: '2월 25일 ~ 3월 12일',
+          side: 'left',
+          body: '신입생을 대상으로 31기 신입회원을 모집합니다. boot4dim.com 또는 동아리 홍보부스를 통해서 지원할 수 있습니다.'
         },
         {
-          title: '춘계 엠티',
-          subtitle: '3월 4째주',
+          title: '신입생 오티 및 엠티',
+          subtitle: '3월 16일 ~ 3월 17일',
+          side: 'right',
+          body: '청평에서 신입회원 및 기존회원이 함께 어울려 활동하는 워크샵입니다.'
+        },
+        {
+          title: '2019 지능형모형차경진대회',
+          subtitle: '2월 25일 ~ 7월 11일',
           side: 'left',
-          body: '신입회원 및 기존회원이 함께 어울려 활동하는 워크샵입니다.'
+          body: '부트 내 프로젝트 팀(5인)이 한양대학교에서 주최하는 지능형모형차경진대회에 참여합니다.'
         }
       ],
       dbHandler: {
@@ -165,13 +179,14 @@ export default {
     padding: 1em;
     background: white;
   }
-}
-.custom-box p {
-  text-align: left !important;
-  word-break: keep-all;
-}
 
-.q-parallax {
-  z-index: -1;
+  .custom-box p {
+    text-align: left !important;
+    word-break: keep-all;
+  }
+
+  .q-parallax {
+    z-index: -1;
+  }
 }
 </style>

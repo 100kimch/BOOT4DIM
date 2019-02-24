@@ -18,6 +18,11 @@
       <h1 class="q-display-2">When hardware meets software</h1>
       <p class="centered">1989년부터 시작된 건국대학교 전자공학과 소속 학술동아리 부트사차원은 하드웨어 동아리 ‘부트’와 소프트웨어 동아리 ‘4차원’이 힘을 합해 전자공학과 대표 학술 동아리로서 자리매김했습니다. 그리고 2017년, 전자공학과 학과 개편 후 공과대학 소속으로 전환하면서 더욱 활발한 활동을 이어나가고 있습니다.</p>
     </q-parallax>
+    <div class="custom-box custom-event row">
+      <h1 class="q-display-2">신입회원 모집기간입니다!</h1>
+      <p>31기 신입 회원을 모집합니다. 19학번 새내기 회원분들의 많은 지원 바랍니다!</p>
+      <q-btn icon="insert_emoticon" label="31기 지원하기" color="primary" @click="$router.push('/apply')"></q-btn>
+    </div>
     <div class="custom-box">
       <h1 class="q-display-1">정보</h1>
       <ul>
@@ -27,7 +32,7 @@
         <li>부회장: 이인원 (inwonlee1541@naver.com)</li>
         <li>운영진: 이재영, 최희정, 권미경, 백이주</li>
         <li>동아리방: 건국대학교 중장비동 306-3호</li>
-        <li>총원: 66명</li>
+        <li>총원: 72명</li>
       </ul>
     </div>
     <div class="custom-box darker">
@@ -144,6 +149,19 @@ export default {
       padding: 1em;
       background: var(--q-color-secondary);
     }
+    &.custom-event {
+      padding: 1em;
+      background: rgb(172, 70, 70);
+      color: white;
+      text-align: justify;
+      h1,
+      p {
+        text-align: center;
+      }
+      .q-btn {
+        margin: 0 auto;
+      }
+    }
     &.darker {
       background: #ccc;
     }
@@ -178,7 +196,7 @@ export default {
       }
     }
     p {
-      text-align: justify;
+      text-align: left;
     }
     li {
       list-style: disc;
