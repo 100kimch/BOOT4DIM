@@ -69,6 +69,7 @@ export const setUserInfo = (state, userInfo) => {
 }
 
 export const setSnsUserToken = (state, snsUserToken) => {
+  console.log('userToken: ', snsUserToken)
   state.snsUserToken = snsUserToken
 }
 
@@ -77,6 +78,9 @@ export const setSnsUserInfo = (state, snsUserInfo) => {
   userInfo['username'] = '' + snsUserInfo.id
   if (snsUserInfo.kakao_account.email) {
     userInfo['email'] = snsUserInfo.kakao_account.email
+  }
+  if (snsUserInfo.properties.nickname) {
+    userInfo['nickname'] = snsUserInfo.properties.nickname
   }
 
   state.snsUserInfo = userInfo

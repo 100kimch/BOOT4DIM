@@ -2,6 +2,7 @@ export function kakaoLoginWithInfo ({ commit }) {
   return new Promise((resolve, reject) => {
     window.Kakao.Auth.login({
       success: function (authObj) {
+        console.log('authObj: ', authObj)
         commit('setSNSUserToken', authObj)
         window.Kakao.API.request({
           url: '/v2/user/me',

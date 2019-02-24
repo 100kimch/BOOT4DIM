@@ -75,7 +75,7 @@ export default ({ Vue }) => {
           resolve(false)
         })
         .catch(err => {
-          console.log(err)
+          console.error(err)
           Notify.create({
             color: 'negative',
             message: '등록에 실패하였습니다: ' + err.message
