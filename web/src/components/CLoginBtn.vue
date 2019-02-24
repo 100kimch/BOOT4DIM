@@ -59,7 +59,8 @@ export default {
 
 <style lang="scss" scoped>
 .q-card {
-  padding: 0 calc(50% - 50px - 6rem);
+  // padding: 0 calc(50% - 50px - 6rem);
+  padding: 0 2rem;
   background: #ffeb00;
   img {
     float: left;

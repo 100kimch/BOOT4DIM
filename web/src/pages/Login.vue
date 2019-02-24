@@ -57,10 +57,10 @@ export default {
           }, 1000)
         }
       } catch (e) {
-        console.log('ERROR: ', e)
+        console.error('ERROR: ', e)
         if (e === 'UserNotConfirmedException') {
           $this.$store.commit('showcase/needConfirm', $this.id)
-          $this.$router.push('confirm_email')
+          $this.$router.push('/confirm_email')
         } else if (e === 'UserNotFoundException') {
           $this.$q.dialog({
             title: '어이쿠',

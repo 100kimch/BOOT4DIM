@@ -156,6 +156,8 @@ export default {
       text-align: justify;
       h1,
       p {
+        width: 100%;
+        display: block;
         text-align: center;
       }
       .q-btn {
