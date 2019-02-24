@@ -25,6 +25,51 @@ export default {
     // this.$store.commit('showcase/updateTheme', 'bluegreen')
   },
   methods: {
+    onLogin: async ($this, $event) => {
+      this.$q.loading.show()
+      if (!$event) return
+
+      const snsUserInfo = $this.$store.state.showcase.snsUserInfo
+      // console.log('snsUserInfo on Login: ', snsUserInfo, $this.isSNSLogined)
+      if (!snsUserInfo) return
+
+      $this.isSNSLogined = true
+
+      try {
+        const userInfo = await this.$login(snsUserInfo.username, this.userToken)
+        if (userInfo) {
+          // console.log('SUCCESS: ', userInfo)
+
+          const { attributes } = await this.$getUserInfo()
+          // console.log('attributes: ', attributes)
+          await this.$store.commit('showcase/setUserInfo', attributes)
+
+          this.$q.loading.hide()
+          this.isLoggedIn = true
+
+          this.counter = setInterval(() => {
+            this.seconds--
+            if (this.seconds <= 0) {
+              clearInterval(this.counter)
+              this.$router.push('/')
+            }
+          }, 1000)
+        }
+      } catch (e) {
+        console.log('ERROR: ', e)
+        if (e === 'UserNotConfirmedException') {
+          this.$store.commit('showcase/needConfirm', this.id)
+          this.$router.push('confirm_email')
+        } else if (e === 'UserNotFoundException') {
+          this.$q.dialog({
+            title: '어이쿠',
+            message: '회원등록을 안하신 것 같아요!',
+            color: 'negative',
+            ok: true
+          })
+        }
+      }
+    },
     login: async function () {
       try {
         this.$q.loading.show()
@@ -75,6 +120,11 @@ export default {
       get () {
         return this.$store.state.showcase.userInfo
       }
+    },
+    userToken: {
+      get () {
+        return this.$store.state.showcase.snsUserToken.access_token
+      }
     }
   },
   beforeDestroy () {
@@ -82,6 +132,8 @@ export default {
   },
   data () {
     return {
+      $this: null,
+      isSNSLogined: false,
       id: '',
       password: '',
       isLoggedIn: false,

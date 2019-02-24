@@ -108,7 +108,7 @@ export default {
       if (!$event) return
 
       const snsUserInfo = $this.$store.state.showcase.snsUserInfo
-      console.log('snsUserInfo on Login: ', snsUserInfo, $this.isSNSLogined)
+      console.log('snsUserInfo on Login: ', snsUserInfo, $this.userToken, $this.$store.state.showcase.snsUserToken)
 
       if (snsUserInfo) {
         for (let i in snsUserInfo) {
@@ -116,7 +116,7 @@ export default {
         }
         $this.isSNSLogined = true
         $this.$refs.stepper.next()
-        window.scrollTo(0, 150)
+        window.scrollTo(0, 250)
       } else {
         // $this.email = snsUserInfo.email
         // ! Should be Deprecated.
