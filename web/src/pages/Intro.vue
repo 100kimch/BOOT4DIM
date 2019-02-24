@@ -52,7 +52,7 @@
 <script>
 export default {
   name: 'page-intro',
-  async mounted () {
+  async created () {
     if (this.$q.platform.is.mobile) {
       this.m_height = 500
     }
@@ -115,12 +115,13 @@ export default {
       font-weight: lighter;
     }
     .centered {
-      margin: 0 3em;
+      margin: 0;
+      width: 90%;
       line-height: 170%;
     }
     h1 {
       text-align: center;
-      margin: 0 1em 0.5em 1em;
+      width: 90%;
     }
   }
 

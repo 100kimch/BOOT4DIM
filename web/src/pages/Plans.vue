@@ -32,14 +32,68 @@
 <script>
 export default {
   // name: 'PageName',
-  mounted () {
+  created () {
     this.$store.commit('showcase/updateTheme', 'bluegreen')
+    this.getData()
+  },
+  computed: {
+    userInfo: {
+      get () {
+        return this.$store.state.showcase.userInfo
+      }
+    }
+  },
+  watch: {
+    'editable': function (val, oldVal) {
+      if (val === true && oldVal === false) {
+        this.strPlanData = JSON.stringify(this.planData, undefined, 4)
+      }
+    }
+  },
+  methods: {
+    getData: async function () {
+      const result = await this.$gql(this.dbHandler.listContent)
+      console.log(result)
+      this.planData = JSON.parse(result.data.listHistorys.items[0].body)
+    },
+    resetData: function () {
+      this.editable = false
+    },
+    editData: async function () {
+      try {
+        const result = await this.$gql(this.dbHandler.createPost, {
+          input: {
+            date: new Date().toISOString(),
+            body: this.strPlanData,
+            author: this.userInfo
+          }
+        })
+        console.log('result: ', result)
+        this.editable = false
+        this.planData = JSON.parse(this.strPlanData)
+        this.$q.notify({
+          color: 'positive',
+          message: '연간계획을 수정하였습니다.'
+        })
+      } catch (e) {
+        this.$q.notify({
+          color: 'negative',
+          message: '오류가 발생했습니다.'
+        })
+        console.error('error on editData(): ', e)
+      }
+    }
   },
   data () {
     return {
       editable: false,
       strPlanData: '',
       planData: [
+        {
+          title: '로딩중입니다.'
+        }
+      ],
+      temp_planData: [
         {
           heading: true,
           body: '2018년'
@@ -90,23 +144,10 @@ export default {
           side: 'left',
           body: '신입회원 및 기존회원이 함께 어울려 활동하는 워크샵입니다.'
         }
-      ]
-    }
-  },
-  methods: {
-    resetData: function () {
-      this.editable = false
-    },
-    editData: function () {
-      this.editable = false
-      this.planData = JSON.parse(this.strPlanData)
-      // http request
-    }
-  },
-  watch: {
-    'editable': function (val, oldVal) {
-      if (val === true && oldVal === false) {
-        this.strPlanData = JSON.stringify(this.planData, undefined, 4)
+      ],
+      dbHandler: {
+        'listContent': this.$queries.listHistorys,
+        'createPost': this.$mutations.createHistory
       }
     }
   }

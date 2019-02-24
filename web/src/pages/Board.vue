@@ -39,7 +39,7 @@
 <script>
 export default {
   name: 'page-notice',
-  mounted () {
+  created () {
     this.$store.commit('showcase/updateDarkenTheme', false)
   },
   computed: {

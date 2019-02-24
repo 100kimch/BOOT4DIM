@@ -671,13 +671,14 @@ export const onCreateProject = `subscription OnCreateProject {
       posts
       avatar
       level
+      position
     }
     name
     description
     types
     topics
     deadlineOption
-    startDutaion
+    startDuration
     endDuration
     manager
     personnel
@@ -872,13 +873,14 @@ export const onUpdateProject = `subscription OnUpdateProject {
       posts
       avatar
       level
+      position
     }
     name
     description
     types
     topics
     deadlineOption
-    startDutaion
+    startDuration
     endDuration
     manager
     personnel
@@ -1073,13 +1075,14 @@ export const onDeleteProject = `subscription OnDeleteProject {
       posts
       avatar
       level
+      position
     }
     name
     description
     types
     topics
     deadlineOption
-    startDutaion
+    startDuration
     endDuration
     manager
     personnel

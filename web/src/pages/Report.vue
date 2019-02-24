@@ -30,7 +30,7 @@
 <script>
 export default {
   // name: 'PageName',
-  async mounted () {
+  async created () {
     this.$store.commit('showcase/updateTheme', 'black')
   },
   data () {

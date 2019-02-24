@@ -191,13 +191,13 @@ export type DeleteProjectCommentInput = {
 
 export type CreateProjectInput = {
   id?: string | null,
-  proposer: UserInput,
+  proposer: ContributorInput,
   name: string,
   description: string,
   types: Array< string >,
   topics: Array< string >,
   deadlineOption: boolean,
-  startDutaion: string,
+  startDuration: string,
   endDuration?: string | null,
   manager: string,
   personnel: number,
@@ -258,13 +258,13 @@ export type SupportInput = {
 
 export type UpdateProjectInput = {
   id: string,
-  proposer?: UserInput | null,
+  proposer?: ContributorInput | null,
   name?: string | null,
   description?: string | null,
   types?: Array< string > | null,
   topics?: Array< string > | null,
   deadlineOption?: boolean | null,
-  startDutaion?: string | null,
+  startDuration?: string | null,
   endDuration?: string | null,
   manager?: string | null,
   personnel?: number | null,
@@ -301,7 +301,7 @@ export type DeleteProjectInput = {
 
 export type CreateRequestInput = {
   id?: string | null,
-  projectId: string,
+  projectId?: string | null,
   date: string,
   requester: ContributorInput,
   hopePlaces?: Array< string | null > | null,
@@ -486,7 +486,7 @@ export type ModelProjectFilterInput = {
   types?: ModelStringFilterInput | null,
   topics?: ModelStringFilterInput | null,
   deadlineOption?: ModelBooleanFilterInput | null,
-  startDutaion?: ModelStringFilterInput | null,
+  startDuration?: ModelStringFilterInput | null,
   endDuration?: ModelStringFilterInput | null,
   manager?: ModelStringFilterInput | null,
   personnel?: ModelIntFilterInput | null,
@@ -1334,7 +1334,7 @@ export type CreateProjectMutation = {
     __typename: "Project",
     id: string,
     proposer:  {
-      __typename: "User",
+      __typename: "Contributor",
       birthdate: string | null,
       snsLogin: string | null,
       email: string,
@@ -1344,13 +1344,14 @@ export type CreateProjectMutation = {
       posts: Array< GeneralPost | null > | null,
       avatar: string | null,
       level: number,
+      position: string,
     },
     name: string,
     description: string,
     types: Array< string >,
     topics: Array< string >,
     deadlineOption: boolean,
-    startDutaion: string,
+    startDuration: string,
     endDuration: string | null,
     manager: string,
     personnel: number,
@@ -1374,7 +1375,7 @@ export type CreateProjectMutation = {
     request:  Array< {
       __typename: "Request",
       id: string,
-      projectId: string,
+      projectId: string | null,
       date: string,
       requester:  {
         __typename: "Contributor",
@@ -1557,7 +1558,7 @@ export type UpdateProjectMutation = {
     __typename: "Project",
     id: string,
     proposer:  {
-      __typename: "User",
+      __typename: "Contributor",
       birthdate: string | null,
       snsLogin: string | null,
       email: string,
@@ -1567,13 +1568,14 @@ export type UpdateProjectMutation = {
       posts: Array< GeneralPost | null > | null,
       avatar: string | null,
       level: number,
+      position: string,
     },
     name: string,
     description: string,
     types: Array< string >,
     topics: Array< string >,
     deadlineOption: boolean,
-    startDutaion: string,
+    startDuration: string,
     endDuration: string | null,
     manager: string,
     personnel: number,
@@ -1597,7 +1599,7 @@ export type UpdateProjectMutation = {
     request:  Array< {
       __typename: "Request",
       id: string,
-      projectId: string,
+      projectId: string | null,
       date: string,
       requester:  {
         __typename: "Contributor",
@@ -1780,7 +1782,7 @@ export type DeleteProjectMutation = {
     __typename: "Project",
     id: string,
     proposer:  {
-      __typename: "User",
+      __typename: "Contributor",
       birthdate: string | null,
       snsLogin: string | null,
       email: string,
@@ -1790,13 +1792,14 @@ export type DeleteProjectMutation = {
       posts: Array< GeneralPost | null > | null,
       avatar: string | null,
       level: number,
+      position: string,
     },
     name: string,
     description: string,
     types: Array< string >,
     topics: Array< string >,
     deadlineOption: boolean,
-    startDutaion: string,
+    startDuration: string,
     endDuration: string | null,
     manager: string,
     personnel: number,
@@ -1820,7 +1823,7 @@ export type DeleteProjectMutation = {
     request:  Array< {
       __typename: "Request",
       id: string,
-      projectId: string,
+      projectId: string | null,
       date: string,
       requester:  {
         __typename: "Contributor",
@@ -2002,7 +2005,7 @@ export type CreateRequestMutation = {
   createRequest:  {
     __typename: "Request",
     id: string,
-    projectId: string,
+    projectId: string | null,
     date: string,
     requester:  {
       __typename: "Contributor",
@@ -2034,7 +2037,7 @@ export type UpdateRequestMutation = {
   updateRequest:  {
     __typename: "Request",
     id: string,
-    projectId: string,
+    projectId: string | null,
     date: string,
     requester:  {
       __typename: "Contributor",
@@ -2066,7 +2069,7 @@ export type DeleteRequestMutation = {
   deleteRequest:  {
     __typename: "Request",
     id: string,
-    projectId: string,
+    projectId: string | null,
     date: string,
     requester:  {
       __typename: "Contributor",
@@ -2716,7 +2719,7 @@ export type GetProjectQuery = {
     __typename: "Project",
     id: string,
     proposer:  {
-      __typename: "User",
+      __typename: "Contributor",
       birthdate: string | null,
       snsLogin: string | null,
       email: string,
@@ -2726,13 +2729,14 @@ export type GetProjectQuery = {
       posts: Array< GeneralPost | null > | null,
       avatar: string | null,
       level: number,
+      position: string,
     },
     name: string,
     description: string,
     types: Array< string >,
     topics: Array< string >,
     deadlineOption: boolean,
-    startDutaion: string,
+    startDuration: string,
     endDuration: string | null,
     manager: string,
     personnel: number,
@@ -2756,7 +2760,7 @@ export type GetProjectQuery = {
     request:  Array< {
       __typename: "Request",
       id: string,
-      projectId: string,
+      projectId: string | null,
       date: string,
       requester:  {
         __typename: "Contributor",
@@ -2943,7 +2947,7 @@ export type ListProjectsQuery = {
       __typename: "Project",
       id: string,
       proposer:  {
-        __typename: "User",
+        __typename: "Contributor",
         birthdate: string | null,
         snsLogin: string | null,
         email: string,
@@ -2952,13 +2956,14 @@ export type ListProjectsQuery = {
         phone_number: string,
         avatar: string | null,
         level: number,
+        position: string,
       },
       name: string,
       description: string,
       types: Array< string >,
       topics: Array< string >,
       deadlineOption: boolean,
-      startDutaion: string,
+      startDuration: string,
       endDuration: string | null,
       manager: string,
       personnel: number,
@@ -2982,7 +2987,7 @@ export type ListProjectsQuery = {
       request:  Array< {
         __typename: "Request",
         id: string,
-        projectId: string,
+        projectId: string | null,
         date: string,
         hopePlaces: Array< string | null > | null,
         material: string | null,
@@ -3070,7 +3075,7 @@ export type GetRequestQuery = {
   getRequest:  {
     __typename: "Request",
     id: string,
-    projectId: string,
+    projectId: string | null,
     date: string,
     requester:  {
       __typename: "Contributor",
@@ -3106,7 +3111,7 @@ export type ListRequestsQuery = {
     items:  Array< {
       __typename: "Request",
       id: string,
-      projectId: string,
+      projectId: string | null,
       date: string,
       requester:  {
         __typename: "Contributor",
@@ -3938,7 +3943,7 @@ export type OnCreateProjectSubscription = {
     __typename: "Project",
     id: string,
     proposer:  {
-      __typename: "User",
+      __typename: "Contributor",
       birthdate: string | null,
       snsLogin: string | null,
       email: string,
@@ -3948,13 +3953,14 @@ export type OnCreateProjectSubscription = {
       posts: Array< GeneralPost | null > | null,
       avatar: string | null,
       level: number,
+      position: string,
     },
     name: string,
     description: string,
     types: Array< string >,
     topics: Array< string >,
     deadlineOption: boolean,
-    startDutaion: string,
+    startDuration: string,
     endDuration: string | null,
     manager: string,
     personnel: number,
@@ -3978,7 +3984,7 @@ export type OnCreateProjectSubscription = {
     request:  Array< {
       __typename: "Request",
       id: string,
-      projectId: string,
+      projectId: string | null,
       date: string,
       requester:  {
         __typename: "Contributor",
@@ -4157,7 +4163,7 @@ export type OnUpdateProjectSubscription = {
     __typename: "Project",
     id: string,
     proposer:  {
-      __typename: "User",
+      __typename: "Contributor",
       birthdate: string | null,
       snsLogin: string | null,
       email: string,
@@ -4167,13 +4173,14 @@ export type OnUpdateProjectSubscription = {
       posts: Array< GeneralPost | null > | null,
       avatar: string | null,
       level: number,
+      position: string,
     },
     name: string,
     description: string,
     types: Array< string >,
     topics: Array< string >,
     deadlineOption: boolean,
-    startDutaion: string,
+    startDuration: string,
     endDuration: string | null,
     manager: string,
     personnel: number,
@@ -4197,7 +4204,7 @@ export type OnUpdateProjectSubscription = {
     request:  Array< {
       __typename: "Request",
       id: string,
-      projectId: string,
+      projectId: string | null,
       date: string,
       requester:  {
         __typename: "Contributor",
@@ -4376,7 +4383,7 @@ export type OnDeleteProjectSubscription = {
     __typename: "Project",
     id: string,
     proposer:  {
-      __typename: "User",
+      __typename: "Contributor",
       birthdate: string | null,
       snsLogin: string | null,
       email: string,
@@ -4386,13 +4393,14 @@ export type OnDeleteProjectSubscription = {
       posts: Array< GeneralPost | null > | null,
       avatar: string | null,
       level: number,
+      position: string,
     },
     name: string,
     description: string,
     types: Array< string >,
     topics: Array< string >,
     deadlineOption: boolean,
-    startDutaion: string,
+    startDuration: string,
     endDuration: string | null,
     manager: string,
     personnel: number,
@@ -4416,7 +4424,7 @@ export type OnDeleteProjectSubscription = {
     request:  Array< {
       __typename: "Request",
       id: string,
-      projectId: string,
+      projectId: string | null,
       date: string,
       requester:  {
         __typename: "Contributor",
@@ -4594,7 +4602,7 @@ export type OnCreateRequestSubscription = {
   onCreateRequest:  {
     __typename: "Request",
     id: string,
-    projectId: string,
+    projectId: string | null,
     date: string,
     requester:  {
       __typename: "Contributor",
@@ -4622,7 +4630,7 @@ export type OnUpdateRequestSubscription = {
   onUpdateRequest:  {
     __typename: "Request",
     id: string,
-    projectId: string,
+    projectId: string | null,
     date: string,
     requester:  {
       __typename: "Contributor",
@@ -4650,7 +4658,7 @@ export type OnDeleteRequestSubscription = {
   onDeleteRequest:  {
     __typename: "Request",
     id: string,
-    projectId: string,
+    projectId: string | null,
     date: string,
     requester:  {
       __typename: "Contributor",

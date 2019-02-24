@@ -50,7 +50,6 @@ export default {
         message: '잘못 들어오셨네요.'
       })
     }
-    // this.$store.commit('showcase/updateTheme', 'custom1')
   },
   data () {
     return {

@@ -16,7 +16,7 @@
 <script>
 export default {
   // name: 'LayoutName',
-  mounted () {
+  created () {
     this.$store.commit('showcase/updateTheme', 'custom1')
   },
   data () {

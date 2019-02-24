@@ -40,6 +40,11 @@ const routes = [
             path: 'sample',
             name: '예시',
             component: () => import('pages/ProjectSample.vue')
+          },
+          {
+            path: ':name',
+            name: '상세정보',
+            component: () => import('pages/ProjectDetail.vue')
           }
         ]
       },

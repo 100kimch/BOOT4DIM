@@ -353,8 +353,6 @@ export default {
   // name: 'PageName',
   created () {
     this.marked = require('marked')
-  },
-  mounted () {
     this.$store.commit('showcase/updateDarkenTheme', false)
   },
   methods: {

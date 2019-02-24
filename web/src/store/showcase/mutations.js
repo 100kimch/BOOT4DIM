@@ -25,6 +25,9 @@ export const updateTheme = (state, tone) => {
       color: '#f4cd08',
       imgSrc: '/statics/cover_yellow.png'
     },
+    blank: {
+      color: '#EEEEEE'
+    },
     custom1: {
       color: '#666',
       imgSrc: '/statics/cover_custom1.png'
@@ -55,7 +58,6 @@ export const setUserInfo = (state, userInfo) => {
     phone_number: userInfo['phone_number'],
     avatar: userInfo['picture'],
     level: userInfo['custom:level']
-
   }
   // state.userInfo = {
   //   username: userInfo.username,
@@ -64,4 +66,16 @@ export const setUserInfo = (state, userInfo) => {
   //   avatar: 'statics/profile_kjh.png'
   // }
   // console.log('setUserInfo()', state.userInfo)
+}
+
+export const setSnsUserToken = (state, snsUserToken) => {
+  state.snsUserToken = snsUserToken
+}
+
+export const setSnsUserInfo = (state, snsUserInfo) => {
+  state.snsUserInfo = snsUserInfo
+}
+
+export const selectProject = (state, id) => {
+  state.selectedProjectId = id
 }

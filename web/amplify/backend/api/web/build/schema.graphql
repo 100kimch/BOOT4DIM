@@ -161,15 +161,36 @@ type ProjectComment implements Message {
   author: Contributor!
 }
 
+interface Emotion {
+  id: ID!
+  date: String!
+  postId: String!
+}
+
+type Like implements Emotion {
+  id: ID!
+  date: String!
+  postId: String!
+  author: User!
+}
+
+type projectLike implements Emotion {
+  id: ID!
+  date: String!
+  postId: String!
+  projectId: String!
+  author: Contributor!
+}
+
 type Project {
   id: ID!
-  proposer: User!
+  proposer: Contributor!
   name: String!
   description: String!
   types: [String!]!
   topics: [String!]!
   deadlineOption: Boolean!
-  startDutaion: String!
+  startDuration: String!
   endDuration: String
   manager: String!
   personnel: Int!
@@ -205,7 +226,7 @@ type Project {
 
 type Request {
   id: ID!
-  projectId: String!
+  projectId: String
   date: String!
   requester: Contributor!
   hopePlaces: [String]
@@ -698,7 +719,7 @@ input ModelProjectFilterInput {
   types: ModelStringFilterInput
   topics: ModelStringFilterInput
   deadlineOption: ModelBooleanFilterInput
-  startDutaion: ModelStringFilterInput
+  startDuration: ModelStringFilterInput
   endDuration: ModelStringFilterInput
   manager: ModelStringFilterInput
   personnel: ModelIntFilterInput
@@ -730,13 +751,13 @@ input ModelProjectFilterInput {
 
 input CreateProjectInput {
   id: ID
-  proposer: UserInput!
+  proposer: ContributorInput!
   name: String!
   description: String!
   types: [String!]!
   topics: [String!]!
   deadlineOption: Boolean!
-  startDutaion: String!
+  startDuration: String!
   endDuration: String
   manager: String!
   personnel: Int!
@@ -769,13 +790,13 @@ input CreateProjectInput {
 
 input UpdateProjectInput {
   id: ID!
-  proposer: UserInput
+  proposer: ContributorInput
   name: String
   description: String
   types: [String!]
   topics: [String!]
   deadlineOption: Boolean
-  startDutaion: String
+  startDuration: String
   endDuration: String
   manager: String
   personnel: Int
@@ -832,7 +853,7 @@ input ModelRequestFilterInput {
 
 input CreateRequestInput {
   id: ID
-  projectId: String!
+  projectId: String
   date: String!
   requester: ContributorInput!
   hopePlaces: [String]

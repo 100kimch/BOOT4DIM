@@ -671,13 +671,14 @@ export const createProject = `mutation CreateProject($input: CreateProjectInput!
       posts
       avatar
       level
+      position
     }
     name
     description
     types
     topics
     deadlineOption
-    startDutaion
+    startDuration
     endDuration
     manager
     personnel
@@ -872,13 +873,14 @@ export const updateProject = `mutation UpdateProject($input: UpdateProjectInput!
       posts
       avatar
       level
+      position
     }
     name
     description
     types
     topics
     deadlineOption
-    startDutaion
+    startDuration
     endDuration
     manager
     personnel
@@ -1073,13 +1075,14 @@ export const deleteProject = `mutation DeleteProject($input: DeleteProjectInput!
       posts
       avatar
       level
+      position
     }
     name
     description
     types
     topics
     deadlineOption
-    startDutaion
+    startDuration
     endDuration
     manager
     personnel

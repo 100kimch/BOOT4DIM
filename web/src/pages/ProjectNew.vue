@@ -50,7 +50,7 @@
           <q-input type="text" v-model="formValue.place" placeholder="주소/호실명" />
         </q-field>
         <q-stepper-navigation>
-          <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
+          <q-btn color="tertiary" @click="$refs.stepper.previous()" label="이전" />
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
@@ -144,7 +144,7 @@
           </q-field>
         </div>
         <q-stepper-navigation>
-          <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
+          <q-btn color="tertiary" @click="$refs.stepper.previous()" label="이전" />
           <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
@@ -184,8 +184,8 @@
           <q-input v-model="formValue.request.extra" placeholder="추가적으로 필요한 도움 있으면 적어주세요." />
         </q-field>
         <q-stepper-navigation>
-          <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
-          <q-btn color="secondary" @click="sendFormValue()" label="프로젝트 생성" />
+          <q-btn color="tertiary" @click="$refs.stepper.previous()" label="이전" />
+          <q-btn color="secondary" @click="createProject()" label="프로젝트 생성" />
         </q-stepper-navigation>
       </q-step>
     </q-stepper>
@@ -195,8 +195,111 @@
 <script>
 export default {
   // name: 'PageName',
-  mounted () {
+  created () {
     // this.$store.commit('showcase/updateTheme', 'custom1')
+  },
+  computed: {
+    userInfo: {
+      get () {
+        console.log('userInfo on ProjectNew: ', this.$store.state.showcase.userInfo)
+        return this.$store.state.showcase.userInfo
+      }
+    }
+  },
+  methods: {
+    // selectMultipleText: function (array) {
+    //   return `${array.length ? array[0].toUpperCase() + ' 등 ' + array.length + '개 선택되었어요.' : '선택된 것이 없어요!'}`
+    // },
+    resetValue: function (parent, element) {
+      if (typeof (parent[element]) === 'object') {
+        parent[element] = []
+      } else {
+        parent[element] = ''
+      }
+    },
+    createProject: async function () {
+      this.$q.loading.show()
+      const userInfo = this.userInfo
+      console.log('userInfo: ', userInfo, this.userInfo)
+      userInfo.position = 5
+      console.log('formValue: ', this.formValue)
+      const startDuration = this.formValue.startDuration ? this.formValue.startDuration.slice(0, 10) : null
+      const endDuration = this.formValue.endDuration ? this.formValue.endDuration.slice(0, 10) : null
+
+      const queryData = {
+        proposer: userInfo,
+        name: this.formValue.name,
+        description: this.formValue.description,
+        types: this.formValue.types,
+        topics: this.formValue.topics,
+        deadlineOption: this.formValue.deadlineOption,
+        startDuration: startDuration,
+        endDuration: endDuration,
+        manager: this.formValue.manager,
+        personnel: this.formValue.personnel,
+        hasPlace: this.formValue.hasPlace,
+        place: this.formValue.place,
+        studyTopics: this.formValue.study.topics,
+        studyMeeting: this.formValue.study.meeting,
+        studyTutor: this.formValue.study.tutor,
+        contestTopic: this.formValue.contest.topic,
+        contestProductDescription: this.formValue.contest.productDescription,
+        contestName: this.formValue.contest.name,
+        contestDuedate: this.formValue.contest.duedate,
+        contestObjectives: this.formValue.contest.objectives,
+        seminarTopics: this.formValue.seminar.topics,
+        seminarIsOnce: this.formValue.seminar.isOnce,
+        seminarMeeting: this.formValue.seminar.meeting,
+        seminarPresenter: this.formValue.seminar.presenter,
+        shareCopyright: this.formValue.share.copyright,
+        agileHasBeen: this.formValue.agile.hasBeen,
+        etcDescription: this.formValue.etc.description,
+        // request: null,
+        comments: [],
+        activities: [],
+        pictures: [],
+        supports: [],
+        teamNotes: [],
+        fixedBudget: 0,
+        status: 1,
+        syncGithub: false
+      }
+      const queryRequest = {
+        date: new Date().toISOString(),
+        requester: userInfo,
+        hopePlaces: this.formValue.request.hopePlaces,
+        material: this.formValue.request.material,
+        budget: this.formValue.request.budget,
+        cookie: this.formValue.request.cookie,
+        extra: this.formValue.request.extra,
+        status: 1
+      }
+      try {
+        const request = await this.$gql(this.$mutations.createRequest, {
+          input: queryRequest
+        })
+        console.log('request: ', request)
+        // TODO: Connect Request - Project Model
+        // queryData.request = [request]
+        const data = await this.$gql(this.$mutations.createProject, {
+          input: queryData
+        })
+        console.log('result on creating data: ', data)
+        this.$q.loading.hide()
+        this.$q.notify({
+          color: 'positive',
+          message: '프로젝트를 생성하였어요.'
+        })
+        this.$router.push('/projects/')
+      } catch (e) {
+        console.error('error on createProject(): ', e)
+        this.$q.notify({
+          color: 'negative',
+          message: '프로젝트를 생성하지 못했어요.'
+        })
+        this.$q.loading.hide()
+      }
+    }
   },
   data () {
     return {
@@ -304,22 +407,6 @@ export default {
           { label: '세미나 자료', value: 'seminar' }
         ]
       }
-    }
-  },
-  methods: {
-    // selectMultipleText: function (array) {
-    //   return `${array.length ? array[0].toUpperCase() + ' 등 ' + array.length + '개 선택되었어요.' : '선택된 것이 없어요!'}`
-    // },
-    resetValue: function (parent, element) {
-      if (typeof (parent[element]) === 'object') {
-        parent[element] = []
-      } else {
-        parent[element] = ''
-      }
-    },
-    sendFormValue: function () {
-      // console.log(this.formValue)
-      this.$router.push('/projects/sample')
     }
   }
 }

@@ -11,11 +11,12 @@
         </q-stepper-navigation>
       </q-step>
       <q-step title="가입방법 선택">
-        <h2 class="q-body-2">카카오 계정에 로그인해주세요!</h2>
-        <c-login-btn type="kakao" dense></c-login-btn>
+        <h2 v-if="!isSNSLogined" class="q-body-2">카카오 계정에 로그인해주세요!</h2>
+        <c-login-btn type="kakao" dense @login="onLogin(this, $event)"></c-login-btn>
+        <h2 v-if="isSNSLogined" class="q-body-2">카카오 계정에 로그인되었습니다.</h2>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
-          <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
+          <q-btn v-if="isSNSLogined" color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
       <q-step title="기본정보 입력">
@@ -70,8 +71,15 @@ import { required, email, minLength, maxLength } from 'vuelidate/lib/validators'
 
 export default {
   // name: 'PageName',
-  mounted () {
+  created () {
     this.$store.commit('showcase/updateTheme', 'brown')
+  },
+  computed: {
+    themeColor: {
+      get () {
+        return this.$store.state.showcase.snsLoginInfo.email
+      }
+    }
   },
   methods: {
     selectMultipleText: function (array) {
@@ -94,6 +102,28 @@ export default {
     // sendConrifmCode: function (code) {
     //   this.$confirmSignUp(this.formValue.username, code)
     // },
+    show: (value) => {
+      console.log(value)
+    },
+    onLogin: ($refs, $event) => {
+      console.log('$event: ', $refs, $event)
+      if (!$event) return
+
+      const snsUserInfo = this.$store.state.showcase.snsUserInfo
+      console.log('snsUserInfo on Login: ', snsUserInfo)
+
+      if (snsUserInfo) {
+        for (let i in snsUserInfo) {
+          this.formValue[i] = snsUserInfo[i]
+        }
+        $refs.stepper.next()
+        this.isSNSLogined = true
+      } else {
+        // this.email = snsUserInfo.email
+        // ! Should be Deprecated.
+        // $refs.stepper.next()
+      }
+    },
     sendFormValue: async function () {
       this.loading.sendFormValue = true
       let hasError = await this.$signUp(this.formValue)
@@ -105,9 +135,6 @@ export default {
         this.$refs.stepper.next()
       }
       // this.$router.push('/projects/sample')
-    },
-    show: (value) => {
-      console.log(value)
     }
   },
   data () {
@@ -115,6 +142,7 @@ export default {
       enableApply: true,
       signUpConfig: null,
       value_hope: [],
+      isSNSLogined: false,
       loading: {
         sendFormValue: false
       },
@@ -124,6 +152,7 @@ export default {
         email: '',
         hope: '[]',
         motive: '',
+        nickname: '',
         password: 'Test0123!',
         phone_number: '',
         picture: '',

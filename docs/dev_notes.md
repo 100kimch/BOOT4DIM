@@ -48,6 +48,11 @@ amplify codegen
 amplify push
 ```
 
+## To-dos
+
+1. connect Project - Request Model.
+1. id verification on projectNew
+
 ## Comments
 
 ### friendlyName Plugin
@@ -68,6 +73,8 @@ git push --set-upstream origin master
 ```
 
 ### local
+
+---
 
 #### Vue command not found
 

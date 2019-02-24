@@ -10,7 +10,8 @@ module.exports = function (ctx) {
       'cComponents',
       'amplify',
       'friendlyName',
-      'vuelidate'
+      'vuelidate',
+      'kakao'
     ],
     css: ['app.styl'],
     extras: [

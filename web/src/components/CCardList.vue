@@ -58,7 +58,7 @@
         </q-item>
       </q-list>
     </q-card>
-    <q-spinner-dots v-if="!contents.length" class="q-mx-auto custom-loading-cards" slot="message" :size="40"></q-spinner-dots>
+    <q-spinner-dots v-if="!contents.length || hasMoreContents" class="q-mx-auto custom-loading-cards" slot="message" :size="40"></q-spinner-dots>
   </q-infinite-scroll>
 </template>
 
@@ -352,13 +352,6 @@ export default {
   i {
     width: 2.3rem;
     margin-right: 0.5rem;
-  }
-}
-.q-spinner {
-  width: 4rem;
-  margin: 0.5rem calc(50% - 2rem);
-  &.custom-loading-cards {
-    color: white;
   }
 }
 </style>

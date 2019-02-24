@@ -37,7 +37,7 @@ export default ({ Vue }) => {
           'custom:univ_major': userData.univ_major,
           email: userData.email,
           phone_number: phoneFiltered,
-          name: userData.username,
+          name: userData.nickname,
           picture: userData.picture,
           profile: userData.profile
         },

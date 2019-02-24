@@ -507,6 +507,12 @@ button + button {
   }
 }
 
+.q-spinner {
+  width: 4rem;
+  margin: 0.5rem calc(50% - 2rem);
+  color: white;
+}
+
 .custom-title {
   padding: 0;
   margin: 1em 0;

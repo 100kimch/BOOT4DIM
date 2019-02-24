@@ -162,15 +162,36 @@ type ProjectComment implements Message @model {
   author: Contributor!
 }
 
+interface Emotion {
+  id: ID!
+  date: String!
+  postId: String!
+}
+
+type Like implements Emotion {
+  id: ID!
+  date: String!
+  postId: String!
+  author: User!
+}
+
+type projectLike implements Emotion {
+  id: ID!
+  date: String!
+  postId: String!
+  projectId: String!
+  author: Contributor!
+}
+
 type Project @model {
   id: ID!
-  proposer: User!
+  proposer: Contributor!
   name: String!
   description: String!
   types: [String!]!
   topics: [String!]!
   deadlineOption: Boolean!
-  startDutaion: String!
+  startDuration: String!
   endDuration: String
   manager: String!
   personnel: Int!
@@ -207,7 +228,7 @@ type Project @model {
 
 type Request @model {
   id: ID!
-  projectId: String!
+  projectId: String
   date: String!
   requester: Contributor!
   hopePlaces: [String]

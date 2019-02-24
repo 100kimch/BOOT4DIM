@@ -21,7 +21,7 @@
 <script>
 export default {
   // name: 'PageName',
-  mounted () {
+  created () {
     // this.$store.commit('showcase/updateTheme', 'bluegreen')
   },
   methods: {
@@ -61,6 +61,13 @@ export default {
           })
         }
       }
+    },
+    // ! Deprecated: for kakao login
+    onSuccess (data) {
+      console.log('success kakao: ', data)
+    },
+    onFailure (data) {
+      console.error('error kakao: ', data)
     }
   },
   computed: {

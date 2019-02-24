@@ -1,7 +1,7 @@
 <template>
   <q-card v-if="type==='kakao'" :class="{'dense': dense }" @click.native="loginWithKakao">
     <img src="/statics/kakao_logo.png" />
-    <h1>카카오톡으로 로그인</h1>
+    <h1>카카오계정으로 로그인</h1>
   </q-card>
 </template>
 
@@ -13,26 +13,42 @@ export default {
     'dense': Boolean
   },
   mounted () {
-    console.log(this.type, this.dense)
+    // console.log(this.type, this.dense)
   },
   methods: {
-    loginWithKakao: function () {
+    loginWithKakao: async function () {
       this.$q.loading.show()
-      // kakao request
-      this.$login({}).then((response) => {
-        this.$q.dialog({
+      // console.log('kakaoLogin(): ', window.Kakao)
+      try {
+        await this.$store.dispatch('showcase/kakaoLogin')
+        this.$q.notify({
           color: 'positive',
-          message: response.message
+          message: '카카오로 로그인했어요.'
         })
-        this.$router.go(-1)
-        this.$q.loading.hide()
-      }).catch((response) => {
-        this.$q.dialog({
+        this.$emit('login', true)
+      } catch (e) {
+        // console.error('kakaoInfo Error: ', e)
+
+        let msg = ''
+        if (e.type === 'access_denied') {
+          msg = '카카오 계정접근 동의를 취소하셨네요.'
+        } else if (e.type === 'unauthorized') {
+          msg = '서버에 문제가 있으니 운영자한테 "10번 에러"라고 알려주세요.'
+        } else if (e.code !== -900) {
+          msg = '서버에 문제가 있으니 운영자한테 "11번 에러"라고 알려주세요.'
+        } else {
+          msg = '카카오 로그인에 실패하였어요.'
+        }
+
+        this.$q.notify({
           color: 'negative',
-          message: response.message
+          message: msg
         })
+
+        this.$emit('login', false)
+      } finally {
         this.$q.loading.hide()
-      })
+      }
     }
   },
   data () {

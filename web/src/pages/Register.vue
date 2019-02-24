@@ -41,7 +41,7 @@
 <script>
 export default {
   // name: 'PageName',
-  mounted () {
+  created () {
     this.$store.commit('showcase/updateDarkenTheme', false)
   },
   data () {

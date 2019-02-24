@@ -448,13 +448,14 @@ export const getProject = `query GetProject($id: ID!) {
       posts
       avatar
       level
+      position
     }
     name
     description
     types
     topics
     deadlineOption
-    startDutaion
+    startDuration
     endDuration
     manager
     personnel
@@ -653,13 +654,14 @@ export const listProjects = `query ListProjects(
         phone_number
         avatar
         level
+        position
       }
       name
       description
       types
       topics
       deadlineOption
-      startDutaion
+      startDuration
       endDuration
       manager
       personnel

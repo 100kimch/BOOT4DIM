@@ -8,5 +8,8 @@ export default {
   userInfo: {
     level: 0
   },
-  tempId: ''
+  tempId: '',
+  selectedProjectId: '',
+  snsUserInfo: {},
+  snsUserToken: {}
 }
