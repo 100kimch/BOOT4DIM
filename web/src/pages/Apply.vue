@@ -21,8 +21,8 @@
       </q-step>
       <q-step title="기본정보 입력">
         <q-field>
-          <q-input v-model.trim="formValue.username" @blur="$v.formValue.username.$touch" :error="$v.formValue.username.$error" float-label="이름" autofocus />
-          <div class="error" v-if="$v.formValue.username.$dirty && !$v.formValue.username.required" color="negative">실명을 적어주세요.</div>
+          <q-input v-model.trim="formValue.nickname" @blur="$v.formValue.nickname.$touch" :error="$v.formValue.nickname.$error" float-label="이름" autofocus />
+          <div class="error" v-if="$v.formValue.nickname.$dirty && !$v.formValue.nickname.required" color="negative">실명을 적어주세요.</div>
           <q-input v-model.trim="formValue.email" type="email" @blur="$v.formValue.email.$touch" :error="$v.formValue.email.$error" float-label="이메일" />
           <div class="error" v-if="$v.formValue.email.$dirty && !$v.formValue.email.required" color="negative">이메일을 적어주세요.</div>
           <div class="error" v-if="$v.formValue.email.$dirty && !$v.formValue.email.email" color="negative">이메일 형식이 아닙니다.</div>
@@ -106,23 +106,23 @@ export default {
     show: (value) => {
       console.log(value)
     },
-    onLogin: ($refs, $event) => {
-      console.log('$event: ', $refs, $event)
+    onLogin: ($this, $event) => {
+      console.log('$event: ', $this, $event)
       if (!$event) return
 
-      const snsUserInfo = $refs.$store.state.showcase.snsUserInfo
-      console.log('snsUserInfo on Login: ', snsUserInfo, $refs.isSNSLogined)
+      const snsUserInfo = $this.$store.state.showcase.snsUserInfo
+      console.log('snsUserInfo on Login: ', snsUserInfo, $this.isSNSLogined)
 
       if (snsUserInfo) {
         for (let i in snsUserInfo) {
-          $refs.formValue[i] = snsUserInfo[i]
+          $this.formValue[i] = snsUserInfo[i]
         }
-        $refs.isSNSLogined = true
-        $refs.stepper.next()
+        $this.isSNSLogined = true
+        $this.$refs.stepper.next()
       } else {
-        // $refs.email = snsUserInfo.email
+        // $this.email = snsUserInfo.email
         // ! Should be Deprecated.
-        // $refs.stepper.next()
+        // $this.stepper.next()
       }
     },
     sendFormValue: async function () {
@@ -196,7 +196,7 @@ export default {
         required,
         minLength: minLength(4)
       },
-      username: { required, minLength: minLength(2) }
+      nickname: { required, minLength: minLength(2) }
     }
   }
 }

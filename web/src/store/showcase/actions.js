@@ -7,7 +7,8 @@ export function kakaoLogin ({ commit }) {
           url: '/v2/user/me',
           success: function (res) {
             console.log('Kakao API Request Success:', res)
-            commit('setSnsUserInfo', res.properties)
+            commit('setSnsUserInfo', res)
+            resolve(true)
           },
           fail: function (err) {
             console.error('Error in Kakao API Request: ', err)
@@ -18,7 +19,6 @@ export function kakaoLogin ({ commit }) {
             reject(errorCode)
           }
         })
-        resolve(true)
       },
       fail: function (error) {
         const errorCode = {

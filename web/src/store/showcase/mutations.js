@@ -73,7 +73,8 @@ export const setSnsUserToken = (state, snsUserToken) => {
 }
 
 export const setSnsUserInfo = (state, snsUserInfo) => {
-  state.snsUserInfo = snsUserInfo
+  state.snsUserInfo = snsUserInfo.properties
+  state.snsUserInfo['username'] = snsUserInfo.id
 }
 
 export const selectProject = (state, id) => {
