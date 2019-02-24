@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page ref="page">
     <c-title title="지원하기" />
     <q-stepper v-if="enableApply" ref="stepper" vertical>
       <q-step title="환영합니다">
@@ -12,7 +12,7 @@
       </q-step>
       <q-step title="가입방법 선택">
         <h2 v-if="!isSNSLogined" class="q-body-2">카카오 계정에 로그인해주세요!</h2>
-        <c-login-btn type="kakao" dense @login="onLogin(this, $event)"></c-login-btn>
+        <c-login-btn type="kakao" dense @login="onLogin($this, $event)"></c-login-btn>
         <h2 v-if="isSNSLogined" class="q-body-2">카카오 계정에 로그인되었습니다.</h2>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
@@ -73,6 +73,7 @@ export default {
   // name: 'PageName',
   created () {
     this.$store.commit('showcase/updateTheme', 'brown')
+    this.$this = this
   },
   computed: {
     themeColor: {
@@ -109,17 +110,17 @@ export default {
       console.log('$event: ', $refs, $event)
       if (!$event) return
 
-      const snsUserInfo = this.$store.state.showcase.snsUserInfo
-      console.log('snsUserInfo on Login: ', snsUserInfo)
+      const snsUserInfo = $refs.$store.state.showcase.snsUserInfo
+      console.log('snsUserInfo on Login: ', snsUserInfo, $refs.isSNSLogined)
 
       if (snsUserInfo) {
         for (let i in snsUserInfo) {
-          this.formValue[i] = snsUserInfo[i]
+          $refs.formValue[i] = snsUserInfo[i]
         }
+        $refs.isSNSLogined = true
         $refs.stepper.next()
-        this.isSNSLogined = true
       } else {
-        // this.email = snsUserInfo.email
+        // $refs.email = snsUserInfo.email
         // ! Should be Deprecated.
         // $refs.stepper.next()
       }
@@ -139,6 +140,7 @@ export default {
   },
   data () {
     return {
+      $this: null,
       enableApply: true,
       signUpConfig: null,
       value_hope: [],
