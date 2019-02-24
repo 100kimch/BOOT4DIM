@@ -127,6 +127,7 @@ export default {
     },
     sendFormValue: async function () {
       this.loading.sendFormValue = true
+      console.log('formValue: ', this.formValue)
       let hasError = await this.$signUp(this.formValue)
       this.loading.sendFormValue = false
       if (hasError) {
@@ -181,7 +182,7 @@ export default {
   },
   validations: {
     formValue: {
-      address: {},
+      address: { required },
       birthdate: { required },
       email: { required, email },
       // hope: { required },
