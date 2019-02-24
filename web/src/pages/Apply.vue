@@ -19,7 +19,7 @@
           <q-btn v-if="isSNSLogined" color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
-      <q-step title="기본정보 입력">
+      <q-step title="기본정보 입력" ref="former">
         <q-field>
           <q-input v-model.trim="formValue.nickname" @blur="$v.formValue.nickname.$touch" :error="$v.formValue.nickname.$error" float-label="이름" autofocus />
           <div class="error" v-if="$v.formValue.nickname.$dirty && !$v.formValue.nickname.required" color="negative">실명을 적어주세요.</div>
@@ -51,10 +51,6 @@
       <q-step title="완료">
         <h2 class="q-title">지원해주셔서 감사합니다 :)</h2>
         <h3 class="q-body-1">작성해주신 내용을 확인 후 핸드폰 번호로 연락드릴게요~</h3>
-        <q-stepper-navigation>
-          <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
-          <q-btn color="secondary" @click="$signUp(formValue)" label="완료" />
-        </q-stepper-navigation>
       </q-step>
     </q-stepper>
     <q-stepper v-if="!enableApply" class="custom-box">
@@ -76,9 +72,9 @@ export default {
     this.$this = this
   },
   computed: {
-    themeColor: {
+    userToken: {
       get () {
-        return this.$store.state.showcase.snsLoginInfo.email
+        return this.$store.state.showcase.snsUserToken.access_token
       }
     }
   },
@@ -108,6 +104,7 @@ export default {
     },
     onLogin: ($this, $event) => {
       console.log('$event: ', $this, $event)
+
       if (!$event) return
 
       const snsUserInfo = $this.$store.state.showcase.snsUserInfo
@@ -119,6 +116,7 @@ export default {
         }
         $this.isSNSLogined = true
         $this.$refs.stepper.next()
+        window.scrollTo(0, 150)
       } else {
         // $this.email = snsUserInfo.email
         // ! Should be Deprecated.
@@ -127,6 +125,7 @@ export default {
     },
     sendFormValue: async function () {
       this.loading.sendFormValue = true
+      this.formValue['password'] = this.userToken
       console.log('formValue: ', this.formValue)
       let hasError = await this.$signUp(this.formValue)
       this.loading.sendFormValue = false
@@ -156,7 +155,7 @@ export default {
         hope: '[]',
         motive: '',
         nickname: '',
-        password: 'Test0123!',
+        password: '',
         phone_number: '',
         picture: '',
         profile: '',

@@ -25,7 +25,7 @@ export default ({ Vue }) => {
     return new Promise((resolve, reject) => {
       const sendData = {
         username: userData.username,
-        password: 'Test!1234',
+        password: userData.password,
         attributes: {
           address: userData.address,
           birthdate: userData.birthdate.slice(0, 10),
@@ -141,34 +141,13 @@ export default ({ Vue }) => {
   Vue.prototype.$login = (username, password) => {
     return new Promise((resolve, reject) => {
       // http request
-      Auth.signIn(username, 'Test!1234')
+      Auth.signIn(username, password)
         .then(user => {
           resolve(user)
         })
         .catch(err => {
           reject(err.code)
         })
-      // setTimeout(() => {
-      //   accountBus.$emit('loginInfo', {
-      //     label: '김지형',
-      //     avatar: '/statics/profile_kjh.png',
-      //     email: '100kimch@naver.com',
-      //     level: '관리자',
-      //     userLevel: 0,
-      //     adminMode: ''
-      //   })
-      //   Vue.prototype.$loginInfo = {
-      //     label: '김지형',
-      //     avatar: '/statics/profile_kjh.png',
-      //     email: '100kimch@naver.com',
-      //     level: '관리자',
-      //     userLevel: 0,
-      //     adminMode: ''
-      //   }
-      //   resolve({
-      //     message: '로그인되었습니다.'
-      //   })
-      // }, 1500)
     })
   }
   Vue.prototype.$logout = function () {

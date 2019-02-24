@@ -433,7 +433,7 @@ button + button {
   padding: 0.25rem 1rem;
   z-index: 2500;
   .q-tab {
-    padding: 0 !important;
+    // padding: 0 !important;
   }
   .q-tabs-head {
     color: white !important;
@@ -483,7 +483,8 @@ button + button {
 .q-stepper,
 .q-alert {
   background: white;
-  margin: 0;
+  max-width: 800px;
+  margin: 0 auto;
   border-radius: 1rem;
   box-shadow: none;
 
@@ -529,6 +530,14 @@ button + button {
 .custom-title-box {
   padding: 3em 0 5em 0;
   text-align: center;
+  // TODO: make gradient
+  // &:after {
+  //   display: block;
+  //   content: "";
+  //   width: 100vw;
+  //   height: 23rem;
+  //   background: red;
+  // }
 }
 
 .custom-box {

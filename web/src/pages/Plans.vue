@@ -16,7 +16,7 @@
         </q-timeline-entry>
       </q-timeline>
       <div class="custom-option-box">
-        <q-btn color="primary" @click="editable = true">수정하기</q-btn>
+        <!-- <q-btn color="primary" @click="editable = true">수정하기</q-btn> -->
       </div>
     </q-card>
     <q-card v-if="editable">

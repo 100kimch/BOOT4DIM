@@ -1,4 +1,4 @@
-export function kakaoLogin ({ commit }) {
+export function kakaoLoginWithInfo ({ commit }) {
   return new Promise((resolve, reject) => {
     window.Kakao.Auth.login({
       success: function (authObj) {
@@ -19,6 +19,24 @@ export function kakaoLogin ({ commit }) {
             reject(errorCode)
           }
         })
+      },
+      fail: function (error) {
+        const errorCode = {
+          code: -900,
+          type: error.error
+        }
+        reject(errorCode)
+      }
+    })
+  })
+}
+
+export function kakaoLogin ({ commit }) {
+  return new Promise((resolve, reject) => {
+    window.Kakao.Auth.login({
+      success: function (authObj) {
+        commit('setSNSUserToken', authObj)
+        resolve(true)
       },
       fail: function (error) {
         const errorCode = {

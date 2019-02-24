@@ -1,8 +1,8 @@
 <template>
   <q-page>
     <c-title title="로그인" :noNavigation="true" />
-    <c-login-btn v-if="!isLoggedIn" type="kakao"></c-login-btn>
-    <q-card v-if="!isLoggedIn" class="loginbox">
+    <c-login-btn v-if="!isLoggedIn" type="kakao" @login="onLogin($this, $event)"></c-login-btn>
+    <!-- <q-card v-if="!isLoggedIn" class="loginbox">
       <q-field>
         <h1 class="q-title">로그인 테스트</h1>
         <div class="row">
@@ -10,7 +10,7 @@
           <q-btn class="col-4" color="primary" @click="login()" label="로그인" />
         </div>
       </q-field>
-    </q-card>
+    </q-card> -->
     <q-alert v-if="isLoggedIn" color="positive" icon="verified_user">
       <h1 class="q-title">{{ userInfo.name + ' 회원님 환영합니다!' }}</h1>
       <p class="q-body-1">{{ seconds + '초 후에 메인으로 이동합니다.' }}</p>

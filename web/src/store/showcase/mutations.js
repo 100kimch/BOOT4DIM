@@ -73,8 +73,13 @@ export const setSnsUserToken = (state, snsUserToken) => {
 }
 
 export const setSnsUserInfo = (state, snsUserInfo) => {
-  state.snsUserInfo = snsUserInfo.properties
-  state.snsUserInfo['username'] = '' + snsUserInfo.id
+  let userInfo = {}
+  userInfo['username'] = '' + snsUserInfo.id
+  if (snsUserInfo.kakao_account.email) {
+    userInfo['email'] = snsUserInfo.kakao_account.email
+  }
+
+  state.snsUserInfo = userInfo
 }
 
 export const selectProject = (state, id) => {

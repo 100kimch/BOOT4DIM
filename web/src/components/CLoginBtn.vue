@@ -20,7 +20,7 @@ export default {
       this.$q.loading.show()
       // console.log('kakaoLogin(): ', window.Kakao)
       try {
-        await this.$store.dispatch('showcase/kakaoLogin')
+        await this.$store.dispatch('showcase/kakaoLoginWithInfo')
         this.$q.notify({
           color: 'positive',
           message: '카카오로 로그인했어요.'

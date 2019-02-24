@@ -94,7 +94,7 @@ export default {
       this.hasMoreContents = true
       try {
         const result = await this.$gql(this.dbHandler.listPosts)
-        console.log('result: ', result)
+        // console.log('result: ', result)
         this.contents = Object.values(result.data)[0].items
       } catch (e) {
         console.error('error on loadContentsMore():', e)
