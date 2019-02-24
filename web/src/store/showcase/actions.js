@@ -3,7 +3,7 @@ export function kakaoLoginWithInfo ({ commit }) {
     window.Kakao.Auth.login({
       success: function (authObj) {
         console.log('authObj: ', authObj)
-        commit('setSNSUserToken', authObj)
+        commit('setSnsUserToken', authObj)
         window.Kakao.API.request({
           url: '/v2/user/me',
           success: function (res) {
