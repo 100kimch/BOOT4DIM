@@ -58,7 +58,23 @@ export function kakaoLogin ({ commit, state }) {
     window.Kakao.Auth.login({
       success: function (authObj) {
         commit('setSNSUserToken', authObj)
-        loginWithCognito(authObj.id, authObj.access_token, authObj.expires_in)
+        window.Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (res) {
+            console.log('Kakao API Request Success:', res)
+            commit('setSnsUserInfo', res)
+            loginWithCognito(res.id, authObj.access_token, authObj.expires_in)
+            resolve(true)
+          },
+          fail: function (err) {
+            console.error('Error in Kakao API Request: ', err)
+            const errorCode = {
+              code: err.code,
+              type: 'api_request_failed'
+            }
+            reject(errorCode)
+          }
+        })
       },
       fail: function (error) {
         const errorCode = {

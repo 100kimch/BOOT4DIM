@@ -38,18 +38,18 @@ export default {
     },
     onLogin: async ($this, $event) => {
       $this.$q.loading.show()
-      // if (!$event) return
+      if (!$event) return
 
-      // const snsUserInfo = $this.$store.state.showcase.snsUserInfo
+      const snsUserInfo = $this.$store.state.showcase.snsUserInfo
       // console.log('snsUserInfo on Login: ', snsUserInfo, $this.isSNSLogined)
-      // if (!snsUserInfo) return
+      if (!snsUserInfo) return
 
       $this.isSNSLogined = true
 
       try {
-        // console.log('trying: ', snsUserInfo.username, $this.userToken)
-        const userInfo = await $this.$login('1033198031', 'bnqUzBT2Z9lGH11lW41cuvWiFElpJ0rRE4G9owopdaYAAAFpI4SGJQ')
-        // const userInfo = await $this.$login(snsUserInfo.username, $this.userToken)
+        console.log('trying: ', snsUserInfo.username, $this.userToken)
+        // const userInfo = await $this.$login('1033198031', 'bnqUzBT2Z9lGH11lW41cuvWiFElpJ0rRE4G9owopdaYAAAFpI4SGJQ')
+        const userInfo = await $this.$login(snsUserInfo.username, $this.userToken)
         if (userInfo) {
           console.log('SUCCESS: ', userInfo)
 
