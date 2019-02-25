@@ -120,7 +120,7 @@ export default {
         }
         $this.isSNSLogined = true
         $this.$refs.stepper.next()
-        window.scrollTo(0, 250)
+        window.scrollTo(0, 350)
       } else {
         // $this.email = snsUserInfo.email
         // ! Should be Deprecated.

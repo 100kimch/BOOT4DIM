@@ -5,6 +5,7 @@
       <h2 class="q-body-1">{{ subtitle }}</h2>
       <h1 class="title q-display-1" v-html="title"></h1>
     </q-parallax>
+    <div class="custom-gradient-bar" :style="{'background': 'linear-gradient(transparent 0%, '+themeColor+' 100% )'}"></div>
     <c-navigation v-if="!noNavigation" intitle />
   </div>
 </template>
@@ -20,6 +21,9 @@ export default {
       } else {
         return this.$store.state.showcase.theme.imgSrc
       }
+    },
+    themeColor () {
+      return this.$store.state.showcase.theme.color
     }
   }
 }
@@ -44,5 +48,13 @@ export default {
   &.noNavigation {
     margin-bottom: calc(-4.5rem + 3rem);
   }
+}
+
+.custom-gradient-bar {
+  position: absolute;
+  width: 100vw;
+  height: 1.5rem;
+  margin-top: 3rem;
+  z-index: -1;
 }
 </style>

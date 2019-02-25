@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export function kakaoLoginWithInfo ({ commit }) {
   return new Promise((resolve, reject) => {
     window.Kakao.Auth.login({
@@ -32,12 +34,31 @@ export function kakaoLoginWithInfo ({ commit }) {
   })
 }
 
-export function kakaoLogin ({ commit }) {
+export function kakaoLogin ({ commit, state }) {
   return new Promise((resolve, reject) => {
+    var loginWithCognito = (kakaoid, accessToken, expiresIn) => {
+      var cognitoURL =
+        state.kakaoApiUrl +
+        '?id=' +
+        kakaoid +
+        '&access_token=' +
+        accessToken +
+        '&expires_in=' +
+        expiresIn
+      axios
+        .get(cognitoURL)
+        .then(response => {
+          console.log('response in kakaoLogin(): ', response)
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    }
+
     window.Kakao.Auth.login({
       success: function (authObj) {
         commit('setSNSUserToken', authObj)
-        resolve(true)
+        loginWithCognito(authObj.id, authObj.access_token, authObj.expires_in)
       },
       fail: function (error) {
         const errorCode = {

@@ -1,7 +1,7 @@
 <template>
   <q-layout>
     <q-layout-header reveal>
-      <q-toolbar class="custom-logobar" :style="{'background': 'linear-gradient('+themeColor+' 20%, transparent 100% ) !important'}">
+      <q-toolbar class="custom-logobar" :style="{'background': 'linear-gradient('+themeColor+' 0%, '+themeColor+' 20%, transparent 100% ) !important'}">
         <img class="logo" src="/statics/boot_logo.png">
         <span class="logo-name">
           {{ appName }}

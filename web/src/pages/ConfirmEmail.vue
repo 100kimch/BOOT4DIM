@@ -18,9 +18,17 @@
 <script>
 export default {
   // name: 'PageName',
-  mounted () {
-    if (!this.$store.state.showcase.tempId) {
-      this.$router.push('/login')
+  created () {
+    console.log('this.tempId: ', this.tempId)
+    if (!this.tempId) {
+      this.$router.go(-1)
+    }
+  },
+  computed: {
+    tempId: {
+      get () {
+        return this.$store.state.showcase.tempId
+      }
     }
   },
   methods: {
@@ -51,8 +59,7 @@ export default {
         showMsgConfirmed: false,
         msg: '이메일 확인 후 인증해주세요!',
         code: ''
-      },
-      tempId: this.$store.state.showcase.tempId
+      }
     }
   }
 }
