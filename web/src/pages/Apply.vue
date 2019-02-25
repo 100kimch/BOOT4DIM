@@ -1,6 +1,10 @@
 <template>
   <q-page ref="page">
     <c-title title="지원하기" />
+    <q-alert v-if="infoVisible" color="info" icon="offline_bolt" :actions="[{ label: '닫기', handler: ()=> { infoVisible = false } }]">
+      <p class="q-title">카카오톡 '부트사차원 31기 모집문의'로 문의해주세요!</p>
+      <p class="q-body-1 description">올해 만들어진 따끈따끈한 웹사이트라 버그가 있을 수 있어요! 오류가 생기면 카톡으로 문의주세요!</p>
+    </q-alert>
     <q-stepper v-if="enableApply" ref="stepper" vertical>
       <q-step title="환영합니다">
         <h2 class="q-title">부트사차원 신입회원 모집기간입니다!</h2>
@@ -145,6 +149,7 @@ export default {
       signUpConfig: null,
       value_hope: [],
       isSNSLogined: false,
+      infoVisible: true,
       loading: {
         sendFormValue: false
       },

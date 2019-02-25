@@ -2,7 +2,7 @@
   <q-infinite-scroll :handler="loadContentsMore">
     <!-- <h1 class="custom-title q-display-1">프로젝트</h1> -->
     <c-title title="프로젝트" />
-    <q-card>
+    <!-- <q-card>
       <q-tabs v-model="selectedTab" inverted>
         <q-tab label="관리자 메뉴" readonly disable slot="title" />
         <q-tab name="tabNewData" icon="event_note" label="진행 현황" slot="title" />
@@ -15,7 +15,7 @@
           <h3 class="q-body-2">준비중입니다.</h3>
         </q-tab-pane>
       </q-tabs>
-    </q-card>
+    </q-card> -->
     <q-jumbotron>
       <div class="custom-heading q-heading">
         프로젝트 생성하기

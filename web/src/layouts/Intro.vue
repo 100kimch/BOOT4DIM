@@ -499,6 +499,10 @@ button + button {
   }
 }
 
+.q-alert {
+  margin-bottom: 0.5rem;
+}
+
 .q-stepper {
   h3 {
     line-height: 130%;
