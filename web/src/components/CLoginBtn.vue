@@ -62,6 +62,7 @@ export default {
   // padding: 0 calc(50% - 50px - 6rem);
   padding: 0 2rem;
   background: #ffeb00;
+  cursor: pointer;
   img {
     float: left;
     width: 100px;
