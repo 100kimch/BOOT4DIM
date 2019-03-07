@@ -483,7 +483,7 @@ button + button {
 .q-stepper,
 .q-alert {
   background: white;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
   border-radius: 1rem;
   box-shadow: none;

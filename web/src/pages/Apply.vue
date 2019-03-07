@@ -16,11 +16,12 @@
       </q-step>
       <q-step title="가입방법 선택">
         <h2 v-if="!isSNSLogined" class="q-body-2">카카오 계정에 로그인해주세요!</h2>
-        <c-login-btn type="kakao" dense @login="onLogin($this, $event)"></c-login-btn>
+        <c-login-btn type="kakao" dense creator @login="onLogin($this, $event)"></c-login-btn>
         <h2 v-if="isSNSLogined" class="q-body-2">카카오 계정에 로그인되었습니다.</h2>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
-          <q-btn v-if="isSNSLogined" color="secondary" @click="$refs.stepper.next()" label="다음" />
+          <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
+          <!-- <q-btn v-if="isSNSLogined" color="secondary" @click="$refs.stepper.next()" label="다음" /> -->
         </q-stepper-navigation>
       </q-step>
       <q-step title="기본정보 입력" ref="former">
@@ -80,6 +81,11 @@ export default {
       get () {
         return this.$store.state.showcase.snsUserToken.access_token
       }
+    },
+    pinNumber: {
+      get () {
+        return this.$store.state.showcase.pinNumber
+      }
     }
   },
   methods: {
@@ -129,7 +135,7 @@ export default {
     },
     sendFormValue: async function () {
       this.loading.sendFormValue = true
-      this.formValue['password'] = this.userToken
+      this.formValue['password'] = this.pinNumber
       console.log('formValue: ', this.formValue)
       let hasError = await this.$signUp(this.formValue)
       this.loading.sendFormValue = false

@@ -86,6 +86,10 @@ export const setSnsUserInfo = (state, snsUserInfo) => {
   state.snsUserInfo = userInfo
 }
 
+export const setPinNumber = (state, pinNumber) => {
+  state.pinNumber = pinNumber
+}
+
 export const selectProject = (state, id) => {
   state.selectedProjectId = id
 }

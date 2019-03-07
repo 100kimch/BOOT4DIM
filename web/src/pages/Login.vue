@@ -2,15 +2,14 @@
   <q-page>
     <c-title title="로그인" :noNavigation="true" />
     <c-login-btn v-if="!isLoggedIn" type="kakao" @login="onLogin($this, $event)"></c-login-btn>
-    <q-card v-if="!isLoggedIn" class="loginbox">
+    <!-- <q-card v-if="!isLoggedIn" class="loginbox">
       <q-field>
         <h1 class="q-title">로그인 테스트</h1>
         <div class="row">
-          <!-- <q-input class="col-8" v-model="id" /> -->
           <q-btn class="col-4" color="primary" @click="loginWithKakao()" label="로그인" />
         </div>
       </q-field>
-    </q-card>
+    </q-card> -->
     <q-alert v-if="isLoggedIn" color="positive" icon="verified_user">
       <h1 class="q-title">{{ userInfo.name + ' 회원님 환영합니다!' }}</h1>
       <p class="q-body-1">{{ seconds + '초 후에 메인으로 이동합니다.' }}</p>
@@ -38,6 +37,10 @@ export default {
     },
     onLogin: async ($this, $event) => {
       $this.$q.loading.show()
+      setTimeout(() => {
+        this.$q.loading.hide()
+      }, 3000)
+
       if (!$event) return
 
       const snsUserInfo = $this.$store.state.showcase.snsUserInfo
@@ -47,9 +50,9 @@ export default {
       $this.isSNSLogined = true
 
       try {
-        console.log('trying: ', snsUserInfo.username, $this.userToken)
+        console.log('trying: ', snsUserInfo.username, $this.pinNumber)
         // const userInfo = await $this.$login('1033198031', 'bnqUzBT2Z9lGH11lW41cuvWiFElpJ0rRE4G9owopdaYAAAFpI4SGJQ')
-        const userInfo = await $this.$login(snsUserInfo.username, $this.userToken)
+        const userInfo = await $this.$login(snsUserInfo.username, $this.pinNumber)
         if (userInfo) {
           console.log('SUCCESS: ', userInfo)
 
@@ -119,13 +122,6 @@ export default {
           })
         }
       }
-    },
-    // ! Deprecated: for kakao login
-    onSuccess (data) {
-      console.log('success kakao: ', data)
-    },
-    onFailure (data) {
-      console.error('error kakao: ', data)
     }
   },
   computed: {
@@ -137,6 +133,11 @@ export default {
     userToken: {
       get () {
         return this.$store.state.showcase.snsUserToken.access_token
+      }
+    },
+    pinNumber: {
+      get () {
+        return this.$store.state.showcase.pinNumber
       }
     }
   },

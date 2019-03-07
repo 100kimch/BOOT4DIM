@@ -14,5 +14,6 @@ export default {
   tempId: '',
   selectedProjectId: '',
   snsUserInfo: {},
-  snsUserToken: {}
+  snsUserToken: {},
+  pinNumber: null
 }

@@ -158,10 +158,10 @@
 							"Outputs.UserPoolId"
 						]
 					},
-					"schemaGraphql": "s3://web-20190111112042-deployment/amplify-appsync-files/schema.graphql.1549418564636",
+					"schemaGraphql": "s3://web-20190111112042-deployment/amplify-appsync-files/schema.graphql.1551594470490",
 					"ResolverBucket": "web-20190111112042-deployment",
 					"ResolverRootKey": "amplify-appsync-files",
-					"DeploymentTimestamp": "1549418564636"
+					"DeploymentTimestamp": "1551594470490"
 				}
 			}
 		},
@@ -189,6 +189,13 @@
 					"partitionKeyName": "id",
 					"partitionKeyType": "S"
 				}
+			}
+		},
+		"hostingS3AndCloudFront": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/web-20190111112042-deployment/amplify-cfn-templates/hosting/template.json",
+				"Parameters": {}
 			}
 		}
 	},

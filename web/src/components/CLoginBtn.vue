@@ -10,24 +10,92 @@ export default {
   // name: 'ComponentName',
   props: {
     'type': String,
-    'dense': Boolean
+    'dense': Boolean,
+    'creator': Boolean
   },
   mounted () {
     // console.log(this.type, this.dense)
   },
   methods: {
     loginWithKakao: async function () {
+      this.pinNumber = null
       this.$q.loading.show()
       // console.log('kakaoLogin(): ', window.Kakao)
       try {
+        setTimeout(() => {
+          this.$q.loading.hide()
+        }, 3000)
         await this.$store.dispatch('showcase/kakaoLoginWithInfo')
+
+        if (this.creator) {
+          let valid = false
+          while (!valid) {
+            this.pinNumber = await this.$q.dialog({
+              title: 'PIN 번호 생성',
+              message: '로그인 시 이용할 PIN 번호 6자리를 입력해 주세요.',
+              ok: true,
+              cancel: true,
+              prompt: {
+                model: this.pinNumber,
+                type: 'password'
+              }
+            })
+            console.log('pinNumber: ', this.pinNumber, this.pinNumber.length === 6)
+            if (this.pinNumber >= 0 && this.pinNumber < 1000000 && this.pinNumber.length === 6) {
+              valid = true
+            } else {
+              await this.$q.dialog({
+                color: 'negative',
+                message: '6자리의 숫자 PIN 번호를 입력해주세요.'
+              })
+            }
+          }
+
+          valid = false
+
+          while (!valid) {
+            let num = await this.$q.dialog({
+              title: 'PIN 번호 확인',
+              message: '다시한번 PIN 번호를 입력해 주세요.',
+              ok: true,
+              cancel: true,
+              prompt: {
+                model: '',
+                type: 'password'
+              }
+            })
+
+            if (num === this.pinNumber) {
+              this.$store.commit('showcase/setPinNumber', this.pinNumber)
+              valid = true
+            } else {
+              await this.$q.dialog({
+                color: 'negative',
+                message: 'PIN 번호가 맞지 않습니다.'
+              })
+            }
+          }
+        } else {
+          this.pinNumber = await this.$q.dialog({
+            title: 'PIN 번호',
+            message: 'PIN 번호를 입력해 주세요.',
+            ok: true,
+            cancel: true,
+            prompt: {
+              model: this.pinNumber,
+              type: 'number'
+            }
+          })
+          this.$store.commit('showcase/setPinNumber', this.pinNumber)
+        }
+
         this.$q.notify({
           color: 'positive',
           message: '카카오로 로그인했어요.'
         })
         this.$emit('login', true)
       } catch (e) {
-        // console.error('kakaoInfo Error: ', e)
+        console.error('kakaoInfo Error: ', e)
 
         let msg = ''
         if (e.type === 'access_denied') {
@@ -47,12 +115,14 @@ export default {
 
         this.$emit('login', false)
       } finally {
-        this.$q.loading.hide()
+        // this.$q.loading.hide()
       }
     }
   },
   data () {
-    return {}
+    return {
+      pinNumber: null
+    }
   }
 }
 </script>
