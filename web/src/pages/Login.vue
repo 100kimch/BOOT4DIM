@@ -43,8 +43,8 @@ export default {
 
       try {
         // console.log('trying: ', snsUserInfo.username, $this.pinNumber)
-        const userInfo = await $this.$login('1033198031', 110403)
-        // const userInfo = await $this.$login(snsUserInfo.username, $this.pinNumber)
+        // const userInfo = await $this.$login('1033198031', 110403)
+        const userInfo = await $this.$login($this.snsUserInfo.username, $this.pinNumber)
         if (userInfo) {
           console.log('SUCCESS: ', userInfo)
 
