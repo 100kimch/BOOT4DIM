@@ -19,9 +19,9 @@
       <p class="centered">1989년부터 시작된 건국대학교 전자공학과 소속 학술동아리 부트사차원은 하드웨어 동아리 ‘부트’와 소프트웨어 동아리 ‘4차원’이 힘을 합해 전자공학과 대표 학술 동아리로서 자리매김했습니다. 그리고 2017년, 전자공학과 학과 개편 후 공과대학 소속으로 전환하면서 더욱 활발한 활동을 이어나가고 있습니다.</p>
     </q-parallax>
     <div class="custom-box custom-event row">
-      <h1 class="q-display-2">신입회원 모집기간입니다!</h1>
-      <p>31기 신입 회원을 모집합니다. 19학번 새내기 회원분들의 많은 지원 바랍니다!</p>
-      <q-btn icon="insert_emoticon" label="31기 지원하기" color="primary" @click="$router.push('/apply')"></q-btn>
+      <h1 class="q-display-2">신입회원 모집 마감했습니다.</h1>
+      <p>많은 지원 감사드립니다.</p>
+      <!-- <q-btn icon="insert_emoticon" label="31기 지원하기" color="primary" @click="$router.push('/apply')"></q-btn> -->
     </div>
     <div class="custom-box">
       <h1 class="q-display-1">정보</h1>
@@ -151,7 +151,7 @@ export default {
     }
     &.custom-event {
       padding: 1em;
-      background: rgb(172, 70, 70);
+      background: rgb(148, 136, 136);
       color: white;
       text-align: justify;
       h1,

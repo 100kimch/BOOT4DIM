@@ -10,7 +10,7 @@ npm install --save-dev sass-loader node-sass
 
 ### AWS Amplify
 
-see ![this page.](https://aws-amplify.github.io/docs/)
+[See this page.](https://aws-amplify.github.io/docs/)
 
 ```bash
 npm install -g @aws-amplify/cli
@@ -52,6 +52,7 @@ amplify push
 
 1. connect Project - Request Model.
 1. id verification on projectNew
+1. API.ts on /src is gone
 
 ## Comments
 
@@ -106,21 +107,21 @@ npm i -D webpack-merge
 
 #### Creating a global event bus
 
-![See this page](http://andreybleme.com/2018-01-07/sharing-data-across-vuejs-components/)
+[See this page](http://andreybleme.com/2018-01-07/sharing-data-across-vuejs-components/)
 
 ### How to import an external library on Vue
 
-![See this page](https://forum.quasar-framework.org/topic/734/how-to-load-external-dependencies-cdn-async/2)
+[See this page](https://forum.quasar-framework.org/topic/734/how-to-load-external-dependencies-cdn-async/2)
 
 ### Handling Static Assets
 
-![See this page](http://vuejs-templates.github.io/webpack/static.html)
+[See this page](http://vuejs-templates.github.io/webpack/static.html)
 
 ### Amplify GraphQL Client
 
 #### Important
 
-![See This](https://github.com/aws-amplify/amplify-cli/issues/82)
+[See This](https://github.com/aws-amplify/amplify-cli/issues/82)
 
 - '@connection' and '@searchable' should be done at last! (once push them, cannot modify the schema again!)
 
@@ -141,12 +142,12 @@ amplify codegen add
 
 #### GraphQL schema file should contain a valid GraphQL introspection query result
 
-![see this page](https://github.com/aws-amplify/amplify-cli/issues/159)
+[see this page](https://github.com/aws-amplify/amplify-cli/issues/159)
 
-> > Did you make a change to your schema.graphql and did not do a amplify push?
-> > Codegen uses the introspection schema and not the schema.graphql. So if you make any changes to your schmea.graphql please use the following workflow
-> > Push your changes using amplify push
-> > Make sure the code gen is using the latest introspection schema by forcing it to download it by running amplify codegen generate --download
+> Did you make a change to your schema.graphql and did not do a amplify push?
+> Codegen uses the introspection schema and not the schema.graphql. So if you make any changes to your schmea.graphql please use the following workflow
+> Push your changes using amplify push
+> Make sure the code gen is using the latest introspection schema by forcing it to download it by running amplify codegen generate --download
 
 ```bash
 amplify push

@@ -334,6 +334,118 @@ export const deleteFreePost = `mutation DeleteFreePost($input: DeleteFreePostInp
 export const createProjectPost = `mutation CreateProjectPost($input: CreateProjectPostInput!) {
   createProjectPost(input: $input) {
     id
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     body
     comments {
       id
@@ -401,6 +513,118 @@ export const createProjectPost = `mutation CreateProjectPost($input: CreateProje
 export const updateProjectPost = `mutation UpdateProjectPost($input: UpdateProjectPostInput!) {
   updateProjectPost(input: $input) {
     id
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     body
     comments {
       id
@@ -468,6 +692,118 @@ export const updateProjectPost = `mutation UpdateProjectPost($input: UpdateProje
 export const deleteProjectPost = `mutation DeleteProjectPost($input: DeleteProjectPostInput!) {
   deleteProjectPost(input: $input) {
     id
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     body
     comments {
       id
@@ -598,7 +934,119 @@ export const createProjectComment = `mutation CreateProjectComment($input: Creat
     body
     date
     postId
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     author {
       birthdate
       snsLogin
@@ -620,7 +1068,119 @@ export const updateProjectComment = `mutation UpdateProjectComment($input: Updat
     body
     date
     postId
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     author {
       birthdate
       snsLogin
@@ -642,7 +1202,119 @@ export const deleteProjectComment = `mutation DeleteProjectComment($input: Delet
     body
     date
     postId
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     author {
       birthdate
       snsLogin
@@ -701,7 +1373,40 @@ export const createProject = `mutation CreateProject($input: CreateProjectInput!
     etcDescription
     request {
       id
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       date
       requester {
         birthdate
@@ -756,6 +1461,40 @@ export const createProject = `mutation CreateProject($input: CreateProjectInput!
       body
       date
       postId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       author {
         birthdate
         snsLogin
@@ -765,10 +1504,44 @@ export const createProject = `mutation CreateProject($input: CreateProjectInput!
         phone_number
         avatar
         level
+        position
       }
     }
     contents {
       id
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       body
       comments {
         id
@@ -848,7 +1621,7 @@ export const createProject = `mutation CreateProject($input: CreateProjectInput!
     }
     supports {
       id
-      projectId
+      cProjectId
       date
       status
       title
@@ -903,7 +1676,40 @@ export const updateProject = `mutation UpdateProject($input: UpdateProjectInput!
     etcDescription
     request {
       id
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       date
       requester {
         birthdate
@@ -958,6 +1764,40 @@ export const updateProject = `mutation UpdateProject($input: UpdateProjectInput!
       body
       date
       postId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       author {
         birthdate
         snsLogin
@@ -967,10 +1807,44 @@ export const updateProject = `mutation UpdateProject($input: UpdateProjectInput!
         phone_number
         avatar
         level
+        position
       }
     }
     contents {
       id
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       body
       comments {
         id
@@ -1050,7 +1924,7 @@ export const updateProject = `mutation UpdateProject($input: UpdateProjectInput!
     }
     supports {
       id
-      projectId
+      cProjectId
       date
       status
       title
@@ -1105,7 +1979,40 @@ export const deleteProject = `mutation DeleteProject($input: DeleteProjectInput!
     etcDescription
     request {
       id
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       date
       requester {
         birthdate
@@ -1160,6 +2067,40 @@ export const deleteProject = `mutation DeleteProject($input: DeleteProjectInput!
       body
       date
       postId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       author {
         birthdate
         snsLogin
@@ -1169,10 +2110,44 @@ export const deleteProject = `mutation DeleteProject($input: DeleteProjectInput!
         phone_number
         avatar
         level
+        position
       }
     }
     contents {
       id
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       body
       comments {
         id
@@ -1252,7 +2227,7 @@ export const deleteProject = `mutation DeleteProject($input: DeleteProjectInput!
     }
     supports {
       id
-      projectId
+      cProjectId
       date
       status
       title
@@ -1267,7 +2242,119 @@ export const deleteProject = `mutation DeleteProject($input: DeleteProjectInput!
 export const createRequest = `mutation CreateRequest($input: CreateRequestInput!) {
   createRequest(input: $input) {
     id
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     date
     requester {
       birthdate
@@ -1293,7 +2380,119 @@ export const createRequest = `mutation CreateRequest($input: CreateRequestInput!
 export const updateRequest = `mutation UpdateRequest($input: UpdateRequestInput!) {
   updateRequest(input: $input) {
     id
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     date
     requester {
       birthdate
@@ -1319,7 +2518,119 @@ export const updateRequest = `mutation UpdateRequest($input: UpdateRequestInput!
 export const deleteRequest = `mutation DeleteRequest($input: DeleteRequestInput!) {
   deleteRequest(input: $input) {
     id
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     date
     requester {
       birthdate
@@ -1396,27 +2707,6 @@ export const deleteHistory = `mutation DeleteHistory($input: DeleteHistoryInput!
       avatar
       level
     }
-  }
-}
-`;
-export const createTesting = `mutation CreateTesting($input: CreateTestingInput!) {
-  createTesting(input: $input) {
-    id
-    name
-  }
-}
-`;
-export const updateTesting = `mutation UpdateTesting($input: UpdateTestingInput!) {
-  updateTesting(input: $input) {
-    id
-    name
-  }
-}
-`;
-export const deleteTesting = `mutation DeleteTesting($input: DeleteTestingInput!) {
-  deleteTesting(input: $input) {
-    id
-    name
   }
 }
 `;

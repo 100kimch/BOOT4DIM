@@ -120,6 +120,7 @@ type FreePost implements Post @model {
 
 type ProjectPost implements Post @model {
   id: ID!
+  project: Project # @connection(name: "ProjectProjectPosts", sortField: "createdAt")
   body: String!
   comments: [Comment] # @connection(name: "PostComments")
   author: User
@@ -158,7 +159,8 @@ type ProjectComment implements Message @model {
   body: String!
   date: String!
   postId: String!
-  projectId: String!
+  cProjectId: String!
+  project: Project # @connection(name: "ProjectProjectComments", sortField: "createdAt")
   author: Contributor!
 }
 
@@ -179,7 +181,7 @@ type projectLike implements Emotion {
   id: ID!
   date: String!
   postId: String!
-  projectId: String!
+  cProjectId: String!
   author: Contributor!
 }
 
@@ -212,11 +214,11 @@ type Project @model {
   shareCopyright: String
   agileHasBeen: String
   etcDescription: String
-  request: [Request]
+  request: [Request] # @connection(name: "ProjectRequests", sortField: "createdAt")
   activities: [Activity]
   contributors: [Contributor]
-  comments: [Comment]
-  contents: [ProjectPost]
+  comments: [ProjectComment] # @connection(name: "ProjectProjectComments", sortField: "createdAt")
+  contents: [ProjectPost] # @connection(name: "ProjectProjectPosts", sortField: "createdAt")
   fixedBudget: Int
   pictures: [Picture]
   supports: [Support]
@@ -228,7 +230,8 @@ type Project @model {
 
 type Request @model {
   id: ID!
-  projectId: String
+  cProjectId: String
+  project: Project # @connection(name: "ProjectRequests", sortField: "createdAt")
   date: String!
   requester: Contributor!
   hopePlaces: [String]
@@ -241,7 +244,7 @@ type Request @model {
 
 type Support {
   id: ID!
-  projectId: String!
+  cProjectId: String!
   date: String!
   status: Int!
   title: String!
@@ -281,10 +284,10 @@ type History @model {
   author: User!
 }
 
-type Testing @model {
-  id: ID!
-  name: String!
-}
+# type Testing @model {
+#   id: ID!
+#   name: String!
+# }
 
 # scalar Date
 

@@ -1,7 +1,7 @@
 <template>
   <q-page>
     <c-title title="로그인" :noNavigation="true" />
-    <c-login-btn v-if="!isLoggedIn" type="kakao" @login="onLogin($this, $event)"></c-login-btn>
+    <c-login-btn v-if="!isLoggedIn" type="kakao" @login="onLoginTest($this, $event)"></c-login-btn>
     <!-- <q-card v-if="!isLoggedIn" class="loginbox">
       <q-field>
         <h1 class="q-title">로그인 테스트</h1>
@@ -35,10 +35,53 @@ export default {
         this.$q.loading.hide()
       }
     },
+    onLoginTest: async ($this, $event) => {
+      $this.$q.loading.show()
+      setTimeout(() => {
+        $this.$q.loading.hide()
+      }, 3000)
+
+      try {
+        // console.log('trying: ', snsUserInfo.username, $this.pinNumber)
+        const userInfo = await $this.$login('1033198031', 110403)
+        // const userInfo = await $this.$login(snsUserInfo.username, $this.pinNumber)
+        if (userInfo) {
+          console.log('SUCCESS: ', userInfo)
+
+          const { attributes } = await $this.$getUserInfo()
+          // console.log('attributes: ', attributes)
+          await $this.$store.commit('showcase/setUserInfo', attributes)
+
+          $this.$q.loading.hide()
+          $this.isLoggedIn = true
+
+          $this.counter = setInterval(() => {
+            $this.seconds--
+            if ($this.seconds <= 0) {
+              clearInterval($this.counter)
+              $this.$router.push('/')
+            }
+          }, 1000)
+        }
+      } catch (e) {
+        console.error('ERROR: ', e)
+        if (e === 'UserNotConfirmedException') {
+          await $this.$store.commit('showcase/needConfirm', '1033198031')
+          $this.$router.push('/confirm_email')
+        } else if (e === 'UserNotFoundException') {
+          $this.$q.dialog({
+            title: '어이쿠',
+            message: '회원등록을 안하신 것 같아요!',
+            color: 'negative',
+            ok: true
+          })
+        }
+      }
+    },
     onLogin: async ($this, $event) => {
       $this.$q.loading.show()
       setTimeout(() => {
-        this.$q.loading.hide()
+        $this.$q.loading.hide()
       }, 3000)
 
       if (!$event) return
@@ -50,7 +93,7 @@ export default {
       $this.isSNSLogined = true
 
       try {
-        console.log('trying: ', snsUserInfo.username, $this.pinNumber)
+        // console.log('trying: ', snsUserInfo.username, $this.pinNumber)
         // const userInfo = await $this.$login('1033198031', 'bnqUzBT2Z9lGH11lW41cuvWiFElpJ0rRE4G9owopdaYAAAFpI4SGJQ')
         const userInfo = await $this.$login(snsUserInfo.username, $this.pinNumber)
         if (userInfo) {
@@ -74,7 +117,8 @@ export default {
       } catch (e) {
         console.error('ERROR: ', e)
         if (e === 'UserNotConfirmedException') {
-          $this.$store.commit('showcase/needConfirm', $this.id)
+          // TODO: change $this.id  && await
+          await $this.$store.commit('showcase/needConfirm', $this.id)
           $this.$router.push('/confirm_email')
         } else if (e === 'UserNotFoundException') {
           $this.$q.dialog({

@@ -210,6 +210,14 @@ export default {
     // selectMultipleText: function (array) {
     //   return `${array.length ? array[0].toUpperCase() + ' 등 ' + array.length + '개 선택되었어요.' : '선택된 것이 없어요!'}`
     // },
+    clean: (obj) => {
+      for (var propName in obj) {
+        if (obj[propName] === null || obj[propName] === undefined || obj[propName] === '') {
+          delete obj[propName]
+        }
+      }
+      return obj
+    },
     resetValue: function (parent, element) {
       if (typeof (parent[element]) === 'object') {
         parent[element] = []
@@ -226,7 +234,7 @@ export default {
       const startDuration = this.formValue.startDuration ? this.formValue.startDuration.slice(0, 10) : null
       const endDuration = this.formValue.endDuration ? this.formValue.endDuration.slice(0, 10) : null
 
-      const queryData = {
+      const formData = {
         proposer: userInfo,
         name: this.formValue.name,
         description: this.formValue.description,
@@ -254,17 +262,23 @@ export default {
         shareCopyright: this.formValue.share.copyright,
         agileHasBeen: this.formValue.agile.hasBeen,
         etcDescription: this.formValue.etc.description,
-        // request: null,
-        comments: [],
-        activities: [],
-        pictures: [],
-        supports: [],
-        teamNotes: [],
+        // request: {
+        //   items: [],
+        //   nextTokens: ''
+        // },
+        // activities: [],
+        // contributors: [],
+        // comments: [],
+        // contents: [],
         fixedBudget: 0,
+        // pictures: [],
+        // supports: [],
+        // teamNotes: [],
         status: 1,
-        syncGithub: false
+        syncGithub: false,
+        themeColor: null
       }
-      const queryRequest = {
+      const formRequest = {
         date: new Date().toISOString(),
         requester: userInfo,
         hopePlaces: this.formValue.request.hopePlaces,
@@ -275,16 +289,23 @@ export default {
         status: 1
       }
       try {
-        const request = await this.$gql(this.$mutations.createRequest, {
-          input: queryRequest
-        })
-        console.log('request: ', request)
         // TODO: Connect Request - Project Model
         // queryData.request = [request]
+        const queryData = this.clean(formData)
+        const queryRequest = this.clean(formRequest)
+
+        console.log('queryData: ', queryData)
         const data = await this.$gql(this.$mutations.createProject, {
           input: queryData
         })
         console.log('result on creating data: ', data)
+        console.log('queryRequest: ', queryRequest)
+
+        // queryRequest['projectId'] = data.id
+        const request = await this.$gql(this.$mutations.createRequest, {
+          input: queryRequest
+        })
+        console.log('request: ', request)
         this.$q.loading.hide()
         this.$q.notify({
           color: 'positive',

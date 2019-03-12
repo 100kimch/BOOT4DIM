@@ -366,6 +366,8 @@ export default {
       console.log('project data():', Object.values(result.data)[0].items[0])
       this.project = Object.values(result.data)[0].items[0]
       this.project['contents'] = []
+
+      // const resultRequest = await this.$gql(this.$queries.listRequests, {})
       // this.project = data
     } catch (e) {
       this.$q.notify({
@@ -407,11 +409,6 @@ export default {
     userInfo: {
       get () {
         return this.$store.state.showcase.userInfo
-      }
-    },
-    projectId: {
-      get () {
-        return this.$state.state.showcase.selectedProjectId
       }
     }
   },

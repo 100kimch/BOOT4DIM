@@ -214,6 +214,118 @@ export const listFreePosts = `query ListFreePosts(
 export const getProjectPost = `query GetProjectPost($id: ID!) {
   getProjectPost(id: $id) {
     id
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     body
     comments {
       id
@@ -286,6 +398,39 @@ export const listProjectPosts = `query ListProjectPosts(
   listProjectPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       body
       comments {
         id
@@ -391,7 +536,119 @@ export const getProjectComment = `query GetProjectComment($id: ID!) {
     body
     date
     postId
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     author {
       birthdate
       snsLogin
@@ -418,7 +675,40 @@ export const listProjectComments = `query ListProjectComments(
       body
       date
       postId
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       author {
         birthdate
         snsLogin
@@ -478,7 +768,40 @@ export const getProject = `query GetProject($id: ID!) {
     etcDescription
     request {
       id
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       date
       requester {
         birthdate
@@ -533,6 +856,40 @@ export const getProject = `query GetProject($id: ID!) {
       body
       date
       postId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       author {
         birthdate
         snsLogin
@@ -542,10 +899,44 @@ export const getProject = `query GetProject($id: ID!) {
         phone_number
         avatar
         level
+        position
       }
     }
     contents {
       id
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       body
       comments {
         id
@@ -625,7 +1016,7 @@ export const getProject = `query GetProject($id: ID!) {
     }
     supports {
       id
-      projectId
+      cProjectId
       date
       status
       title
@@ -684,7 +1075,7 @@ export const listProjects = `query ListProjects(
       etcDescription
       request {
         id
-        projectId
+        cProjectId
         date
         hopePlaces
         material
@@ -716,6 +1107,7 @@ export const listProjects = `query ListProjects(
         body
         date
         postId
+        cProjectId
       }
       contents {
         id
@@ -744,7 +1136,7 @@ export const listProjects = `query ListProjects(
       }
       supports {
         id
-        projectId
+        cProjectId
         date
         status
         title
@@ -761,7 +1153,119 @@ export const listProjects = `query ListProjects(
 export const getRequest = `query GetRequest($id: ID!) {
   getRequest(id: $id) {
     id
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     date
     requester {
       birthdate
@@ -792,7 +1296,40 @@ export const listRequests = `query ListRequests(
   listRequests(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       date
       requester {
         birthdate
@@ -855,27 +1392,6 @@ export const listHistorys = `query ListHistorys(
         avatar
         level
       }
-    }
-    nextToken
-  }
-}
-`;
-export const getTesting = `query GetTesting($id: ID!) {
-  getTesting(id: $id) {
-    id
-    name
-  }
-}
-`;
-export const listTestings = `query ListTestings(
-  $filter: ModelTestingFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listTestings(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      name
     }
     nextToken
   }

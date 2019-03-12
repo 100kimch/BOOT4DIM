@@ -83,7 +83,7 @@ export default {
             cancel: true,
             prompt: {
               model: this.pinNumber,
-              type: 'number'
+              type: 'password'
             }
           })
           this.$store.commit('showcase/setPinNumber', this.pinNumber)

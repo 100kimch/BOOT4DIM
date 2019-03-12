@@ -100,7 +100,7 @@ export default {
         console.error('error on loadContentsMore():', e)
         this.$q.notify({
           color: 'negative',
-          message: '로그인이 필요한 서비스입니다.'
+          message: '로그인이 필요한 서비스입니다. 에러코드: 22번'
         })
       }
       this.hasMoreContents = false

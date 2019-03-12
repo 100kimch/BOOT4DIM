@@ -120,6 +120,7 @@ type FreePost implements Post {
 
 type ProjectPost implements Post {
   id: ID!
+  project: Project
   body: String!
   comments: [Comment]
   author: User
@@ -157,7 +158,8 @@ type ProjectComment implements Message {
   body: String!
   date: String!
   postId: String!
-  projectId: String!
+  cProjectId: String!
+  project: Project
   author: Contributor!
 }
 
@@ -178,7 +180,7 @@ type projectLike implements Emotion {
   id: ID!
   date: String!
   postId: String!
-  projectId: String!
+  cProjectId: String!
   author: Contributor!
 }
 
@@ -214,7 +216,7 @@ type Project {
   request: [Request]
   activities: [Activity]
   contributors: [Contributor]
-  comments: [Comment]
+  comments: [ProjectComment]
   contents: [ProjectPost]
   fixedBudget: Int
   pictures: [Picture]
@@ -226,7 +228,8 @@ type Project {
 
 type Request {
   id: ID!
-  projectId: String
+  cProjectId: String
+  project: Project
   date: String!
   requester: Contributor!
   hopePlaces: [String]
@@ -239,7 +242,7 @@ type Request {
 
 type Support {
   id: ID!
-  projectId: String!
+  cProjectId: String!
   date: String!
   status: Int!
   title: String!
@@ -273,11 +276,6 @@ type History {
   date: String!
   body: String!
   author: User!
-}
-
-type Testing {
-  id: ID!
-  name: String!
 }
 
 enum ModelSortDirection {
@@ -380,8 +378,6 @@ type Query {
   listRequests(filter: ModelRequestFilterInput, limit: Int, nextToken: String): ModelRequestConnection
   getHistory(id: ID!): History
   listHistorys(filter: ModelHistoryFilterInput, limit: Int, nextToken: String): ModelHistoryConnection
-  getTesting(id: ID!): Testing
-  listTestings(filter: ModelTestingFilterInput, limit: Int, nextToken: String): ModelTestingConnection
 }
 
 input CreateNoticePostInput {
@@ -447,9 +443,6 @@ type Mutation {
   createHistory(input: CreateHistoryInput!): History
   updateHistory(input: UpdateHistoryInput!): History
   deleteHistory(input: DeleteHistoryInput!): History
-  createTesting(input: CreateTestingInput!): Testing
-  updateTesting(input: UpdateTestingInput!): Testing
-  deleteTesting(input: DeleteTestingInput!): Testing
 }
 
 type Subscription {
@@ -477,9 +470,6 @@ type Subscription {
   onCreateHistory: History @aws_subscribe(mutations: ["createHistory"])
   onUpdateHistory: History @aws_subscribe(mutations: ["updateHistory"])
   onDeleteHistory: History @aws_subscribe(mutations: ["deleteHistory"])
-  onCreateTesting: Testing @aws_subscribe(mutations: ["createTesting"])
-  onUpdateTesting: Testing @aws_subscribe(mutations: ["updateTesting"])
-  onDeleteTesting: Testing @aws_subscribe(mutations: ["deleteTesting"])
 }
 
 type ModelFreePostConnection {
@@ -651,7 +641,7 @@ input ModelProjectCommentFilterInput {
   body: ModelStringFilterInput
   date: ModelStringFilterInput
   postId: ModelStringFilterInput
-  projectId: ModelStringFilterInput
+  cProjectId: ModelStringFilterInput
   and: [ModelProjectCommentFilterInput]
   or: [ModelProjectCommentFilterInput]
   not: ModelProjectCommentFilterInput
@@ -662,7 +652,7 @@ input CreateProjectCommentInput {
   body: String!
   date: String!
   postId: String!
-  projectId: String!
+  cProjectId: String!
   author: ContributorInput!
 }
 
@@ -671,7 +661,7 @@ input UpdateProjectCommentInput {
   body: String
   date: String
   postId: String
-  projectId: String
+  cProjectId: String
   author: ContributorInput
 }
 
@@ -700,7 +690,7 @@ input PictureInput {
 }
 
 input SupportInput {
-  projectId: String!
+  cProjectId: String!
   date: String!
   status: Int!
   title: String!
@@ -838,7 +828,7 @@ type ModelRequestConnection {
 
 input ModelRequestFilterInput {
   id: ModelIDFilterInput
-  projectId: ModelStringFilterInput
+  cProjectId: ModelStringFilterInput
   date: ModelStringFilterInput
   hopePlaces: ModelStringFilterInput
   material: ModelStringFilterInput
@@ -853,7 +843,7 @@ input ModelRequestFilterInput {
 
 input CreateRequestInput {
   id: ID
-  projectId: String
+  cProjectId: String
   date: String!
   requester: ContributorInput!
   hopePlaces: [String]
@@ -866,7 +856,7 @@ input CreateRequestInput {
 
 input UpdateRequestInput {
   id: ID!
-  projectId: String
+  cProjectId: String
   date: String
   requester: ContributorInput
   hopePlaces: [String]
@@ -910,32 +900,5 @@ input UpdateHistoryInput {
 }
 
 input DeleteHistoryInput {
-  id: ID
-}
-
-type ModelTestingConnection {
-  items: [Testing]
-  nextToken: String
-}
-
-input ModelTestingFilterInput {
-  id: ModelIDFilterInput
-  name: ModelStringFilterInput
-  and: [ModelTestingFilterInput]
-  or: [ModelTestingFilterInput]
-  not: ModelTestingFilterInput
-}
-
-input CreateTestingInput {
-  id: ID
-  name: String!
-}
-
-input UpdateTestingInput {
-  id: ID!
-  name: String
-}
-
-input DeleteTestingInput {
   id: ID
 }

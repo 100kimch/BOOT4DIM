@@ -334,6 +334,118 @@ export const onDeleteFreePost = `subscription OnDeleteFreePost {
 export const onCreateProjectPost = `subscription OnCreateProjectPost {
   onCreateProjectPost {
     id
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     body
     comments {
       id
@@ -401,6 +513,118 @@ export const onCreateProjectPost = `subscription OnCreateProjectPost {
 export const onUpdateProjectPost = `subscription OnUpdateProjectPost {
   onUpdateProjectPost {
     id
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     body
     comments {
       id
@@ -468,6 +692,118 @@ export const onUpdateProjectPost = `subscription OnUpdateProjectPost {
 export const onDeleteProjectPost = `subscription OnDeleteProjectPost {
   onDeleteProjectPost {
     id
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     body
     comments {
       id
@@ -598,7 +934,119 @@ export const onCreateProjectComment = `subscription OnCreateProjectComment {
     body
     date
     postId
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     author {
       birthdate
       snsLogin
@@ -620,7 +1068,119 @@ export const onUpdateProjectComment = `subscription OnUpdateProjectComment {
     body
     date
     postId
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     author {
       birthdate
       snsLogin
@@ -642,7 +1202,119 @@ export const onDeleteProjectComment = `subscription OnDeleteProjectComment {
     body
     date
     postId
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     author {
       birthdate
       snsLogin
@@ -701,7 +1373,40 @@ export const onCreateProject = `subscription OnCreateProject {
     etcDescription
     request {
       id
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       date
       requester {
         birthdate
@@ -756,6 +1461,40 @@ export const onCreateProject = `subscription OnCreateProject {
       body
       date
       postId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       author {
         birthdate
         snsLogin
@@ -765,10 +1504,44 @@ export const onCreateProject = `subscription OnCreateProject {
         phone_number
         avatar
         level
+        position
       }
     }
     contents {
       id
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       body
       comments {
         id
@@ -848,7 +1621,7 @@ export const onCreateProject = `subscription OnCreateProject {
     }
     supports {
       id
-      projectId
+      cProjectId
       date
       status
       title
@@ -903,7 +1676,40 @@ export const onUpdateProject = `subscription OnUpdateProject {
     etcDescription
     request {
       id
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       date
       requester {
         birthdate
@@ -958,6 +1764,40 @@ export const onUpdateProject = `subscription OnUpdateProject {
       body
       date
       postId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       author {
         birthdate
         snsLogin
@@ -967,10 +1807,44 @@ export const onUpdateProject = `subscription OnUpdateProject {
         phone_number
         avatar
         level
+        position
       }
     }
     contents {
       id
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       body
       comments {
         id
@@ -1050,7 +1924,7 @@ export const onUpdateProject = `subscription OnUpdateProject {
     }
     supports {
       id
-      projectId
+      cProjectId
       date
       status
       title
@@ -1105,7 +1979,40 @@ export const onDeleteProject = `subscription OnDeleteProject {
     etcDescription
     request {
       id
-      projectId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       date
       requester {
         birthdate
@@ -1160,6 +2067,40 @@ export const onDeleteProject = `subscription OnDeleteProject {
       body
       date
       postId
+      cProjectId
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       author {
         birthdate
         snsLogin
@@ -1169,10 +2110,44 @@ export const onDeleteProject = `subscription OnDeleteProject {
         phone_number
         avatar
         level
+        position
       }
     }
     contents {
       id
+      project {
+        id
+        name
+        description
+        types
+        topics
+        deadlineOption
+        startDuration
+        endDuration
+        manager
+        personnel
+        hasPlace
+        place
+        studyTopics
+        studyMeeting
+        studyTutor
+        contestTopic
+        contestProductDescription
+        contestName
+        contestDuedate
+        contestObjectives
+        seminarTopics
+        seminarIsOnce
+        seminarMeeting
+        seminarPresenter
+        shareCopyright
+        agileHasBeen
+        etcDescription
+        fixedBudget
+        status
+        syncGithub
+        themeColor
+      }
       body
       comments {
         id
@@ -1252,7 +2227,7 @@ export const onDeleteProject = `subscription OnDeleteProject {
     }
     supports {
       id
-      projectId
+      cProjectId
       date
       status
       title
@@ -1267,7 +2242,119 @@ export const onDeleteProject = `subscription OnDeleteProject {
 export const onCreateRequest = `subscription OnCreateRequest {
   onCreateRequest {
     id
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     date
     requester {
       birthdate
@@ -1293,7 +2380,119 @@ export const onCreateRequest = `subscription OnCreateRequest {
 export const onUpdateRequest = `subscription OnUpdateRequest {
   onUpdateRequest {
     id
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     date
     requester {
       birthdate
@@ -1319,7 +2518,119 @@ export const onUpdateRequest = `subscription OnUpdateRequest {
 export const onDeleteRequest = `subscription OnDeleteRequest {
   onDeleteRequest {
     id
-    projectId
+    cProjectId
+    project {
+      id
+      proposer {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      name
+      description
+      types
+      topics
+      deadlineOption
+      startDuration
+      endDuration
+      manager
+      personnel
+      hasPlace
+      place
+      studyTopics
+      studyMeeting
+      studyTutor
+      contestTopic
+      contestProductDescription
+      contestName
+      contestDuedate
+      contestObjectives
+      seminarTopics
+      seminarIsOnce
+      seminarMeeting
+      seminarPresenter
+      shareCopyright
+      agileHasBeen
+      etcDescription
+      request {
+        id
+        cProjectId
+        date
+        hopePlaces
+        material
+        budget
+        cookie
+        extra
+        status
+      }
+      activities {
+        id
+        projectName
+        date
+        type
+        description
+      }
+      contributors {
+        birthdate
+        snsLogin
+        email
+        email_verified
+        name
+        phone_number
+        avatar
+        level
+        position
+      }
+      comments {
+        id
+        body
+        date
+        postId
+        cProjectId
+      }
+      contents {
+        id
+        body
+        date
+        headerImgSrc
+        isLike
+        issueName
+        numComments
+        numLikes
+        numShares
+        themeColor
+        title
+        topics
+      }
+      fixedBudget
+      pictures {
+        body
+        date
+        src
+        title
+        numComments
+        numLikes
+        numShares
+        topics
+      }
+      supports {
+        id
+        cProjectId
+        date
+        status
+        title
+        description
+      }
+      status
+      syncGithub
+      themeColor
+    }
     date
     requester {
       birthdate
@@ -1396,27 +2707,6 @@ export const onDeleteHistory = `subscription OnDeleteHistory {
       avatar
       level
     }
-  }
-}
-`;
-export const onCreateTesting = `subscription OnCreateTesting {
-  onCreateTesting {
-    id
-    name
-  }
-}
-`;
-export const onUpdateTesting = `subscription OnUpdateTesting {
-  onUpdateTesting {
-    id
-    name
-  }
-}
-`;
-export const onDeleteTesting = `subscription OnDeleteTesting {
-  onDeleteTesting {
-    id
-    name
   }
 }
 `;

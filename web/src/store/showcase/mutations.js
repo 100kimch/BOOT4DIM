@@ -41,6 +41,7 @@ export const updateTheme = (state, tone) => {
 }
 
 export const needConfirm = (state, id) => {
+  console.log('id: ', id)
   state.tempId = id
 }
 
@@ -91,5 +92,6 @@ export const setPinNumber = (state, pinNumber) => {
 }
 
 export const selectProject = (state, id) => {
+  console.log('selectProjectId: ', id)
   state.selectedProjectId = id
 }

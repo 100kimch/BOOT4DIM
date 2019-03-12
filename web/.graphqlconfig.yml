@@ -4,13 +4,14 @@ projects:
     includes:
       - src/graphql/**/*.ts
     excludes:
-      - amplify/**
+      - ./amplify/**
     extensions:
       amplify:
+        graphQLApiId: y4dewhfhwfcyheskzfc2kp2py4
         codeGenTarget: typescript
         generatedFileName: src/API.ts
         docsFilePath: src/graphql
-        graphQLApiId: y4dewhfhwfcyheskzfc2kp2py4
+        region: us-west-2
       endpoints:
         prod: >-
           https://vkyatt3tsjcuzdjtva2pfqy3va.appsync-api.us-west-2.amazonaws.com/graphql

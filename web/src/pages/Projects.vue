@@ -11,7 +11,7 @@
         <q-tab-pane name="tabNewData">
           <h3 class="q-body-2">준비중입니다.</h3>
         </q-tab-pane>
-        <q-tab-pane name="tabManagement" class="darken">
+        <q-tab-pane name="tabManagement" class="darken"></q-tab-pane>
           <h3 class="q-body-2">준비중입니다.</h3>
         </q-tab-pane>
       </q-tabs>
@@ -61,12 +61,14 @@ export default {
   },
   methods: {
     go: function (url, projectId) {
+      // console.log('when going: ', url, projectId)
       this.$store.commit('showcase/selectProject', projectId)
       this.$router.push(url)
     },
     loadContentsMore: async function (index, done) {
       this.hasMoreContents = true
       try {
+        console.log('this.$queries.listProjects: ', this.$queries.listProjects)
         const result = await this.$gql(this.$queries.listProjects)
         console.log('result: ', result)
         this.contents = Object.values(result.data)[0].items
@@ -74,7 +76,7 @@ export default {
         console.error('error on loadContentsMore():', e)
         this.$q.notify({
           color: 'negative',
-          message: '로그인이 필요한 서비스입니다.'
+          message: '로그인이 필요한 서비스입니다. 에러코드: 21번'
         })
       }
       this.hasMoreContents = false

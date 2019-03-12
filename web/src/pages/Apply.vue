@@ -1,7 +1,7 @@
 <template>
   <q-page ref="page">
     <c-title title="지원하기" />
-    <q-alert v-if="infoVisible" color="info" icon="offline_bolt" :actions="[{ label: '닫기', handler: ()=> { infoVisible = false } }]">
+    <q-alert v-if="enableApply" color="info" icon="offline_bolt" :actions="[{ label: '닫기', handler: ()=> { infoVisible = false } }]">
       <p class="q-title">카카오톡 '부트사차원 31기 모집문의'로 문의해주세요!</p>
       <p class="q-body-1 description">올해 만들어진 따끈따끈한 웹사이트라 버그가 있을 수 있어요! 오류가 생기면 카톡으로 문의주세요!</p>
     </q-alert>
@@ -20,8 +20,8 @@
         <h2 v-if="isSNSLogined" class="q-body-2">카카오 계정에 로그인되었습니다.</h2>
         <q-stepper-navigation>
           <q-btn color="primary" @click="$refs.stepper.previous()" label="이전" />
-          <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" />
-          <!-- <q-btn v-if="isSNSLogined" color="secondary" @click="$refs.stepper.next()" label="다음" /> -->
+          <!-- <q-btn color="secondary" @click="$refs.stepper.next()" label="다음" /> -->
+          <q-btn v-if="isSNSLogined" color="secondary" @click="$refs.stepper.next()" label="다음" />
         </q-stepper-navigation>
       </q-step>
       <q-step title="기본정보 입력" ref="former">
@@ -58,11 +58,11 @@
         <h3 class="q-body-1">작성해주신 내용을 확인 후 핸드폰 번호로 연락드릴게요~</h3>
       </q-step>
     </q-stepper>
-    <q-stepper v-if="!enableApply" class="custom-box">
+    <q-stepper v-if="!enableApply" class="custom-box" vertical>
       <h1 class="q-display-1">
-        <span>가입 신청기간이 </span>
-        <span>아닙니다.</span>
+        <span>가입 신청기간 아님!</span>
       </h1>
+      <p class="q-body-1">지원기간에 지원해주세요.</p>
     </q-stepper>
   </q-page>
 </template>
@@ -151,7 +151,7 @@ export default {
   data () {
     return {
       $this: null,
-      enableApply: true,
+      enableApply: false,
       signUpConfig: null,
       value_hope: [],
       isSNSLogined: false,
